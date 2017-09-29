@@ -1,0 +1,12 @@
+# Ignores Maven #
+#################
+/target/
+dependency-reduced-pom.xml
+
+# Others #
+##########
+*.jar
+*.class
+nb-configuration.xml
+.idea/
+*.iml
