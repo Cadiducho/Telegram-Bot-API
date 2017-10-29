@@ -188,12 +188,12 @@ public class Message {
     /**
      * Optional. The chat has been migrated to a chat with specified identifier, not exceeding 1e13 by absolute value
      */
-    private Integer migrate_to_chat_id;
+    private Long migrate_to_chat_id;
     
     /**
      * Optional. The chat has been migrated from a chat with specified identifier, not exceeding 1e13 by absolute value
      */
-    private Integer migrate_from_chat_id;
+    private Long migrate_from_chat_id;
     
     /**
      * Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
