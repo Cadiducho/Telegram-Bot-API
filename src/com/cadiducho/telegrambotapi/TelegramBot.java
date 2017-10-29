@@ -343,11 +343,11 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendLocation(Object chat_id, Float latitude, Float longitude) throws TelegramException {
-        return sendLocation(chat_id, latitude, longitude, false, null, null);
+        return sendLocation(chat_id, latitude, longitude, null, false, null, null);
     }
 
     @Override
-    public Message sendLocation(Object chat_id, Float latitude, Float longitude, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendLocation(Object chat_id, Float latitude, Float longitude, Integer live_period, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
         checkReply(reply_markup);
         final Map<String, Object> par = new HashMap<>();
@@ -355,12 +355,51 @@ public class TelegramBot implements BotAPI {
         par.putAll(safe("chat_id", chat_id));
         par.putAll(safe("latitude", latitude));
         par.putAll(safe("longitude", longitude));
+        par.putAll(safe("live_period", live_period));
         par.putAll(safe("disable_notification", disable_notification));
         par.putAll(safe("reply_to_message_id", reply_to_message_id));
         par.putAll(safe("reply_markup", reply_markup));
 
         final String resultBody = handleRequest(Unirest.post(apiUrl + "sendLocation").fields(par));
         return gson.fromJson(resultBody, Message.class);
+    }
+    
+    @Override
+    public Object editMessageLiveLocation(Object chat_id, Integer message_id, String inline_message_id, Float latitude, Float longitude, InlineKeyboardMarkup reply_markup) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+        
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("message_id", message_id));
+        par.putAll(safe("inline_message_id", inline_message_id));
+        par.putAll(safe("latitude", latitude));
+        par.putAll(safe("longitude", longitude));
+        par.putAll(safe("reply_markup", reply_markup));
+        
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "editMessageLiveLocation").queryString(par));
+        if (resultBody.equalsIgnoreCase("True")) {
+            return true;
+        } else {
+            return gson.fromJson(resultBody, Message.class);
+        }
+    }
+    
+    @Override
+    public Object stopMessageLiveLocation(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+        
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("message_id", message_id));
+        par.putAll(safe("inline_message_id", inline_message_id));
+        par.putAll(safe("reply_markup", reply_markup));
+        
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "stopMessageLiveLocation").queryString(par));
+        if (resultBody.equalsIgnoreCase("True")) {
+            return true;
+        } else {
+            return gson.fromJson(resultBody, Message.class);
+        }
     }
     
     @Override
@@ -571,6 +610,29 @@ public class TelegramBot implements BotAPI {
         
         final String resultBody = handleRequest(Unirest.get(apiUrl + "getChatMember").queryString(par));
         return gson.fromJson(resultBody, ChatMember.class);
+    }
+    
+    @Override
+    public Boolean setChatStickerSet(Object chat_id, String sticker_set_name) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+        
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("sticker_set_name", sticker_set_name));
+        
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "setChatStickerSet").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+    
+    @Override
+    public Boolean deleteChatStickerSet(Object chat_id) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+        
+        par.putAll(safe("chat_id", chat_id));
+        
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "deleteChatStickerSet").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
     }
     
     @Override

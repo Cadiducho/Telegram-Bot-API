@@ -92,6 +92,11 @@ public class Message {
     private List<MessageEntity> entities;
     
     /**
+     * Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+     */
+    private List<MessageEntity> caption_entities;
+    
+    /**
      * Optional. Message is an audio file, information about the file
      */
     private Audio audio;

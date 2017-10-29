@@ -27,4 +27,10 @@ public class InputLocationMessageContent extends InputMessageContent {
      * Longitude of the location in degrees
      */
     private Float longitude;
+    
+    /**
+     * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+     */
+    private Integer live_period;
+    
 }

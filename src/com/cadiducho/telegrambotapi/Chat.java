@@ -80,6 +80,16 @@ public class Chat {
     private Message pinned_message;
     
     /**
+     * Optional. For supergroups, name of group sticker set. Returned only in getChat.
+     */
+    private String sticker_set_name;
+    
+    /**
+     * Optional. True, if the bot can change the group sticker set. Returned only in getChat.
+     */
+    private Boolean can_set_sticker_set;
+    
+    /**
      * Type of chat, can be either private, group, supergroup or channel
      */
     private ChatType chatType;

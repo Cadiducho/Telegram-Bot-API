@@ -315,6 +315,7 @@ public interface BotAPI {
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param latitude Latitude of location
      * @param longitude Longitude of location
+     * @param live_period Period in seconds for which the location will be updated (should be between 60 and 86400).
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
@@ -322,7 +323,32 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException
      */
-    public Message sendLocation(Object chat_id, Float latitude, Float longitude, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    public Message sendLocation(Object chat_id, Float latitude, Float longitude, Integer live_period, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    
+    /**
+     * Use this method to edit live location messages sent by the bot or via the bot (for inline bots).
+     * A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. 
+     * @param chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param message_id Required if inline_message_id is not specified. Identifier of the sent message
+     * @param inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
+     * @param latitude Latitude of new location
+     * @param longitude Longitude of new location
+     * @param reply_markup A JSON-serialized object for a new inline keyboard.
+     * @return if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
+     * @throws TelegramException 
+     */
+    public Object editMessageLiveLocation(Object chat_id, Integer message_id, String inline_message_id, Float latitude, Float longitude, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    
+    /**
+     * Use this method to stop updating a live location message sent by the bot or via the bot (for inline bots) before live_period expires.
+     * @param chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param message_id Required if inline_message_id is not specified. Identifier of the sent message
+     * @param inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
+     * @param reply_markup A JSON-serialized object for a new inline keyboard.
+     * @return if the message was sent by the bot, the sent Message is returned, otherwise True is returned.
+     * @throws TelegramException 
+     */
+    public Object stopMessageLiveLocation(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
      * As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
@@ -549,6 +575,27 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException
      */
     public ChatMember getChatMember(Object chat_id, Integer user_id) throws TelegramException;
+    
+    /**
+     * Use this method to set a new group sticker set for a supergroup. 
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. 
+     * Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. 
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param sticker_set_name Name of the sticker set to be set as the group sticker set
+     * @return True on success.
+     * @throws TelegramException 
+     */
+    public Boolean setChatStickerSet(Object chat_id, String sticker_set_name) throws TelegramException;
+    
+    /**
+     * Use this method to delete a group sticker set from a supergroup. 
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. 
+     * Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method.
+     * @param chat_id True on success.
+     * @return True on success.
+     * @throws TelegramException 
+     */
+    public Boolean deleteChatStickerSet(Object chat_id) throws TelegramException;
     
     /**
      * Use this method to send answers to callback queries sent from inline keyboards. 

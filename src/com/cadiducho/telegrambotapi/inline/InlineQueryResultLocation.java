@@ -25,6 +25,11 @@ public class InlineQueryResultLocation extends InlineQueryResult {
     private String title;
 
     /**
+     * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+     */
+    private Integer live_period;
+    
+    /**
      * Location latitude in degrees
      */
     private Float latitude;
