@@ -74,14 +74,7 @@ public class UpdatesPoller {
         }
         
         private void shortUpdates(Update update) {
-            if (update.getMessage().getType().equals(Message.Type.TEXT) && update.getMessage().getText().startsWith("/")) {
-                handler.handleCommand(update); //It's a command
-                //plugin.getServer().getPluginManager().callEvent(new TelegramCommandEvent(update)); 
-                return;
-            }
-            
-            handler.handleUpdate(update); //default response event
-            //plugin.getServer().getPluginManager().callEvent(new TelegramUpdateEvent(update)); 
+            handler.handleUpdate(update);
         }
     }
 }

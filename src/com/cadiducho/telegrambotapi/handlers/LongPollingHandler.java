@@ -15,14 +15,8 @@ import com.cadiducho.telegrambotapi.Update;
 public interface LongPollingHandler {
     
     /**
-     * Called when a general update is recieved by the bot
-     * @param update 
+     * Called when an update is recieved by the bot
+     * @param update The update
      */
     public void handleUpdate(Update update);
-    
-    /**
-     * Called when the bot recieve a command
-     * @param update 
-     */
-    public void handleCommand(Update update);
 }

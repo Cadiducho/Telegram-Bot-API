@@ -16,7 +16,7 @@ import java.util.List;
 
 /*
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 3.3
+ * Telegram Bot API version 3.5
  */
 public interface BotAPI {
 
