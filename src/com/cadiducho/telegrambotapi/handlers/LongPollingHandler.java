@@ -18,5 +18,5 @@ public interface LongPollingHandler {
      * Called when an update is recieved by the bot
      * @param update The update
      */
-    public void handleUpdate(Update update);
+    void handleUpdate(Update update);
 }

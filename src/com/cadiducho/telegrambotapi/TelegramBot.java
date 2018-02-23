@@ -40,7 +40,7 @@ public class TelegramBot implements BotAPI {
     }
     
     public TelegramBot(String token, boolean pollthread){
-        instance = (BotAPI) this;
+        instance = this;
         apiUrl = "https://api.telegram.org/bot" + token + "/";
         updatesPolling = pollthread;
         updatesPoller = new UpdatesPoller(this);
@@ -55,14 +55,14 @@ public class TelegramBot implements BotAPI {
     
     //handleRequest and checkReply by Rainu
     private String handleRequest(BaseRequest request) throws TelegramException {
-        JSONObject jsonResult = null;
+        JSONObject jsonResult;
         try {
             jsonResult = request.asJson().getBody().getObject();
         } catch (UnirestException e) {
             throw new TelegramException("Could not get a response.", e);
         }
 
-        if(jsonResult.get("ok").equals(false)){
+        if (jsonResult.get("ok").equals(false)){
             throw new TelegramException(jsonResult.getString("description"));
         }
 
@@ -70,8 +70,8 @@ public class TelegramBot implements BotAPI {
     }
     
     private void checkChatId(Object chatId) {
-        if(chatId != null){
-            if(!(   chatId instanceof String ||
+        if (chatId != null) {
+            if (!(  chatId instanceof String ||
                     chatId instanceof Integer ||
                     chatId instanceof Long)){
 
@@ -96,7 +96,7 @@ public class TelegramBot implements BotAPI {
         }
     }
     
-    private Map<String, Object> safe(String str, Object obj) throws TelegramException {
+    private Map<String, Object> safe(String str, Object obj) {
         final Map<String, Object> parameters = new HashMap<>();
         
         //Check markup style if exists
@@ -183,7 +183,7 @@ public class TelegramBot implements BotAPI {
             par.put("photo", photo);
 
             resultBody = handleRequest(Unirest.post(apiUrl + "sendPhoto").fields(par));
-        } else if(photo instanceof File) {
+        } else if (photo instanceof java.io.File) {
             resultBody = handleRequest(Unirest.post(apiUrl + "sendPhoto").queryString(par).field("photo", (java.io.File) photo));
         } else {
             throw new IllegalArgumentException("The photo must be a string or a file!");
@@ -524,7 +524,7 @@ public class TelegramBot implements BotAPI {
     @Override
     public File getFile(String file_id) throws TelegramException {
         final Map<String, Object> par = new HashMap<>();
-        
+
         par.putAll(safe("file_id", file_id));
         
         final String resultBody = handleRequest(Unirest.get(apiUrl + "getFile").queryString(par));

@@ -7,9 +7,9 @@
 package com.cadiducho.telegrambotapi.handlers;
 
 import com.cadiducho.telegrambotapi.TelegramBot;
-import com.cadiducho.telegrambotapi.Message;
 import com.cadiducho.telegrambotapi.Update;
 import com.cadiducho.telegrambotapi.exception.TelegramException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -20,14 +20,13 @@ import java.util.logging.Logger;
 
 public class UpdatesPoller {
 
-    private final ReaderThread readerThread;
     private final TelegramBot bot;
     private final ExecutorService executorService;
     private LongPollingHandler handler;
     
     public UpdatesPoller(TelegramBot instance) {
-        executorService = Executors.newCachedThreadPool();     
-        readerThread = new ReaderThread();
+        executorService = Executors.newCachedThreadPool();
+        ReaderThread readerThread = new ReaderThread();
         readerThread.start();
         bot = instance;
     }
@@ -62,12 +61,10 @@ public class UpdatesPoller {
         private void poll() throws TelegramException {
             List<Update> updates = bot.getUpdates(lastUpdateId + 1, 0, 3, null);
             if (updates.size() > 0) {
-                updates.stream().forEach((update) -> {
+                updates.forEach(update -> {
                     if (update.getUpdate_id() > lastUpdateId) {
                         lastUpdateId = update.getUpdate_id();
-                        executorService.submit(() -> {
-                            shortUpdates(update);
-                        });
+                        executorService.submit(() -> shortUpdates(update));
                     }
                 });
             }    
