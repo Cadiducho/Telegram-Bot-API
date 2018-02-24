@@ -532,14 +532,132 @@ public class TelegramBot implements BotAPI {
     }
     
     @Override
-    public Boolean kickChatMember(Object chat_id, Integer user_id) throws TelegramException {
+    public Boolean kickChatMember(Object chat_id, Integer user_id, Integer until_date) throws TelegramException {
         checkChatId(chat_id);
         final Map<String, Object> par = new HashMap<>();
         
         par.putAll(safe("chat_id", chat_id));
         par.putAll(safe("user_id", user_id));
+        par.putAll(safe("until_date", until_date));
         
         final String resultBody = handleRequest(Unirest.get(apiUrl + "kickChatMember").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public Boolean restrictChatMember(Object chat_id, Integer user_id, Integer until_date, Boolean can_send_messages, Boolean can_send_media_messages, Boolean can_send_other_messages, Boolean can_add_web_page_previews) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("user_id", user_id));
+        par.putAll(safe("until_date", until_date));
+        par.putAll(safe("can_send_messages", can_send_messages));
+        par.putAll(safe("can_send_media_messages", can_send_media_messages));
+        par.putAll(safe("can_send_other_messages", can_send_other_messages));
+        par.putAll(safe("can_add_web_page_previews", can_add_web_page_previews));
+
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "restrictChatMember").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public Boolean promoteChatMember(Object chat_id, Integer user_id, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages, Boolean can_delete_messages, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("user_id", user_id));
+        par.putAll(safe("can_change_info", can_change_info));
+        par.putAll(safe("can_post_messages", can_post_messages));
+        par.putAll(safe("can_edit_messages", can_edit_messages));
+        par.putAll(safe("can_delete_messages", can_delete_messages));
+        par.putAll(safe("can_invite_users", can_invite_users));
+        par.putAll(safe("can_restrict_members", can_restrict_members));
+        par.putAll(safe("can_pin_messages", can_pin_messages));
+        par.putAll(safe("can_promote_members", can_promote_members));
+
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "promoteChatMember").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public String exportChatInviteLink(Object chat_id) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+
+        return handleRequest(Unirest.get(apiUrl + "exportChatInviteLink").queryString(par));
+    }
+
+    @Override
+    public Boolean setChatPhoto(Object chat_id, java.io.File photo) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+
+        final String resultBody = handleRequest(Unirest.post(apiUrl + "setChatPhoto").queryString(par).field("photo", photo));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public Boolean deleteChatPhoto(Object chat_id) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "deleteChatPhoto").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public Boolean setChatTitle(Object chat_id, String title) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("title", title));
+
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "setChatTitle").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public Boolean setChatDescription(Object chat_id, String description) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("description", description));
+
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "setChatDescription").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public Boolean pinChatMessage(Object chat_id, Integer message_id, Boolean disable_notification) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("message_id", message_id));
+        par.putAll(safe("disable_notification", disable_notification));
+
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "pinChatMessage").queryString(par));
+        return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public Boolean unpinChatMessage(Object chat_id) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "unpinChatMessage").queryString(par));
         return "True".equalsIgnoreCase(resultBody);
     }
     
@@ -927,19 +1045,20 @@ public class TelegramBot implements BotAPI {
     @Override
     public Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
         List<LabeledPrice> prices) throws TelegramException {
-        return sendInvoice(chat_id, title, description, payload, provider_token, start_parameter, currency, prices, null, null, null, null, false, false, false, false, false, false, null, null);
+        return sendInvoice(chat_id, title, description, payload, provider_token, start_parameter, currency, prices, null, null, null, null, null, false, false, false, false, false, false, false, false, null, null);
     }
     
     @Override
     public Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
-            List<LabeledPrice> prices, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height, Boolean need_name, Boolean need_phone_number,
-            Boolean need_email, Boolean need_shipping_address, Boolean is_flexible, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
+            List<LabeledPrice> prices, String provider_data, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height, Boolean need_name, Boolean need_phone_number,
+            Boolean need_email, Boolean need_shipping_address, Boolean send_phone_number_to_provider, Boolean send_email_to_provider, Boolean is_flexible, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
         
         checkChatId(chat_id);
         checkReply(reply_markup);
         
         final Map<String, Object> par = new HashMap<>();
         par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("title", title));
         par.putAll(safe("description", description));
         par.putAll(safe("payload", payload));
         par.putAll(safe("provider_token", provider_token));
@@ -948,6 +1067,7 @@ public class TelegramBot implements BotAPI {
 
         par.put("prices", gson.toJson(prices));
 
+        par.putAll(safe("provider_data", provider_data));
         par.putAll(safe("photo_url", photo_url));
         par.putAll(safe("photo_size", photo_size));
         par.putAll(safe("photo_width", photo_width));
@@ -956,6 +1076,8 @@ public class TelegramBot implements BotAPI {
         par.putAll(safe("need_phone_number", need_phone_number));
         par.putAll(safe("need_email", need_email));
         par.putAll(safe("need_shipping_address", need_shipping_address));
+        par.putAll(safe("send_phone_number_to_provider", send_phone_number_to_provider));
+        par.putAll(safe("send_email_to_provider", send_email_to_provider));
         par.putAll(safe("is_flexible", is_flexible));
         par.putAll(safe("disable_notification", disable_notification));
         par.putAll(safe("reply_to_message_id", reply_to_message_id));

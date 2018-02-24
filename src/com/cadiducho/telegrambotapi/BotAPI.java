@@ -12,6 +12,7 @@ import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
 import com.cadiducho.telegrambotapi.payment.ShippingOption;
+
 import java.util.List;
 
 /*
@@ -521,7 +522,21 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean kickChatMember(Object chat_id, Integer user_id) throws TelegramException;
+    default Boolean kickChatMember(Object chat_id, Integer user_id) throws TelegramException {
+        return kickChatMember(chat_id, user_id, null);
+    }
+
+    /**
+     * Use this method to kick a user from a group or a supergroup. In the case of supergroups,
+     *      the user will not be able to return to the group on their own using invite links, etc., unless unbanned first.
+     * The bot must be an administrator in the group for this to work. Returns True on success.
+     * @param chat_id Unique identifier for the target group or username of the target supergroup (in the format @supergroupusername)
+     * @param user_id Unique identifier of the target user
+     * @param until_date Optional. Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean kickChatMember(Object chat_id, Integer user_id, Integer until_date) throws TelegramException;
     
     /**
      * Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
@@ -541,6 +556,164 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     Boolean unbanChatMember(Object chat_id, Integer user_id) throws TelegramException;
+
+    /**
+     * Use this method to restrict a user in a supergroup.
+     * The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights.
+     * Pass True for all boolean parameters to lift restrictions from a user.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param user_id Unique identifier of the target user
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Boolean restrictChatMember(Object chat_id, Integer user_id) throws TelegramException {
+        return restrictChatMember(chat_id, user_id, null, false, false, false, false);
+    }
+
+    /**
+     * Use this method to restrict a user in a supergroup.
+     * The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights.
+     * Pass True for all boolean parameters to lift restrictions from a user.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param user_id Unique identifier of the target user
+     * @param until_date Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+     * @param can_send_messages Pass True, if the user can send text messages, contacts, locations and venues
+     * @param can_send_media_messages Pass True, if the user can send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
+     * @param can_send_other_messages Pass True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
+     * @param can_add_web_page_previews 	Pass True, if the user may add web page previews to their messages, implies can_send_media_messages
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean restrictChatMember(Object chat_id, Integer user_id, Integer until_date, Boolean can_send_messages, Boolean can_send_media_messages,
+                               Boolean can_send_other_messages, Boolean can_add_web_page_previews) throws TelegramException;
+
+    /**
+     * Use this method to promote or demote a user in a supergroup or a channel.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * Pass False for all boolean parameters to demote a user
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param user_id Unique identifier of the target user
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Boolean promoteChatMember(Object chat_id, Integer user_id) throws TelegramException {
+        return promoteChatMember(chat_id, user_id, false, false, false, false, false, false, false, false);
+    }
+
+    /**
+     * Use this method to promote or demote a user in a supergroup or a channel.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * Pass False for all boolean parameters to demote a user
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param user_id Unique identifier of the target user
+     * @param can_change_info Pass True, if the administrator can change chat title, photo and other settings
+     * @param can_post_messages Pass True, if the administrator can create channel posts, channels only
+     * @param can_edit_messages Pass True, if the administrator can edit messages of other users and can pin messages, channels only
+     * @param can_delete_messages Pass True, if the administrator can delete messages of other users
+     * @param can_invite_users Pass True, if the administrator can invite new users to the chat
+     * @param can_restrict_members Pass True, if the administrator can restrict, ban or unban chat members
+     * @param can_pin_messages Pass True, if the administrator can pin messages, supergroups only
+     * @param can_promote_members Pass True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean promoteChatMember(Object chat_id, Integer user_id, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages,
+                              Boolean can_delete_messages, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException;
+
+    /**
+     * Use this method to generate a new invite link for a chat; any previously generated link is revoked.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @return the new invite link as String on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    String exportChatInviteLink(Object chat_id) throws TelegramException;
+
+    /**
+     * Use this method to set a new profile photo for the chat. 
+     * Photos can't be changed for private chats.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.     * 
+     * Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * @param photo New chat photo, uploaded using multipart/form-data
+     * @return True on success
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setChatPhoto(Object chat_id, java.io.File photo) throws TelegramException;
+
+    /**
+     * Use this method to delete a chat photo. 
+     * Photos can't be changed for private chats. 
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+     * @return True on success
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean deleteChatPhoto(Object chat_id) throws TelegramException;
+
+    /**
+     * Use this method to change the title of a chat.
+     * Titles can't be changed for private chats.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param title New chat title, 1-255 characters
+     * @return True on success
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setChatTitle(Object chat_id, String title) throws TelegramException;
+
+    /**
+     * Use this method to change the description of a supergroup or a channel.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @return True on success
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Boolean setChatDescription(Object chat_id) throws TelegramException {
+        return setChatDescription(chat_id, null);
+    }
+
+    /**
+     * Use this method to change the description of a supergroup or a channel.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param description New chat description, 0-255 characters
+     * @return True on success
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setChatDescription(Object chat_id, String description) throws TelegramException;
+
+    /**
+     * Use this method to pin a message in a supergroup. 
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param message_id Identifier of a message to pin
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Boolean pinChatMessage(Object chat_id, Integer message_id) throws TelegramException {
+        return pinChatMessage(chat_id, message_id, false);
+    }
+
+    /**
+     * Use this method to pin a message in a supergroup. 
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param message_id Identifier of a message to pin
+     * @param disable_notification Pass True, if it is not necessary to send a notification to all group members about the new pinned message
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean pinChatMessage(Object chat_id, Integer message_id, Boolean disable_notification) throws TelegramException;
+
+    /**
+     * Use this method to unpin a message in a supergroup chat.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean unpinChatMessage(Object chat_id) throws TelegramException;
     
     /**
      * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
@@ -938,6 +1111,7 @@ public interface BotAPI {
      * @param start_parameter Unique deep-linking parameter that can be used to generate this invoice when used as a start parameter
      * @param currency Three-letter ISO 4217 currency code, see more on https://core.telegram.org/bots/payments#supported-currencies
      * @param prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+     * @param provider_data JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
      * @param photo_url URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
      * @param photo_size Photo size
      * @param photo_width Photo width
@@ -946,6 +1120,8 @@ public interface BotAPI {
      * @param need_phone_number Pass True, if you require the user's phone number to complete the order
      * @param need_email Pass True, if you require the user's email to complete the order
      * @param need_shipping_address Pass True, if you require the user's shipping address to complete the order
+     * @param send_phone_number_to_provider Pass True, if user's phone number should be sent to provider
+     * @param send_email_to_provider Pass True, if user's email address should be sent to provider
      * @param is_flexible Pass True, if the final price depends on the shipping method
      * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
@@ -954,8 +1130,8 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
-                        List<LabeledPrice> prices, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height, Boolean need_name, Boolean need_phone_number,
-                        Boolean need_email, Boolean need_shipping_address, Boolean is_flexible, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
+                                    List<LabeledPrice> prices, String provider_data, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height, Boolean need_name, Boolean need_phone_number,
+                                    Boolean need_email, Boolean need_shipping_address, Boolean send_phone_number_to_provider, Boolean send_email_to_provider, Boolean is_flexible, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
      * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. 
