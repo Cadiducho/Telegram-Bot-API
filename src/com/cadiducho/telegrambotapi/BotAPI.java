@@ -300,7 +300,29 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     Message sendVoice(Object chat_id, Object voice, String caption, Integer duration, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
-    
+
+    /**
+     * Use this method to send a group of photos or videos as an album.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param media A JSON-serialized array describing photos and videos to be sent, must include 2–10 items
+     * @return An array of the sent Messages is returned on success
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Message sendMediaGroup(Object chat_id, List<InputMedia> media) throws TelegramException {
+        return sendMediaGroup(chat_id, media, false, null);
+    }
+
+    /**
+     * Use this method to send a group of photos or videos as an album.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param media A JSON-serialized array describing photos and videos to be sent, must include 2–10 items
+     * @param disable_notification Sends the messages silently. Users will receive a notification with no sound.
+     * @param reply_to_message_id If the messages are a reply, ID of the original message
+     * @return An array of the sent Messages is returned on success
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Message sendMediaGroup(Object chat_id, List<InputMedia> media, Boolean disable_notification, Integer reply_to_message_id) throws TelegramException;
+
     /**
      * Use this method to send point on the map. On success, the sent {@link Message} is returned.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -378,7 +400,7 @@ public interface BotAPI {
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param video_note Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More info on Sending Files ». Sending video notes by a URL is currently unsupported
      * @param duration Duration of sent video in seconds
-     * @param lenght Video width and height
+     * @param length Video width and height
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
@@ -386,7 +408,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideoNote(Object chat_id, Object video_note, Integer duration, Integer lenght, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVideoNote(Object chat_id, Object video_note, Integer duration, Integer length, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send information about a venue. On success, the sent {@link Message} is returned.

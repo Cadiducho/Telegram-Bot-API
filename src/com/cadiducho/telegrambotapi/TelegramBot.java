@@ -342,6 +342,20 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
+    public Message sendMediaGroup(Object chat_id, List<InputMedia> media, Boolean disable_notification, Integer reply_to_message_id) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("media", gson.toJson(media)));
+        par.putAll(safe("disable_notification", disable_notification));
+        par.putAll(safe("reply_to_message_id", reply_to_message_id));
+
+        final String resultBody = handleRequest(Unirest.post(apiUrl + "sendMediaGroup").fields(par));
+        return gson.fromJson(resultBody, Message.class);
+    }
+
+    @Override
     public Message sendLocation(Object chat_id, Float latitude, Float longitude) throws TelegramException {
         return sendLocation(chat_id, latitude, longitude, null, false, null, null);
     }
@@ -413,14 +427,14 @@ public class TelegramBot implements BotAPI {
     }
     
     @Override
-    public Message sendVideoNote(Object chat_id, Object video_note, Integer duration, Integer lenght, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendVideoNote(Object chat_id, Object video_note, Integer duration, Integer length, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
         checkReply(reply_markup);
         final Map<String, Object> par = new HashMap<>();
         
         par.putAll(safe("chat_id", chat_id));
         par.putAll(safe("duration", duration));
-        par.putAll(safe("lenght", lenght));
+        par.putAll(safe("length", length));
         par.putAll(safe("disable_notification", disable_notification));
         par.putAll(safe("reply_to_message_id", reply_to_message_id));
         par.putAll(safe("reply_markup", reply_markup));
