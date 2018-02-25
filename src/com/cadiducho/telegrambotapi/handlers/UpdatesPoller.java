@@ -9,20 +9,24 @@ package com.cadiducho.telegrambotapi.handlers;
 import com.cadiducho.telegrambotapi.TelegramBot;
 import com.cadiducho.telegrambotapi.Update;
 import com.cadiducho.telegrambotapi.exception.TelegramException;
+import lombok.Setter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UpdatesPoller {
 
     private final TelegramBot bot;
     private final ExecutorService executorService;
     private LongPollingHandler handler;
+
+    /**
+     * Owner id to send the exception through Telegram
+     */
+    @Setter private Long ownerId;
     
     public UpdatesPoller(TelegramBot instance) {
         executorService = Executors.newCachedThreadPool();
@@ -48,11 +52,11 @@ public class UpdatesPoller {
                 } catch (TelegramException e) {
                     System.out.println(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + " An exception occurred while polling Telegram.");
                     e.printStackTrace();
-                    try {
-                        bot.sendMessage(8609873, "He petado loco");
-                        bot.sendMessage(8609873, e.getMessage());
-                    } catch (TelegramException ex) {
-                        Logger.getLogger(UpdatesPoller.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ownerId != null) {
+                        try {
+                            bot.sendMessage(ownerId, e.toString());
+                        } catch (TelegramException ignored) {
+                        }
                     }
                 }
             }

@@ -15,9 +15,9 @@ import com.cadiducho.telegrambotapi.payment.ShippingOption;
 
 import java.util.List;
 
-/*
+/**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 3.5
+ * Telegram Bot API version 3.6
  */
 public interface BotAPI {
 
@@ -57,7 +57,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendMessage(Object chat_id, String text) throws TelegramException;
+    default Message sendMessage(Object chat_id, String text) throws TelegramException {
+        return sendMessage(chat_id, text, null, null, false, null, null);
+    }
     
     /**
      * Use this method to send text messages. On success, the sent {@link Message} is returned.
@@ -83,7 +85,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message forwardMessage(Object chat_id, Integer from_chat_id, Integer message_id) throws TelegramException;
+    default Message forwardMessage(Object chat_id, Integer from_chat_id, Integer message_id) throws TelegramException {
+        return forwardMessage(chat_id, from_chat_id, false, message_id);
+    }
     
     /**
      * Use this method to forward messages of any kind. On success, the sent {@link Message} is returned.
@@ -103,7 +107,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendPhoto(Object chat_id, String photo) throws TelegramException;
+    default Message sendPhoto(Object chat_id, String photo) throws TelegramException {
+        return sendPhoto(chat_id, photo, null, false, null, null);
+    }
     
     /**
      * Use this method to send photos. On success, the sent {@link Message} is returned.
@@ -112,7 +118,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendPhoto(Object chat_id, java.io.File photo) throws TelegramException;
+    default Message sendPhoto(Object chat_id, java.io.File photo) throws TelegramException {
+        return sendPhoto(chat_id, photo, null, false, null, null);
+    }
     
     /**
      * Use this method to send photos. On success, the sent {@link Message} is returned.
@@ -141,7 +149,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendAudio(Object chat_id, String audio) throws TelegramException;
+    default Message sendAudio(Object chat_id, String audio) throws TelegramException {
+        return sendAudio(chat_id, audio, null, null,  null, null, false, null, null);
+    }
     
     /**
      * Use this method to send audio files, if you want Telegram clients to display them in the music player. 
@@ -156,7 +166,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendAudio(Object chat_id, java.io.File audio) throws TelegramException;
+    default Message sendAudio(Object chat_id, java.io.File audio) throws TelegramException {
+        return sendAudio(chat_id, audio, null, null, null, null, false, null, null);
+    }
     
     /**
      * Use this method to send audio files, if you want Telegram clients to display them in the music player. 
@@ -190,7 +202,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendDocument(Object chat_id, String document) throws TelegramException;
+    default Message sendDocument(Object chat_id, String document) throws TelegramException {
+        return sendDocument(chat_id, document, false, null, null);
+    }
     
     /**
      * Use this method to send general files. On success, the sent {@link Message} is returned. 
@@ -201,7 +215,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendDocument(Object chat_id, java.io.File document) throws TelegramException;
+    default Message sendDocument(Object chat_id, java.io.File document) throws TelegramException {
+        return sendDocument(chat_id, document, false, null, null);
+    }
     
     /**
      * Use this method to send general files. On success, the sent {@link Message} is returned. 
@@ -228,7 +244,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideo(Object chat_id, String video) throws TelegramException;
+    default Message sendVideo(Object chat_id, String video) throws TelegramException {
+        return sendVideo(chat_id, video, null, null, null, null, null, null, false, null, null);
+    }
     
     /**
      * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as {@link Document}). 
@@ -240,16 +258,21 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideo(Object chat_id, java.io.File video) throws TelegramException;
+    default Message sendVideo(Object chat_id, java.io.File video) throws TelegramException {
+        return sendVideo(chat_id, video, null, null, null, null, null, null, false, null, null);
+    }
     
     /**
-     * Use this method to send general files. On success, the sent {@link Message} is returned. 
-     * Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
+     * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as {@link Document}).
+     * Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param video Video file to send. You can either pass a file_id as String to resend an audio that is already on the Telegram servers, or upload a new audio file using multipart/form-data.
      * @param duration Duration of the audio in seconds
-     * @param performer Performer
-     * @param title Track name
+     * @param width Video width
+     * @param height Video height
+     * @param caption Video caption (may also be used when resending videos by file_id), 0-200 characters
+     * @param parse_mode Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * @param supports_streaming Pass True, if the uploaded video is suitable for streaming
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
@@ -257,7 +280,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideo(Object chat_id, Object video, Integer duration, String performer, String title, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, String parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. 
@@ -269,7 +292,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVoice(Object chat_id, String voice) throws TelegramException;
+    default Message sendVoice(Object chat_id, String voice) throws TelegramException {
+        return sendVoice(chat_id, voice, null, null, false, null, null);
+    }
     
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. 
@@ -281,7 +306,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVoice(Object chat_id, java.io.File voice) throws TelegramException;
+    default Message sendVoice(Object chat_id, java.io.File voice) throws TelegramException {
+        return sendVoice(chat_id, voice, null, null, false, null, null);
+    }
     
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. 
@@ -331,7 +358,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendLocation(Object chat_id, Float latitude, Float longitude) throws TelegramException;
+    default Message sendLocation(Object chat_id, Float latitude, Float longitude) throws TelegramException {
+        return sendLocation(chat_id, latitude, longitude, null, false, null, null);
+    }
     
     /**
      * Use this method to send point on the map. On success, the sent {@link Message} is returned.
@@ -382,7 +411,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideoNote(Object chat_id, String video_note) throws TelegramException;
+    default Message sendVideoNote(Object chat_id, String video_note) throws TelegramException {
+        return sendVideoNote(chat_id, video_note, null, null, false, null, null);
+    }
     
     /**
      * As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
@@ -393,7 +424,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideoNote(Object chat_id, java.io.File video_note) throws TelegramException;
+    default Message sendVideoNote(Object chat_id, java.io.File video_note) throws TelegramException {
+        return sendVideoNote(chat_id, video_note, null, null, false, null, null);
+    }
     
     /**
      * As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
@@ -420,7 +453,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address) throws TelegramException;
+    default Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address) throws TelegramException {
+        return sendVenue(chat_id, latitude, longitude, title, address, null, false, null, null);
+    }
     
     /**
      * Use this method to send information about a venue. On success, the sent {@link Message} is returned.
@@ -447,7 +482,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendContact(Object chat_id, String phone_number, String first_name)  throws TelegramException;
+    default Message sendContact(Object chat_id, String phone_number, String first_name)  throws TelegramException {
+        return sendContact(chat_id, phone_number, first_name, null, false, null, null);
+    }
     
     /**
      * Use this method to send phone contacts. On success, the sent {@link Message} is returned.
@@ -500,7 +537,9 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean sendChatAction(Object chat_id, ChatAction action) throws TelegramException;
+    default Boolean sendChatAction(Object chat_id, ChatAction action) throws TelegramException {
+        return sendChatAction(chat_id, action.name());
+    }
     
     /**
      * Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object.
@@ -509,7 +548,9 @@ public interface BotAPI {
      * @return {@link UserProfilePhotos}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    UserProfilePhotos getUserProfilePhotos(Integer user_id) throws TelegramException;
+    default UserProfilePhotos getUserProfilePhotos(Integer user_id) throws TelegramException {
+        return getUserProfilePhotos(user_id, null, null);
+    }
 
     /**
      * Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object.
@@ -801,7 +842,9 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean answerCallbackQuery(String callback_query_id) throws TelegramException;
+    default Boolean answerCallbackQuery(String callback_query_id) throws TelegramException {
+        return answerCallbackQuery(callback_query_id, null, false, null, 0);
+    }
     
     /**
      * Use this method to send answers to callback queries sent from inline keyboards. 
@@ -942,7 +985,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendSticker(Object chat_id, String sticker) throws TelegramException;
+    default Message sendSticker(Object chat_id, String sticker) throws TelegramException {
+        return sendSticker(chat_id, sticker, false, null, null);
+    }
     
     /**
      * Use this method to send .webp stickers. On success, the sent {@link Message} is returned.
@@ -952,7 +997,9 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendSticker(Object chat_id, java.io.File sticker) throws TelegramException;
+    default Message sendSticker(Object chat_id, java.io.File sticker) throws TelegramException {
+        return sendSticker(chat_id, sticker, false, null, null);
+    }
     
     /**
      * Use this method to send .webp stickers. On success, the sent {@link Message} is returned.
@@ -995,7 +1042,9 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean createNewStickerSet(Integer user_id, String name, String title, java.io.File png_sticker, String emojis) throws TelegramException;
+    default Boolean createNewStickerSet(Integer user_id, String name, String title, java.io.File png_sticker, String emojis) throws TelegramException {
+        return createNewStickerSet(user_id, name, title, png_sticker, emojis, null, null);
+    }
     
     /**
      * Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set. Returns True on success.
@@ -1007,7 +1056,9 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean createNewStickerSet(Integer user_id, String name, String title, String png_sticker, String emojis) throws TelegramException;
+    default Boolean createNewStickerSet(Integer user_id, String name, String title, String png_sticker, String emojis) throws TelegramException {
+        return createNewStickerSet(user_id, name, title, png_sticker, emojis, null, null);
+    }
     
     /**
      * Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set. Returns True on success.
@@ -1032,7 +1083,9 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean addStickerToSet(Integer user_id, String name, java.io.File png_sticker, String emojis) throws TelegramException;
+    default Boolean addStickerToSet(Integer user_id, String name, java.io.File png_sticker, String emojis) throws TelegramException {
+        return addStickerToSet(user_id, name, png_sticker, emojis, null);
+    }
     
     /**
      * Use this method to add a new sticker to a set created by the bot. Returns True on success.
@@ -1043,7 +1096,9 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean addStickerToSet(Integer user_id, String name, String png_sticker, String emojis) throws TelegramException;
+    default Boolean addStickerToSet(Integer user_id, String name, String png_sticker, String emojis) throws TelegramException {
+        return addStickerToSet(user_id, name, png_sticker, emojis, null);
+    }
     
     /**
      * Use this method to add a new sticker to a set created by the bot. Returns True on success.
@@ -1083,7 +1138,9 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results) throws TelegramException;
+    default Boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results) throws TelegramException {
+        return answerInlineQuery(inlineQueryId, results, null, null, null, null, null);
+    }
 
     /**
      * Use this method to send answers to an inline query. On success, True is returned.
@@ -1120,8 +1177,10 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
-                        List<LabeledPrice> prices) throws TelegramException;
+    default Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
+                        List<LabeledPrice> prices) throws TelegramException {
+        return sendInvoice(chat_id, title, description, payload, provider_token, start_parameter, currency, prices, null, null, null, null, null, false, false, false, false, false, false, false, false, null, null);
+    }
     
     /**
      * Use this method to send invoices. On success, the sent Message is returned.
@@ -1164,7 +1223,9 @@ public interface BotAPI {
      * @return True on success
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean answerShippingQuery(String shipping_query_id, Boolean ok) throws TelegramException;
+    default Boolean answerShippingQuery(String shipping_query_id, Boolean ok) throws TelegramException {
+        return answerShippingQuery(shipping_query_id, ok, null, null);
+    }
     
     /**
      * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. 
@@ -1187,7 +1248,9 @@ public interface BotAPI {
      * @return On success, True is returned
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean answerPreCheckoutQuery(String pre_checkout_query_id, Boolean ok) throws TelegramException;
+    default Boolean answerPreCheckoutQuery(String pre_checkout_query_id, Boolean ok) throws TelegramException {
+        return answerPreCheckoutQuery(pre_checkout_query_id, ok, null);
+    }
     
     /**
      * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an Update with the field pre_checkout_query. Use this method to respond to such pre-checkout queries.

@@ -214,6 +214,11 @@ public class Message {
      * Optional. Message is a service message about a successful payment, information about the payment
      */
     private SuccessfulPayment successful_payment;
+
+    /**
+     * Optional. The domain name of the website on which the user has logged in. See https://core.telegram.org/widgets/login
+     */
+    private String connected_website;
     
     /**
      * Type of message, can be either text, audio, document, photo, sticker, video, contact, location, new_chat_participant

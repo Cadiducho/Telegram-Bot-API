@@ -111,11 +111,6 @@ public class TelegramBot implements BotAPI {
         return parameters;
     }
     //----------------
-    
-    @Override
-    public Message sendMessage(Object chat_id, String text) throws TelegramException {
-        return sendMessage(chat_id, text, null, null, false, null, null);
-    }
 
     @Override
     public Message sendMessage(Object chat_id, String text, String parse_mode, Boolean disable_web_page_preview, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
@@ -135,11 +130,6 @@ public class TelegramBot implements BotAPI {
 
         return gson.fromJson(resultBody, Message.class);
     }
-
-    @Override
-    public Message forwardMessage(Object chat_id, Integer from_chat_id, Integer message_id) throws TelegramException {
-        return forwardMessage(chat_id, from_chat_id, false, null);
-    }
     
     @Override
     public Message forwardMessage(Object chat_id, Integer from_chat_id, Boolean disable_notification, Integer message_id) throws TelegramException {
@@ -156,16 +146,6 @@ public class TelegramBot implements BotAPI {
         return gson.fromJson(resultBody, Message.class);
     }
 
-    @Override
-    public Message sendPhoto(Object chat_id, String photo) throws TelegramException {
-        return sendPhoto(chat_id, photo, null, false, null, null);
-    }
-    
-    @Override
-    public Message sendPhoto(Object chat_id, java.io.File photo) throws TelegramException {
-        return sendPhoto(chat_id, photo, null, false, null, null);
-    }
-    
     @Override
     public Message sendPhoto(Object chat_id, Object photo, String caption, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
@@ -190,16 +170,6 @@ public class TelegramBot implements BotAPI {
         }
 
         return gson.fromJson(resultBody, Message.class);
-    }
-
-    @Override
-    public Message sendAudio(Object chat_id, String audio) throws TelegramException {
-        return sendAudio(chat_id, audio, null, null,  null, null, false, null, null);
-    }
-
-    @Override
-    public Message sendAudio(Object chat_id, java.io.File audio) throws TelegramException {
-        return sendAudio(chat_id, audio, null, null, null, null, false, null, null);
     }
 
     @Override
@@ -232,16 +202,6 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendDocument(Object chat_id, String document) throws TelegramException {
-        return sendDocument(chat_id, document, false, null, null);
-    }
-
-    @Override
-    public Message sendDocument(Object chat_id, java.io.File document) throws TelegramException {
-        return sendDocument(chat_id, document, false, null, null);
-    }
-
-    @Override
     public Message sendDocument(Object chat_id, Object document, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
         checkReply(reply_markup);
@@ -264,28 +224,21 @@ public class TelegramBot implements BotAPI {
         }
 
         return gson.fromJson(resultBody, Message.class);
-    } 
-
-    @Override
-    public Message sendVideo(Object chat_id, String video) throws TelegramException {
-        return sendVideo(chat_id, video, null, null, null, false, null, null);
     }
 
     @Override
-    public Message sendVideo(Object chat_id, java.io.File video) throws TelegramException {
-        return sendVideo(chat_id, video, null, null, null, false, null, null);
-    }
-
-    @Override
-    public Message sendVideo(Object chat_id, Object video, Integer duration, String performer, String title, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, String parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
         checkReply(reply_markup);
         final Map<String, Object> par = new HashMap<>();
         
         par.putAll(safe("chat_id", chat_id));
         par.putAll(safe("duration", duration));
-        par.putAll(safe("performer", performer));
-        par.putAll(safe("title", title));
+        par.putAll(safe("width", width));
+        par.putAll(safe("height", height));
+        par.putAll(safe("caption", caption));
+        par.putAll(safe("parse_mode", parse_mode));
+        par.putAll(safe("supports_streaming", supports_streaming));
         par.putAll(safe("disable_notification", disable_notification));
         par.putAll(safe("reply_to_message_id", reply_to_message_id));
         par.putAll(safe("reply_markup", reply_markup));
@@ -302,16 +255,6 @@ public class TelegramBot implements BotAPI {
         }
 
         return gson.fromJson(resultBody, Message.class);
-    }
-
-    @Override
-    public Message sendVoice(Object chat_id, String voice) throws TelegramException {
-        return sendVoice(chat_id, voice, null, null, false, null, null);
-    }
-
-    @Override
-    public Message sendVoice(Object chat_id, java.io.File voice) throws TelegramException {
-        return sendVoice(chat_id, voice, null, null, false, null, null);
     }
 
     @Override
@@ -353,11 +296,6 @@ public class TelegramBot implements BotAPI {
 
         final String resultBody = handleRequest(Unirest.post(apiUrl + "sendMediaGroup").fields(par));
         return gson.fromJson(resultBody, Message.class);
-    }
-
-    @Override
-    public Message sendLocation(Object chat_id, Float latitude, Float longitude) throws TelegramException {
-        return sendLocation(chat_id, latitude, longitude, null, false, null, null);
     }
 
     @Override
@@ -417,16 +355,6 @@ public class TelegramBot implements BotAPI {
     }
     
     @Override
-    public Message sendVideoNote(Object chat_id, String video_note) throws TelegramException {
-        return sendVideoNote(chat_id, video_note, null, null, false, null, null);
-    }
-    
-    @Override
-    public Message sendVideoNote(Object chat_id, java.io.File video_note) throws TelegramException {
-        return sendVideoNote(chat_id, video_note, null, null, false, null, null);
-    }
-    
-    @Override
     public Message sendVideoNote(Object chat_id, Object video_note, Integer duration, Integer length, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
         checkReply(reply_markup);
@@ -434,7 +362,7 @@ public class TelegramBot implements BotAPI {
         
         par.putAll(safe("chat_id", chat_id));
         par.putAll(safe("duration", duration));
-        par.putAll(safe("length", length));
+        par.putAll(safe("length ", length));
         par.putAll(safe("disable_notification", disable_notification));
         par.putAll(safe("reply_to_message_id", reply_to_message_id));
         par.putAll(safe("reply_markup", reply_markup));
@@ -451,11 +379,6 @@ public class TelegramBot implements BotAPI {
         }
 
         return gson.fromJson(resultBody, Message.class);
-    }
-    
-    @Override
-    public Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address) throws TelegramException {
-        return sendVenue(chat_id, latitude, longitude, title, address, null, false, null, null);
     }
 
     @Override
@@ -479,11 +402,6 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendContact(Object chat_id, String phone_number, String first_name) throws TelegramException {
-        return sendContact(chat_id, phone_number, first_name, null, false, null, null);
-    }
-
-    @Override
     public Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
         checkReply(reply_markup);
@@ -502,11 +420,6 @@ public class TelegramBot implements BotAPI {
     }
     
     @Override
-    public Boolean sendChatAction(Object chat_id, ChatAction action) throws TelegramException {
-        return sendChatAction(chat_id, action.name());
-    }
-    
-    @Override
     public Boolean sendChatAction(Object chat_id, String action) throws TelegramException {
         checkChatId(chat_id);
         final Map<String, Object> par = new HashMap<>();
@@ -516,11 +429,6 @@ public class TelegramBot implements BotAPI {
         
         final String resultBody = handleRequest(Unirest.post(apiUrl + "sendChatAction").queryString(par));
         return "True".equalsIgnoreCase(resultBody);
-    }
-
-    @Override
-    public UserProfilePhotos getUserProfilePhotos(Integer user_id) throws TelegramException {
-        return getUserProfilePhotos(user_id, null, null);
     }
 
     @Override
@@ -766,11 +674,6 @@ public class TelegramBot implements BotAPI {
         final String resultBody = handleRequest(Unirest.get(apiUrl + "deleteChatStickerSet").queryString(par));
         return "True".equalsIgnoreCase(resultBody);
     }
-    
-    @Override
-    public Boolean answerCallbackQuery(String callback_query_id) throws TelegramException {
-        return answerCallbackQuery(callback_query_id, null, false, null, 0);
-    }
 
     @Override
     public Boolean answerCallbackQuery(String callback_query_id, String text, Boolean show_alert, String url, Integer cache_time) throws TelegramException {
@@ -885,16 +788,6 @@ public class TelegramBot implements BotAPI {
         final String resultBody = handleRequest(Unirest.get(apiUrl + "deleteWebhook"));
         return "True".equalsIgnoreCase(resultBody);
     }
-    
-    @Override
-    public Message sendSticker(Object chat_id, String sticker) throws TelegramException {
-        return sendSticker(chat_id, sticker, false, null, null);
-    }
-
-    @Override
-    public Message sendSticker(Object chat_id, java.io.File sticker) throws TelegramException {
-        return sendSticker(chat_id, sticker, false, null, null);
-    }
 
     @Override
     public Message sendSticker(Object chat_id, Object sticker, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
@@ -943,16 +836,6 @@ public class TelegramBot implements BotAPI {
     }
     
     @Override
-    public Boolean createNewStickerSet(Integer user_id, String name, String title, java.io.File png_sticker, String emojis) throws TelegramException {
-        return createNewStickerSet(user_id, name, title, png_sticker, emojis, null, null);
-    }
-    
-    @Override
-    public Boolean createNewStickerSet(Integer user_id, String name, String title, String png_sticker, String emojis) throws TelegramException {
-        return createNewStickerSet(user_id, name, title, png_sticker, emojis, null, null);
-    }
-    
-    @Override
     public Boolean createNewStickerSet(Integer user_id, String name, String title, Object png_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException {
         final Map<String, Object> par = new HashMap<>();
         
@@ -974,16 +857,6 @@ public class TelegramBot implements BotAPI {
             throw new IllegalArgumentException("The png_sticker must be a string or a file!");
         }
         return "True".equalsIgnoreCase(resultBody);
-    }
-    
-    @Override
-    public Boolean addStickerToSet(Integer user_id, String name, java.io.File png_sticker, String emojis) throws TelegramException {
-        return addStickerToSet(user_id, name, png_sticker, emojis, null);
-    }
-    
-    @Override
-    public Boolean addStickerToSet(Integer user_id, String name, String png_sticker, String emojis) throws TelegramException {
-        return addStickerToSet(user_id, name, png_sticker, emojis, null);
     }
     
     @Override
@@ -1030,11 +903,6 @@ public class TelegramBot implements BotAPI {
 
         return "True".equalsIgnoreCase(resultBody);
     }
-    
-    @Override
-    public Boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results) throws TelegramException {
-        return answerInlineQuery(inlineQueryId, results, null, null, null, null, null);
-    }
 
     @Override
     public Boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results, Integer cache_time, Boolean is_personal, String next_offset,
@@ -1054,12 +922,6 @@ public class TelegramBot implements BotAPI {
         final String resultBody = handleRequest(Unirest.get(apiUrl + "answerInlineQuery").queryString(par));
 
         return "True".equalsIgnoreCase(resultBody);
-    }
-    
-    @Override
-    public Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
-        List<LabeledPrice> prices) throws TelegramException {
-        return sendInvoice(chat_id, title, description, payload, provider_token, start_parameter, currency, prices, null, null, null, null, null, false, false, false, false, false, false, false, false, null, null);
     }
     
     @Override
@@ -1102,11 +964,6 @@ public class TelegramBot implements BotAPI {
     }
     
     @Override
-    public Boolean answerShippingQuery(String shipping_query_id, Boolean ok) throws TelegramException {
-        return answerShippingQuery(shipping_query_id, ok, null, null);
-    }
-    
-    @Override
     public Boolean answerShippingQuery(String shipping_query_id, Boolean ok, List<ShippingOption> shipping_options, String error_message) throws TelegramException {
         final Map<String, Object> par = new HashMap<>();
         par.putAll(safe("shipping_query_id", shipping_query_id));
@@ -1117,11 +974,6 @@ public class TelegramBot implements BotAPI {
         final String resultBody = handleRequest(Unirest.get(apiUrl + "answerShippingQuery").queryString(par));
 
         return "True".equalsIgnoreCase(resultBody);
-    }
-    
-    @Override
-    public Boolean answerPreCheckoutQuery(String pre_checkout_query_id, Boolean ok) throws TelegramException {
-        return answerPreCheckoutQuery(pre_checkout_query_id, ok, null);
     }
     
     @Override
