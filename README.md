@@ -10,10 +10,10 @@ Simple Telegram Bot API implementation to Java
 ## Usage
 
 ```
-import com.cadiducho.minegram.BotAPI;
-import com.cadiducho.minegram.TelegramBot;
-import com.cadiducho.minegram.api.User;
-import com.cadiducho.minegram.api.exception.TelegramException;
+import com.cadiducho.telegrambotapi.BotAPI;
+import com.cadiducho.telegrambotapi.TelegramBot;
+import com.cadiducho.telegrambotapi.api.User;
+import com.cadiducho.telegrambotapi.api.exception.TelegramException;
 
 ...
 
@@ -37,7 +37,7 @@ JavaDocs are located in https://cadiducho.com/telegrambotapi
 
 ## Maven Usage
 
-If you want use Minegram as a Maven Dependency simply add repo and artifact:
+If you want use Telegram Bot API as a Maven Dependency simply add repo and artifact:
 
 ```xml
 <repository>
