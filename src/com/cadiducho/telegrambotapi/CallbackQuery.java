@@ -7,8 +7,6 @@
 
 package com.cadiducho.telegrambotapi;
 
-import com.cadiducho.telegrambotapi.Message;
-import com.cadiducho.telegrambotapi.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

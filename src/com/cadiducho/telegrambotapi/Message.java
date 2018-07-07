@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.cadiducho.telegrambotapi.game.Game;
 import com.cadiducho.telegrambotapi.payment.Invoice;
 import com.cadiducho.telegrambotapi.payment.SuccessfulPayment;
 import java.util.List;
@@ -107,6 +108,11 @@ public class Message {
     private Document document;
     
     /**
+     * Optional. Message is a game, information about the game. Check https://core.telegram.org/bots/api#games
+     */
+    private Game game;
+    
+    /**
      * Optional. Message is a photo, available sizes of the photo
      */
     private List<PhotoSize> photo;
@@ -150,6 +156,7 @@ public class Message {
      * 	Optional. Message is a venue, information about the venue
      */
     private Venue venue;
+    
     /**
      * Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
      */
@@ -240,16 +247,29 @@ public class Message {
         if (text != null) type = Type.TEXT;
         else if (audio != null) type = Type.AUDIO;
         else if (document != null) type = Type.DOCUMENT;
+        else if (game != null) type = Type.GAME;
         else if (photo != null) type = Type.PHOTO;
         else if (sticker != null) type = Type.STICKER;
         else if (video != null) type = Type.VIDEO;
+        else if (voice != null) type = Type.VOICE;
+        else if (video_note != null) type = Type.VIDEO_NOTE;
         else if (contact != null) type = Type.CONTACT;
         else if (location != null) type = Type.LOCATION;
+        else if (venue != null) type = Type.VENUE;
         else if (new_chat_members != null) type = Type.NEW_CHAT_MEMBERS;
         else if (left_chat_member != null) type = Type.LEFT_CHAT_MEMBER;
+        else if (new_chat_title != null) type = Type.NEW_CHAT_TITLE;
         else if (new_chat_photo != null) type = Type.NEW_CHAT_PHOTO;
-        else if (delete_chat_photo) type = Type.DELETE_CHAT_PHOTO;
-        else if (group_chat_created) type = Type.GROUP_CHAT_CREATED;
+        else if (delete_chat_photo != null && delete_chat_photo) type = Type.DELETE_CHAT_PHOTO;
+        else if (group_chat_created != null && group_chat_created) type = Type.GROUP_CHAT_CREATED;
+        else if (supergroup_chat_created != null && supergroup_chat_created) type = Type.SUPERGROUP_CHAT_CREATED;
+        else if (channel_chat_created != null && channel_chat_created) type = Type.CHANNEL_CHAT_CREATED;
+        else if (migrate_to_chat_id != null) type = Type.MIGRATE_TO_CHAT_ID;
+        else if (migrate_from_chat_id != null) type = Type.MIGRATE_FROM_CHAT_ID;
+        else if (pinned_message != null) type = Type.PINNED_MESSAGE;
+        else if (invoice != null) type = Type.INVOICE;
+        else if (successful_payment != null) type = Type.SUCCESSFUL_PAYMENT;
+        else if (connected_website != null) type = Type.CONNECTED_WEBSITE;    
         else type = Type.UNKNOWN;
     }
     
@@ -258,18 +278,32 @@ public class Message {
      */
     public enum Type {
         TEXT,
-        DOCUMENT,
         AUDIO,
+        DOCUMENT,
+        GAME,
         PHOTO,
         STICKER,
         VIDEO,
+        VOICE,
+        VIDEO_NOTE,
         CONTACT,
         LOCATION,
+        VENUE,
         NEW_CHAT_MEMBERS,
         LEFT_CHAT_MEMBER,
+        NEW_CHAT_TITLE,
         NEW_CHAT_PHOTO,
         DELETE_CHAT_PHOTO,
         GROUP_CHAT_CREATED,
+        UPERGROUP_CHAT_CREATED, 
+        SUPERGROUP_CHAT_CREATED, 
+        CHANNEL_CHAT_CREATED, 
+        MIGRATE_TO_CHAT_ID, 
+        MIGRATE_FROM_CHAT_ID, 
+        PINNED_MESSAGE,
+        INVOICE, 
+        SUCCESSFUL_PAYMENT,
+        CONNECTED_WEBSITE,
         UNKNOWN
     }
 
