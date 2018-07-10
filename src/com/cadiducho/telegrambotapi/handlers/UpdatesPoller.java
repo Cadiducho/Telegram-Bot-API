@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class UpdatesPoller {
 
@@ -50,6 +51,12 @@ public class UpdatesPoller {
                 try {
                     poll();
                 } catch (TelegramException e) {
+                    if (e.getMessage().toLowerCase().contains("timed out") || e.getMessage().toLowerCase().contains("bad gateway")) { //network problems with Telegram
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(1);
+                        } catch (InterruptedException ignored) {
+                        }
+                    }
                     System.out.println(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()) + " An exception occurred while polling Telegram.");
                     e.printStackTrace();
                     if (ownerId != null) {
