@@ -10,6 +10,7 @@ package com.cadiducho.telegrambotapi;
 import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
 import com.cadiducho.telegrambotapi.exception.TelegramException;
+import com.cadiducho.telegrambotapi.game.GameHighScore;
 import com.cadiducho.telegrambotapi.handlers.UpdatesPoller;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
 import com.cadiducho.telegrambotapi.payment.ShippingOption;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import lombok.Getter;
@@ -986,6 +988,67 @@ public class TelegramBot implements BotAPI {
         final String resultBody = handleRequest(Unirest.get(apiUrl + "answerPreCheckoutQuery").queryString(par));
 
         return "True".equalsIgnoreCase(resultBody);
+    }
+
+    @Override
+    public Message sendGame(Object chat_id, String game_short_name, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
+        checkChatId(chat_id);
+        checkReply(reply_markup);
+        final Map<String, Object> par = new HashMap<>();
+        
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("game_short_name", game_short_name));
+        par.putAll(safe("disable_notification", disable_notification));
+        par.putAll(safe("reply_to_message_id", reply_to_message_id));
+        par.putAll(safe("reply_markup", reply_markup));
+        
+        final String resultBody = handleRequest(Unirest.post(apiUrl + "sendGame").fields(par));
+        
+        return gson.fromJson(resultBody, Message.class);
+    }
+
+    @Override
+    public Object setGameScore(Integer user_id, Integer score, Boolean force, Boolean disable_edit_message, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+        
+        par.putAll(safe("user_id", user_id));
+        par.putAll(safe("score", score));
+        par.putAll(safe("force", force));
+        par.putAll(safe("disable_edit_message", disable_edit_message));
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("message_id", message_id));
+        par.putAll(safe("inline_message_id", inline_message_id));
+        
+        final String resultBody = handleRequest(Unirest.post(apiUrl + "setGameScore").fields(par));
+        
+        Object methodReturn;
+        try {
+            methodReturn = gson.fromJson(resultBody, Message.class);
+        } catch (JsonSyntaxException ex) {
+            try {
+                methodReturn = gson.fromJson(resultBody, Boolean.class);
+            } catch (JsonSyntaxException ex2) {
+                methodReturn = null;
+            }
+        }
+        
+        return methodReturn;
+    }
+
+    @Override
+    public List<GameHighScore> getGameGighScores(Integer user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException {
+        checkChatId(chat_id);
+        final Map<String, Object> par = new HashMap<>();
+        
+        par.putAll(safe("user_id", user_id));
+        par.putAll(safe("chat_id", chat_id));
+        par.putAll(safe("message_id", message_id));
+        par.putAll(safe("inline_message_id", inline_message_id));
+
+        final String resultBody = handleRequest(Unirest.get(apiUrl + "getGameGighScores").queryString(par));
+        Type listType = new TypeToken<List<GameHighScore>>() {}.getType();
+        return gson.fromJson(resultBody, listType);
     }
     
 }
