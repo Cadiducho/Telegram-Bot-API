@@ -1,13 +1,14 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Cadiducho.
+ * Copyright 2018 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
 package com.cadiducho.telegrambotapi;
 
 import com.cadiducho.telegrambotapi.exception.TelegramException;
+import com.cadiducho.telegrambotapi.game.GameHighScore;
 import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
@@ -1263,4 +1264,78 @@ public interface BotAPI {
      */
     Boolean answerPreCheckoutQuery(String pre_checkout_query_id, Boolean ok, String error_message) throws TelegramException;
     
+    /**
+     * Use this method to send a game. On success, the sent {@link Message} is returned.
+     * @param chat_id Unique identifier for the target chat
+     * @param game_short_name Short name of the game, serves as the unique identifier for the game.
+     * @return On success, the sent message
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Message sendGame(Object chat_id, String game_short_name) throws TelegramException {
+        return sendGame(chat_id, game_short_name, null, null, null);
+    }
+    
+    /**
+     * Use this method to send a game. On success, the sent {@link Message} is returned.
+     * @param chat_id Unique identifier for the target chat
+     * @param game_short_name Short name of the game, serves as the unique identifier for the game.
+     * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
+     * @param reply_to_message_id If the message is a reply, ID of the original message
+     * @param reply_markup A JSON-serialized object for an inline keyboard. If empty, one ‘Play game_title’ button will be shown. If not empty, the first button must launch the game.
+     * @return On success, the sent message
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Message sendGame(Object chat_id, String game_short_name, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    
+    /**
+     * Use this method to set the score of the specified user in a game. 
+     * On success, if the message was sent by the bot, returns the edited Message, otherwise returns True. 
+     * Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
+     * @param user_id User identifier
+     * @param score New score, must be non-negative
+     * @return the Message, true or false
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Object setGameScore(Integer user_id, Integer score) throws TelegramException {
+        return setGameScore(user_id, score, null, null, null, null, null);
+    }
+    
+    /**
+     * Use this method to set the score of the specified user in a game. 
+     * On success, if the message was sent by the bot, returns the edited Message, otherwise returns True. 
+     * Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
+     * @param user_id User identifier
+     * @param score New score, must be non-negative
+     * @param force Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
+     * @param disable_edit_message Pass True, if the game message should not be automatically edited to include the current scoreboard
+     * @param chat_id Required if inline_message_id is not specified. Unique identifier for the target chat
+     * @param message_id Required if inline_message_id is not specified. Identifier of the sent message
+     * @param inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
+     * @return the Message, true or false
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Object setGameScore(Integer user_id, Integer score, Boolean force, Boolean disable_edit_message, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException;
+    
+    /**
+     * Use this method to get data for high score tables.
+     * Will return the score of the specified user and several of his neighbors in a game. 
+     * @param user_id Target user id
+     * @return On success, returns an Array of GameHighScore objects.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    default List<GameHighScore> getGameGighScores(Integer user_id) throws TelegramException {
+        return getGameGighScores(user_id, null, null, null);
+    }
+    
+    /**
+     * Use this method to get data for high score tables.
+     * Will return the score of the specified user and several of his neighbors in a game. 
+     * @param user_id Target user id
+     * @param chat_id Required if inline_message_id is not specified. Unique identifier for the target chat
+     * @param message_id Required if inline_message_id is not specified. Identifier of the sent message
+     * @param inline_message_id	Required if chat_id and message_id are not specified. Identifier of the inline message
+     * @return On success, returns an Array of GameHighScore objects.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    List<GameHighScore> getGameGighScores(Integer user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException;
 }
