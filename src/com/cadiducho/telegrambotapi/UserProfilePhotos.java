@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Cadiducho.
+ * Copyright 2018 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 

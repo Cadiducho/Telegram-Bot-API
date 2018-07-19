@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Cadiducho.
+ * Copyright 2018 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -76,9 +76,9 @@ public class TelegramBot implements BotAPI {
             if (!(  chatId instanceof String ||
                     chatId instanceof Integer ||
                     chatId instanceof Long)){
-
+        
                 throw new IllegalStateException("The chatId must be a String or a Number!");
-            }
+            } 
         }
     }
      
