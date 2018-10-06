@@ -1323,8 +1323,8 @@ public interface BotAPI {
      * @return On success, returns an Array of GameHighScore objects.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    default List<GameHighScore> getGameGighScores(Integer user_id) throws TelegramException {
-        return getGameGighScores(user_id, null, null, null);
+    default List<GameHighScore> getGameHighScores(Integer user_id) throws TelegramException {
+        return getGameHighScores(user_id, null, null, null);
     }
     
     /**
@@ -1337,5 +1337,5 @@ public interface BotAPI {
      * @return On success, returns an Array of GameHighScore objects.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    List<GameHighScore> getGameGighScores(Integer user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException;
+    List<GameHighScore> getGameHighScores(Integer user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException;
 }

@@ -1037,7 +1037,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public List<GameHighScore> getGameGighScores(Integer user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException {
+    public List<GameHighScore> getGameHighScores(Integer user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException {
         checkChatId(chat_id);
         final Map<String, Object> par = new HashMap<>();
         
