@@ -23,18 +23,16 @@ import java.util.List;
 public interface BotAPI {
 
     //---- Custom Methods ----//
-    
+
     /**
-     * Return true if updates thread is enabled, or false if not.
-     * @return true or false
+     * Starts the updates thread
      */
-    Boolean getUpdatesPolling();
-    
+    void startUpdatesPoller();
+
     /**
-     * Enable or disable updates threa
-     * @param bool True to enable or false to disable
+     * Stop the updates thread
      */
-    void setUpdatesPolling(Boolean bool);
+    void stopUpdatesPoller();
     
     /**
      * Get Bot instance

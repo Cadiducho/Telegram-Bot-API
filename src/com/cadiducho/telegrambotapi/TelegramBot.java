@@ -11,7 +11,8 @@ import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
 import com.cadiducho.telegrambotapi.exception.TelegramException;
 import com.cadiducho.telegrambotapi.game.GameHighScore;
-import com.cadiducho.telegrambotapi.handlers.UpdatesPoller;
+import com.cadiducho.telegrambotapi.handlers.BotUpdatesPoller;
+import com.cadiducho.telegrambotapi.handlers.DefaultBotUpdatesPoller;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
 import com.cadiducho.telegrambotapi.payment.ShippingOption;
 import com.mashape.unirest.http.Unirest;
@@ -29,25 +30,29 @@ import lombok.Setter;
 import org.json.JSONObject;
 
 public class TelegramBot implements BotAPI {
-    
+
     private final String apiUrl;
     @Getter private final BotAPI instance;
-    @Getter @Setter private Boolean updatesPolling;
-    @Getter private final UpdatesPoller updatesPoller;
-    
+    @Getter private BotUpdatesPoller updatesPoller;
+
     private final Gson gson = new Gson();
     
-    public TelegramBot(String token){
-        this(token, true);
+    @Override
+    public void startUpdatesPoller() {
+        updatesPoller.start();
+    }
+
+    @Override
+    public void stopUpdatesPoller() {
+        updatesPoller.stop();
     }
     
-    public TelegramBot(String token, boolean pollthread){
+    public TelegramBot(String token){
         instance = this;
         apiUrl = "https://api.telegram.org/bot" + token + "/";
-        updatesPolling = pollthread;
-        updatesPoller = new UpdatesPoller(this);
+        updatesPoller = new DefaultBotUpdatesPoller(this);
     }
-      
+
     @Override
     public User getMe() throws TelegramException {
         final String resultBody = handleRequest(Unirest.get(apiUrl + "getMe"));
