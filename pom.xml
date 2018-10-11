@@ -30,7 +30,6 @@
         </profile>
     </profiles>
     <build>
-        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -65,16 +64,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
-                <directory>src</directory>
-                <includes>
-                    <include>*.yml</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
     
     <dependencies>
