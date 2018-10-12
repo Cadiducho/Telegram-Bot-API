@@ -9,6 +9,7 @@ package com.cadiducho.telegrambotapi;
 
 import com.cadiducho.telegrambotapi.exception.TelegramException;
 import com.cadiducho.telegrambotapi.game.GameHighScore;
+import com.cadiducho.telegrambotapi.handlers.BotUpdatesPoller;
 import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
@@ -33,6 +34,12 @@ public interface BotAPI {
      * Stop the updates thread
      */
     void stopUpdatesPoller();
+
+    /**
+     *
+     * @return
+     */
+    BotUpdatesPoller getUpdatesPoller();
     
     /**
      * Get Bot instance
