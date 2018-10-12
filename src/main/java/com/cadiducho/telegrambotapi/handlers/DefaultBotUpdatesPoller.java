@@ -155,10 +155,6 @@ public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
         }
     }
 
-    public interface UpdatesSupplier {
-        List<Update> getUpdates() throws Exception;
-    }
-
     private List<Update> getUpdateList() {
         List<Update> updates = new ArrayList<>();
         for (Iterator<Update> it = receivedUpdates.iterator(); it.hasNext();) {

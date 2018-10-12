@@ -4,6 +4,8 @@ public interface BotUpdatesPoller {
 
     void setHandler(LongPollingHandler handler);
 
+    void setUpdatesSupplier(UpdatesSupplier supplier);
+
     /**
      * Starts the bot poller
      */

@@ -12,6 +12,7 @@ import com.cadiducho.telegrambotapi.Update;
  * Interface ready to be overrided by other Telegram Bot API implementations
  * @author Cadiducho
  */
+@FunctionalInterface
 public interface LongPollingHandler {
     
     /**
