@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class InlineQueryResultCachedPhoto extends InlineQueryResult {
     /**
      * A valid file identifier of the photo
      */
-    private String photo_file_id;
+    @Json(name = "photo_file_id") private String photoFileId;
 
     /**
      * Optional. Title for the result
@@ -46,30 +47,30 @@ public class InlineQueryResultCachedPhoto extends InlineQueryResult {
 
     /**
      *
-     * @param photo_file_id A valid file identifier of the photo
+     * @param photoFileId A valid file identifier of the photo
      */
-    public InlineQueryResultCachedPhoto(String photo_file_id) {
+    public InlineQueryResultCachedPhoto(String photoFileId) {
         this();
-        this.photo_file_id = photo_file_id;
+        this.photoFileId = photoFileId;
     }
 
     /**
      *
-     * @param photo_file_id A valid file identifier of the photo
+     * @param photoFileId A valid file identifier of the photo
      * @param title Optional. Title for the result
      * @param description Optional. Short description of the result
      * @param caption Optional. Caption of the photo to be sent, 0-200 characters
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultCachedPhoto(String photo_file_id, String title, String description, String caption, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultCachedPhoto(String photoFileId, String title, String description, String caption, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.photo_file_id = photo_file_id;
+        this.photoFileId = photoFileId;
         this.title = title;
         this.description = description;
         this.caption = caption;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,7 +22,7 @@ public class Sticker {
     /**
      * Unique identifier for this file
      */
-    private String file_id;
+    @Json(name = "file_id") private String fileId;
     
     /**
      * Sticker width
@@ -46,16 +47,16 @@ public class Sticker {
     /**
      * Optional. Name of the sticker set to which the sticker belongs
      */
-    private String set_name;
+    @Json(name = "set_name") private String setName;
     
     /**
      * Optional. For mask stickers, the position where the mask should be placed
      */
-    private MaskPosition mask_position;
+    @Json(name = "mask_position") private MaskPosition maskPosition;
     
     /**
      * Optional. File size
      */
-    private Integer file_size;
+    @Json(name = "file_size") private Integer fileSize;
 
 }

@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class InlineQueryResultVoice extends InlineQueryResult {
     /**
      * 	A valid URL for the voice recording
      */
-    private String voice_url;
+    @Json(name = "voice_url") private String voiceUrl;
 
     /**
      * Recording title
@@ -38,7 +39,7 @@ public class InlineQueryResultVoice extends InlineQueryResult {
     /**
      * Optional. Recording duration in seconds
      */
-    private Integer voice_duration;
+    @Json(name = "voice_duration") private Integer voiceDuration;
 
     public InlineQueryResultVoice() {
         super("voice");
@@ -46,34 +47,33 @@ public class InlineQueryResultVoice extends InlineQueryResult {
 
     /**
      *
-     * @param voice_url A valid URL for the voice recording
+     * @param voiceUrl A valid URL for the voice recording
      * @param title Title
      */
-    public InlineQueryResultVoice(String voice_url, String title) {
+    public InlineQueryResultVoice(String voiceUrl, String title) {
         this();
-        this.voice_url = voice_url;
+        this.voiceUrl = voiceUrl;
         this.title = title;
     }
 
     /**
      *
-     * @param voice_url A valid URL for the voice recording
+     * @param voiceUrl A valid URL for the voice recording
      * @param title Title
      * @param caption Optional. Caption, 0-200 characters
-     * @param performer Optional. Performer
-     * @param voice_duration Optional. Recording duration in seconds
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param voiceDuration Optional. Recording duration in seconds
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultVoice(String voice_url, String title, String caption, String performer, Integer voice_duration,
-                                    InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultVoice(String voiceUrl, String title, String caption, Integer voiceDuration,
+                                    InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.voice_url = voice_url;
+        this.voiceUrl = voiceUrl;
         this.title = title;
         this.caption = caption;
-        this.voice_duration = voice_duration;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.voiceDuration = voiceDuration;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,22 +43,22 @@ public class InlineQueryResultVenue extends InlineQueryResult {
     /**
      * Optional. Foursquare identifier of the venue if known
      */
-    private String foursquare_id;
+    @Json(name = "foursquare_id") private String foursquare_id;
     
     /**
      * Optional. URL of the thumbnail (jpeg only) for the file
      */
-    private String thumb_url;
+    @Json(name = "thumb_url") private String thumbUrl;
     
     /**
      * Optional. Thumbnail width
      */
-    private Integer thumb_width;
+    @Json(name = "thumb_width") private Integer thumbWidth;
     
     /**
      * Optional. Thumbnail height
      */
-    private Integer thumb_height;
+    @Json(name = "thumb_height") private Integer thumbHeight;
 
     public InlineQueryResultVenue() {
         super("venue");
@@ -85,26 +86,26 @@ public class InlineQueryResultVenue extends InlineQueryResult {
      * @param foursquare_id Optional. Foursquare identifier of the venue if known
      * @param latitude Location latitude in degrees
      * @param longitude Location longitude in degrees
-     * @param thumb_url Optional. URL of the thumbnail (jpeg only) for the file
-     * @param thumb_width Optional. Thumbnail width
-     * @param thumb_height Optional. Thumbnail height
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param thumbUrl Optional. URL of the thumbnail (jpeg only) for the file
+     * @param thumbWidth Optional. Thumbnail width
+     * @param thumbHeight Optional. Thumbnail height
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
     public InlineQueryResultVenue(String title, String address, String foursquare_id, Float latitude, Float longitude,
-                                    String thumb_url, Integer thumb_width, Integer thumb_height,
-                                    InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+                                    String thumbUrl, Integer thumbWidth, Integer thumbHeight,
+                                    InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.title = title;
         this.address = address;
         this.foursquare_id = foursquare_id;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.thumb_url = thumb_url;
-        this.thumb_width = thumb_width;
-        this.thumb_height = thumb_height;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.thumbUrl = thumbUrl;
+        this.thumbWidth = thumbWidth;
+        this.thumbHeight = thumbHeight;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

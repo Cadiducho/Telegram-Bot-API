@@ -8,6 +8,8 @@
 package com.cadiducho.telegrambotapi;
 
 import java.util.List;
+
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,32 +29,32 @@ public class WebhookInfo {
     /**
      * True, if a custom certificate was provided for webhook certificate checks
      */
-    private Boolean has_custom_certificate;
+    @Json(name = "has_custom_certificate") private Boolean hasCustomCertificate;
     
     /**
      * Number of updates awaiting delivery
      */
-    private Integer pending_update_count;
+    @Json(name = "pending_update_count") private Integer pendingUpdateCount;
     
     /**
      * Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
      */
-    private Integer last_error_date;
+    @Json(name = "last_error_date") private Integer lastErrorDate;
     
     /**
      * Optional. Error message in human-readable format for the most recent error 
      * that happened when trying to deliver an update via webhook
      */
-    private String last_error_message;
+    @Json(name = "last_error_message") private String lastErrorMessage;
     
     /**
      * Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
      */
-    private Integer max_connections;
+    @Json(name = "max_connections") private Integer maxConnections;
     
     /**
      * Optional. A list of update types the bot is subscribed to. Defaults to all update types
      */
-    private List<String> allowed_updates;
+    @Json(name = "allowed_updates") private List<String> allowedUpdates;
     
 }

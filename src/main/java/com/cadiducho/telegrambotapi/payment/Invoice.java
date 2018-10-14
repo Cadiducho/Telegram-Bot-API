@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.payment;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,7 +32,7 @@ public class Invoice {
     /**
      * Unique bot deep-linking parameter that can be used to generate this invoice
      */
-    private String start_parameter;
+    @Json(name = "start_parameter") private String startParameter;
     
     /**
      * Three-letter ISO 4217 currency code
@@ -42,6 +43,6 @@ public class Invoice {
      * Total price in the smallest units of the currency (integer, not float/double). 
      * For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in https://core.telegram.org/bots/payments/currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
      */
-    private Integer total_amount;
+    @Json(name = "total_amount") private Integer totalAmount;
 
 }

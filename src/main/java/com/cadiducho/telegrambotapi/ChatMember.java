@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -68,70 +69,70 @@ public class ChatMember {
      * Optional. Restictred and kicked only.
      * Date when restrictions will be lifted for this user, unix time
      */
-    private Integer until_date;
+    @Json(name = "until_date") private Integer untilDate;
 
     /**
      * Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
      */
-    private Boolean can_be_edited;
+    @Json(name = "can_be_edited") private Boolean canBeEdited;
 
     /**
      * Optional. Administrators only. True, if the administrator can change the chat title, photo and other settings
      */
-    private Boolean can_change_info;
+    @Json(name = "can_change_info") private Boolean canChangeInfo;
 
     /**
      * Optional. Administrators only. True, if the administrator can post in the channel, channels only
      */
-    private Boolean can_post_messages;
+    @Json(name = "can_post_messages") private Boolean canPostMessages;
 
     /**
      * Optional. Administrators only. True, if the administrator can edit messages of other users, channels only
      */
-    private Boolean can_edit_messages;
+    @Json(name = "can_edit_messages") private Boolean canEditMessages;
 
     /**
      * Optional. Administrators only. True, if the administrator can delete messages of other users
      */
-    private Boolean can_delete_messages;
+    @Json(name = "can_delete_messages") private Boolean canDeleteMessages;
 
     /**
      * Optional. Administrators only. True, if the administrator can invite new users to the chat
      */
-    private Boolean can_invite_users;
+    @Json(name = "can_invite_users") private Boolean canInviteUsers;
 
     /**
      * Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
      */
-    private Boolean can_restrict_members;
+    @Json(name = "can_restrict_members") private Boolean canRestrictMembers;
 
     /**
      * Optional. Administrators only. True, if the administrator can pin messages, supergroups only
      */
-    private Boolean can_pin_messages;
+    @Json(name = "can_pin_messages") private Boolean canPinMessages;
 
     /**
      * Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
      */
-    private Boolean can_promote_members;
+    @Json(name = "can_promote_members") private Boolean canPromoteMembers;
 
     /**
      * Optional. Restricted only. True, if the user can send text messages, contacts, locations and venues
      */
-    private Boolean can_send_messages;
+    @Json(name = "can_send_messages") private Boolean canSendMessages;
 
     /**
      * Optional. Restricted only. True, if the user can send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
      */
-    private Boolean can_send_media_messages;
+    @Json(name = "can_send_media_messages") private Boolean canSendMediaMessages;
 
     /**
      * Optional. Restricted only. True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
      */
-    private Boolean can_send_other_messages;
+    @Json(name = "can_send_other_messages") private Boolean canSendOtherMessages;
 
     /**
      * Optional. Restricted only. True, if user may add web page previews to his messages, implies can_send_media_messages
      */
-    private Boolean can_add_web_page_previews;
+    @Json(name = "can_add_web_page_previews") private Boolean canAddWebPagePreviews;
 }

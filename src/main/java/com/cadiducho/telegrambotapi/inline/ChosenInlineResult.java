@@ -9,6 +9,7 @@ package com.cadiducho.telegrambotapi.inline;
 
 import com.cadiducho.telegrambotapi.Location;
 import com.cadiducho.telegrambotapi.User;
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class ChosenInlineResult {
     /**
      * The unique identifier for the result that was chosen.
      */
-    private String result_id;
+    @Json(name = "result_id") private String resultId;
     
     /**
      * 	The user that chose the result.
@@ -40,7 +41,7 @@ public class ChosenInlineResult {
      * Available only if there is an inline keyboard attached to the message. 
      * Will be also received in callback queries and can be used to edit the message.
      */
-    private String inline_message_id;
+    @Json(name = "inline_message_id") private String inlineMessageId;
     
     /**
      * 	The query that was used to obtain the result.

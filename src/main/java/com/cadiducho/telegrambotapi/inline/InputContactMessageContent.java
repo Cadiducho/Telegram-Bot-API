@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,15 +22,15 @@ public class InputContactMessageContent extends InputMessageContent {
     /**
      * Contact's phone number
      */
-    private String phone_number;
+    @Json(name = "phone_number") private String phoneNumber;
     
     /**
      * Contact's first name
      */
-    private String first_name;
+    @Json(name = "first_name") private String firstName;
     
     /**
      * Optional. Contact's last name
      */
-    private String last_name;
+    @Json(name = "last_name") private String lastName;
 }

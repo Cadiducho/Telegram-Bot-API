@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,7 +22,7 @@ public class Document {
     /**
      * Unique file identifier
      */
-    private String file_id;
+    @Json(name = "file_id") private String fileId;
     
     /**
      * Optional. Document thumbnail as defined by sender
@@ -31,15 +32,15 @@ public class Document {
     /**
      * Optional. Original filename as defined by sender
      */
-    private String file_name;
+    @Json(name = "file_name") private String fileName;
     
     /**
      * Optional. MIME type of the file as defined by sender
      */
-    private String mime_type;
+    @Json(name = "mime_type") private String mimeType;
     
     /**
      * Optional. File size
      */
-    private Integer file_size;
+    @Json(name = "file_size") private Integer fileSize;
 }

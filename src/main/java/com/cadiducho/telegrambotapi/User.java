@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,17 +27,17 @@ public class User {
     /**
      * True, if this user is a bot
      */
-    private Boolean is_bot;
+    @Json(name = "is_bot") private boolean isBot;
     
     /**
      * User‘s or bot’s first name
      */
-    private String first_name;
+    @Json(name = "first_name") private String firstName;
     
     /**
      * Optional. User‘s or bot’s last name
      */
-    private String last_name;
+    @Json(name = "last_name") private String lastName;
     
     /**
      * Optional. User‘s or bot’s username
@@ -46,6 +47,19 @@ public class User {
     /**
      * Optional. IETF language tag of the user's language
      */
-    private String language_code;
-    
+    @Json(name = "language_code") private String languageCode;
+
+    /**
+     * Constructor used by Chat
+     * @param id The id of the user
+     * @param firstName The first name of the user
+     * @param lastName The last name of the user
+     * @param username His username
+     */
+    protected User(Integer id, String firstName, String lastName, String username) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+    }
 }

@@ -8,6 +8,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,16 +23,16 @@ public class InputTextMessageContent extends InputMessageContent {
     /**
      * Text of the message to be sent, 1-4096 characters
      */
-    private String message_text;
+    @Json(name = "message_text") private String messageText;
     
     /**
      * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, 
      * fixed-width text or inline URLs in your bot's message.
      */
-    private String parse_mode;
+    @Json(name = "parse_mode") private String parseMode;
     
     /**
      * Optional. Disables link previews for links in the sent message
      */
-    private Boolean disable_web_page_preview;
+    @Json(name = "disable_web_page_preview") private Boolean disableWebPagePreview;
 }

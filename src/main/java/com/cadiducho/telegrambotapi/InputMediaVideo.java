@@ -1,5 +1,6 @@
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,14 +28,14 @@ public class InputMediaVideo extends InputMedia {
     /**
      * Optional. Pass True, if the uploaded video is suitable for streaming
      */
-    private Boolean supports_streaming;
+    @Json(name = "supports_streaming") private Boolean supportsStreaming;
 
-    public InputMediaVideo(String type, String media, String caption, String parse_mode, Integer width, Integer height, Integer duration, Boolean supports_streaming) {
-        super(type, media, caption, parse_mode);
+    public InputMediaVideo(String type, String media, String caption, String parseMode, Integer width, Integer height, Integer duration, Boolean supportsStreaming) {
+        super(type, media, caption, parseMode);
         this.width = width;
         this.height = height;
         this.duration = duration;
-        this.supports_streaming = supports_streaming;
+        this.supportsStreaming = supportsStreaming;
     }
 
 }

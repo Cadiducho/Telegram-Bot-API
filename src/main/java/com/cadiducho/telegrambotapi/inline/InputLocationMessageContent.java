@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,6 +32,6 @@ public class InputLocationMessageContent extends InputMessageContent {
     /**
      * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
      */
-    private Integer live_period;
+    @Json(name = "live_period") private Integer livePeriod;
     
 }

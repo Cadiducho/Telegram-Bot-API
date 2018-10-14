@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,27 +24,27 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
     /**
      * A valid URL for the MP4 file. File size must not exceed 1MB
      */
-    private String mpeg4_url;
+    @Json(name = "mpeg4_url") private String mpeg4Url;
 
     /**
      * Optional. Video width
      */
-    private Integer mpeg4_width;
+    @Json(name = "mpeg4_width") private Integer mpeg4Width;
 
     /**
      * Optional. Video height
      */
-    private Integer mpeg4_height;
+    @Json(name = "mpeg4_height") private Integer mpeg4Height;
     
     /**
      * Optional. Video duration
      */
-    private Integer mpeg4_duration;
+    @Json(name = "mpeg4_duration") private Integer mpeg4Duration;
 
     /**
      * URL of the static thumbnail (jpeg or gif) for the result
      */
-    private String thumb_url;
+    @Json(name = "thumb_url") private String thumbUrl;
 
     /**
      * Optional. Title for the result
@@ -56,20 +57,10 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
     private String caption;
 
     /**
-     * Optional. Text of a message to be sent instead of the animation, 1-512 characters
-     */
-    private String message_text;
-
-    /**
      * Optional. Send “Markdown”, if you want Telegram apps to show
      * <a href="https://core.telegram.org/bots/api#using-markdown">bold, italic and inline URLs</a> in your bot's message.
      */
-    private String parse_mode;
-
-    /**
-     * Optional. Disables link previews for links in the sent message
-     */
-    private Boolean disable_web_page_preview;
+    @Json(name = "parse_mode") private String parseMode;
 
     public InlineQueryResultMpeg4Gif() {
         super("mpeg4_gif");
@@ -77,46 +68,42 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
 
     /**
      *
-     * @param mpeg4_url A valid URL for the MP4 file. File size must not exceed 1MB
-     * @param thumb_url URL of the static thumbnail (jpeg or gif) for the result
+     * @param mpeg4Url A valid URL for the MP4 file. File size must not exceed 1MB
+     * @param thumbUrl URL of the static thumbnail (jpeg or gif) for the result
      */
-    public InlineQueryResultMpeg4Gif(String mpeg4_url, String thumb_url) {
+    public InlineQueryResultMpeg4Gif(String mpeg4Url, String thumbUrl) {
         this();
-        this.mpeg4_url = mpeg4_url;
-        this.thumb_url = thumb_url;
+        this.mpeg4Url = mpeg4Url;
+        this.thumbUrl = thumbUrl;
     }
 
     /**
      *
-     * @param mpeg4_url A valid URL for the MP4 file. File size must not exceed 1MB
-     * @param thumb_url URL of the static thumbnail (jpeg or gif) for the result
-     * @param mpeg4_width Optional. Video width
-     * @param mpeg4_height Optional. Video height
+     * @param mpeg4Url A valid URL for the MP4 file. File size must not exceed 1MB
+     * @param thumbUrl URL of the static thumbnail (jpeg or gif) for the result
+     * @param mpeg4Width Optional. Video width
+     * @param mpeg4Height Optional. Video height
      * @param title Optional. Title for the result
      * @param caption Optional. Caption of the MPEG-4 file to be sent, 0-200 characters
-     * @param message_text Optional. Text of a message to be sent instead of the animation, 1-512 characters
-     * @param parse_mode Optional. Send “Markdown”, if you want Telegram apps to show
+     * @param parseMode Optional. Send “Markdown”, if you want Telegram apps to show
      *                   <a href="https://core.telegram.org/bots/api#using-markdown">bold, italic and inline URLs</a>
      *                   in your bot's message.
-     * @param disable_web_page_preview Optional. Disables link previews for links in the sent message
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultMpeg4Gif(String mpeg4_url, String thumb_url, Integer mpeg4_width, Integer mpeg4_height,
-                                     String title, String caption, String message_text, String parse_mode, Boolean disable_web_page_preview, 
-                                     InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultMpeg4Gif(String mpeg4Url, String thumbUrl, Integer mpeg4Width, Integer mpeg4Height,
+                                     String title, String caption, String parseMode,
+                                     InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.mpeg4_url = mpeg4_url;
-        this.mpeg4_width = mpeg4_width;
-        this.mpeg4_height = mpeg4_height;
-        this.thumb_url = thumb_url;
+        this.mpeg4Url = mpeg4Url;
+        this.mpeg4Width = mpeg4Width;
+        this.mpeg4Height = mpeg4Height;
+        this.thumbUrl = thumbUrl;
         this.title = title;
         this.caption = caption;
-        this.message_text = message_text;
-        this.parse_mode = parse_mode;
-        this.disable_web_page_preview = disable_web_page_preview;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.parseMode = parseMode;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

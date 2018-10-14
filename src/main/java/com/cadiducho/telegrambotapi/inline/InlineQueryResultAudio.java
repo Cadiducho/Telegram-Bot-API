@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class InlineQueryResultAudio extends InlineQueryResult {
     /**
      * 	A valid URL for the audio file
      */
-    private String audio_url;
+    @Json(name = "audio_url") private String audioUrl;
 
     /**
      * Title
@@ -43,7 +44,7 @@ public class InlineQueryResultAudio extends InlineQueryResult {
     /**
      * Optional. Audio duration in seconds
      */
-    private Integer audio_duration;
+    @Json(name = "audio_duration") private Integer audioDuration;
 
     public InlineQueryResultAudio() {
         super("audio");
@@ -51,35 +52,35 @@ public class InlineQueryResultAudio extends InlineQueryResult {
 
     /**
      *
-     * @param audio_url A valid URL for the audio file
+     * @param audioUrl A valid URL for the audio file
      * @param title Title
      */
-    public InlineQueryResultAudio(String audio_url, String title) {
+    public InlineQueryResultAudio(String audioUrl, String title) {
         this();
-        this.audio_url = audio_url;
+        this.audioUrl = audioUrl;
         this.title = title;
     }
 
     /**
      *
-     * @param audio_url A valid URL for the audio file
+     * @param audioUrl A valid URL for the audio file
      * @param title Title
      * @param caption Optional. Caption, 0-200 characters
      * @param performer Optional. Performer
-     * @param audio_duration Optional. Audio duration in seconds
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message to be sent
+     * @param audioDuration Optional. Audio duration in seconds
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message to be sent
      */
-    public InlineQueryResultAudio(String audio_url, String title, String caption, String performer,
-                                  Integer audio_duration, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultAudio(String audioUrl, String title, String caption, String performer,
+                                  Integer audioDuration, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.audio_url = audio_url;
+        this.audioUrl = audioUrl;
         this.title = title;
         this.caption = caption;
         this.performer = performer;
-        this.audio_duration = audio_duration;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.audioDuration = audioDuration;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

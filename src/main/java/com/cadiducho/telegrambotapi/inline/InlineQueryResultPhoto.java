@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,22 +24,22 @@ public class InlineQueryResultPhoto extends InlineQueryResult {
     /**
      * A valid URL of the photo. Photo must be in <b>jpeg</b> format. Photo size must not exceed 5MB
      */
-    private String photo_url;
+    @Json(name = "photo_url") private String photoUrl;
 
     /**
      * Optional. Width of the photo
      */
-    private Integer photo_width;
+    @Json(name = "photo_width") private Integer photoWidth;
 
     /**
      * Optional. Height of the photo
      */
-    private Integer photo_height;
+    @Json(name = "photo_height") private Integer photoHeight;
 
     /**
      * URL of the thumbnail for the photo
      */
-    private String thumb_url;
+    @Json(name = "thumb_url") private String thumbUrl;
 
     /**
      * Optional. Title for the result
@@ -61,39 +62,39 @@ public class InlineQueryResultPhoto extends InlineQueryResult {
 
     /**
      *
-     * @param photo_url A valid URL of the photo. Photo must be in <b>jpeg</b> format. Photo size must not exceed 5MB
-     * @param thumb_url URL of the thumbnail for the photo
+     * @param photoUrl A valid URL of the photo. Photo must be in <b>jpeg</b> format. Photo size must not exceed 5MB
+     * @param thumbUrl URL of the thumbnail for the photo
      */
-    public InlineQueryResultPhoto(String photo_url, String thumb_url) {
+    public InlineQueryResultPhoto(String photoUrl, String thumbUrl) {
         this();
-        this.photo_url = photo_url;
-        this.thumb_url = thumb_url;
+        this.photoUrl = photoUrl;
+        this.thumbUrl = thumbUrl;
     }
 
     /**
      *
-     * @param photo_url A valid URL of the photo. Photo must be in <b>jpeg</b> format. Photo size must not exceed 5MB
-     * @param thumb_url URL of the thumbnail for the photo
-     * @param photo_width Optional. Width of the photo
-     * @param photo_height Optional. Height of the photo
+     * @param photoUrl A valid URL of the photo. Photo must be in <b>jpeg</b> format. Photo size must not exceed 5MB
+     * @param thumbUrl URL of the thumbnail for the photo
+     * @param photoWidth Optional. Width of the photo
+     * @param photoHeight Optional. Height of the photo
      * @param title Optional. Title for the result
      * @param description Optional. Short description of the result
      * @param caption Optional. Caption of the photo to be sent, 0-200 characters
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultPhoto(String photo_url, String thumb_url, Integer photo_width, Integer photo_height,
-                                  String title, String description, String caption, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultPhoto(String photoUrl, String thumbUrl, Integer photoWidth, Integer photoHeight,
+                                  String title, String description, String caption, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.photo_url = photo_url;
-        this.photo_width = photo_width;
-        this.photo_height = photo_height;
-        this.thumb_url = thumb_url;
+        this.photoUrl = photoUrl;
+        this.photoWidth = photoWidth;
+        this.photoHeight = photoHeight;
+        this.thumbUrl = thumbUrl;
         this.title = title;
         this.description = description;
         this.caption = caption;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

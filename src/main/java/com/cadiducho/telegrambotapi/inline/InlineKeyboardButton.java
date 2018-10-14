@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,7 +32,7 @@ public class InlineKeyboardButton {
     /**
      * 	Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
      */
-    private String callback_data;
+    @Json(name = "callback_data") private String callbackData;
     
     /**
      * Optional. If set, pressing the button will prompt the user to select one of their chats, 
@@ -42,13 +43,13 @@ public class InlineKeyboardButton {
      * Especially useful when combined with switch_pm… actions – in this case the user will be automatically returned to the chat they switched from, 
      * skipping the chat selection screen.
      */
-    private String switch_inline_query;
+    @Json(name = "switch_inline_query") private String switchInlineQuery;
     
     /**
      * Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat's input field. 
      * Can be empty, in which case only the bot’s username will be inserted.
      */
-    private String switch_inline_query_current_chat;
+    @Json(name = "switch_inline_query_current_chat") private String switchInlineQueryCurrentChat;
     
     /**
      * Optional. Specify True, to send a Pay button.

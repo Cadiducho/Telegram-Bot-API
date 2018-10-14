@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.payment;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,7 +22,7 @@ public class ShippingAddress {
     /**
      * ISO 3166-1 alpha-2 country code
      */
-    private String country_code;
+    @Json(name = "country_code") private String countryCode;
     
     /**
      * State, if applicable
@@ -36,16 +37,16 @@ public class ShippingAddress {
     /**
      * First line for the address
      */
-    private String street_line1;
+    @Json(name = "street_line1") private String streetLine1;
     
     /**
      * Second line for the address
      */
-    private String street_line2;
+    @Json(name = "street_line2") private String streetLine2;
     
     /**
      * Address post code
      */
-    private String post_code;
+    @Json(name = "post_code") private String postCode;
     
 }

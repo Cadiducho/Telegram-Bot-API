@@ -8,6 +8,7 @@
 package com.cadiducho.telegrambotapi.payment;
 
 import com.cadiducho.telegrambotapi.User;
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,11 +33,11 @@ public class ShippingQuery {
     /**
      * Bot specified invoice payload
      */
-    private String invoice_payload;
+    @Json(name = "invoice_payload") private String invoicePayload;
     
     /**
      * User specified shipping address
      */
-    private ShippingAddress shipping_address;
+    @Json(name = "shipping_address") private ShippingAddress shippingAddress;
     
 }

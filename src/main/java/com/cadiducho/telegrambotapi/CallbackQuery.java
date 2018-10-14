@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -40,7 +41,7 @@ public class CallbackQuery {
     /**
      * Optional. Identifier of the message sent via the bot in inline mode, that originated the query.
      */
-    private String inline_message_id;
+    @Json(name = "inline_message_id") private String inlineMessageId;
     
     /**
      * Optional. Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field.

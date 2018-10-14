@@ -8,6 +8,8 @@
 package com.cadiducho.telegrambotapi.inline;
 
 import java.util.List;
+
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,5 +24,5 @@ public class InlineKeyboardMarkup {
     /**
      * Array of button rows, each represented by an Array of {@link InlineKeyboardButton} objects
      */
-    private List<List<InlineKeyboardButton>> inline_keyboard;
+    @Json(name = "inline_keyboard") private List<List<InlineKeyboardButton>> inlineKeyboard;
 }

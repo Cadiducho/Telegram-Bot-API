@@ -8,6 +8,7 @@
 package com.cadiducho.telegrambotapi.game;
 
 import com.cadiducho.telegrambotapi.PhotoSize;
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class Animation {
     /**
      * Title of the game
      */
-    private String file_id;
+    @Json(name = "file_id") private String fileId;
     
     /**
      * Optional. Animation thumbnail as defined by sender
@@ -33,15 +34,15 @@ public class Animation {
     /**
      * Optional. Original animation filename as defined by sender
      */
-    private String file_name;
+    @Json(name = "file_name") private String fileName;
     
     /**
      * Optional. MIME type of the file as defined by sender
      */
-    private String mime_type;
+    @Json(name = "mime_type") private String mimeType;
     
     /**
      * Optional. File size
      */
-    private Integer file_size;
+    @Json(name = "file_size") private Integer fileSize;
 }

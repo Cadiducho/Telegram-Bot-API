@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult {
     /**
      * A valid file identifier for the MP4 file
      */
-    private String mpeg4_file_id;
+    @Json(name = "mpeg4_file_id") private String mpeg4FileId;
 
     /**
      * Optional. Title for the result
@@ -41,28 +42,28 @@ public class InlineQueryResultCachedMpeg4Gif extends InlineQueryResult {
 
     /**
      *
-     * @param mpeg4_file_id A valid file identifier for the MP4 file
+     * @param mpeg4FileId A valid file identifier for the MP4 file
      */
-    public InlineQueryResultCachedMpeg4Gif(String mpeg4_file_id) {
+    public InlineQueryResultCachedMpeg4Gif(String mpeg4FileId) {
         this();
-        this.mpeg4_file_id = mpeg4_file_id;
+        this.mpeg4FileId = mpeg4FileId;
     }
 
     /**
      *
-     * @param mpeg4_file_id A valid URL for the MP4 file. File size must not exceed 1MB
+     * @param mpeg4FileId A valid URL for the MP4 file. File size must not exceed 1MB
      * @param title Optional. Title for the result
      * @param caption Optional. Caption of the MPEG-4 file to be sent, 0-200 characters
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultCachedMpeg4Gif(String mpeg4_file_id, String title, String caption, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultCachedMpeg4Gif(String mpeg4FileId, String title, String caption, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.mpeg4_file_id = mpeg4_file_id;
+        this.mpeg4FileId = mpeg4FileId;
         this.title = title;
         this.caption = caption;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

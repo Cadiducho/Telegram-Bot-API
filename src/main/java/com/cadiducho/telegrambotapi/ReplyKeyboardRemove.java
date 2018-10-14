@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,7 +25,7 @@ public class ReplyKeyboardRemove {
      * Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; 
      * if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in {@link ReplyKeyboardMarkup})
      */
-    private Boolean remove_keyboard;
+    @Json(name = "remove_keyboard") private Boolean removeKeyboard;
 
     /**
      * Optional. Use this parameter if you want to hide keyboard for specific users only. Targets: 1) users that are @mentioned

@@ -7,13 +7,10 @@
 
 package com.cadiducho.telegrambotapi;
 
-import com.google.gson.Gson;
-import java.util.HashMap;
-import java.util.Map;
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.json.JSONObject;
 
 /**
  * Represents a chat.
@@ -47,17 +44,17 @@ public class Chat {
     /**
      * Optional. First name of the other party in a private chat
      */
-    private String first_name;
+    @Json(name = "first_name") private String firstName;
     
     /**
      * Optional. Last name of the other party in a private chat
      */
-    private String last_name; 
+    @Json(name = "last_name") private String lastName;
     
     /**
      * Optional. True if a group has ‘All Members Are Admins’ enabled.
      */
-    private Boolean all_members_are_administrators;
+    @Json(name = "all_members_are_administrators") private Boolean allMembersAreAdministrators;
     
     /**
      * Optional. Chat photo. Returned only in getChat.
@@ -72,22 +69,22 @@ public class Chat {
     /**
      * Optional. Chat invite link, for supergroups and channel chats. Returned only in getChat.
      */
-    private String invite_link;
+    @Json(name = "invite_link") private String inviteLink;
     
     /**
      * Optional. Pinned message, for supergroups. Returned only in getChat.
      */
-    private Message pinned_message;
+    @Json(name = "pinned_message") private Message pinnedMessage;
     
     /**
      * Optional. For supergroups, name of group sticker set. Returned only in getChat.
      */
-    private String sticker_set_name;
+    @Json(name = "sticker_set_name") private String stickerSetName;
     
     /**
      * Optional. True, if the bot can change the group sticker set. Returned only in getChat.
      */
-    private Boolean can_set_sticker_set;
+    @Json(name = "can_set_sticker_set") private Boolean canSetStickerSet;
     
     /**
      * Type of chat, can be either private, group, supergroup or channel
@@ -140,13 +137,6 @@ public class Chat {
      * @return This chat as a {@link User} object
      */
     public User asUser() {
-        final Map<String, Object> par = new HashMap<>();
-        par.put("id", id);
-        par.put("first_name", first_name);
-        par.put("last_name", last_name);
-        par.put("username", username);
-        
-        JSONObject obj = new JSONObject(par);
-        return new Gson().fromJson(obj.toString(), User.class);
+        return new User(Integer.parseInt(id), firstName, lastName, username);
     }
 }

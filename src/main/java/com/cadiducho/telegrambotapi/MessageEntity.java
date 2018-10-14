@@ -33,7 +33,7 @@ public class MessageEntity {
     /**
      * Length of the entity in UTF-16 code units
      */
-    private Integer lenght;
+    private Integer length;
     
     /**
      * Optional. For “text_link” only, url that will be opened after user taps on the text

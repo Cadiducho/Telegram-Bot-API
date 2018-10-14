@@ -8,6 +8,8 @@
 package com.cadiducho.telegrambotapi;
 
 import java.util.List;
+
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,7 +24,7 @@ public class UserProfilePhotos {
     /**
      * Total number of profile pictures the target user has
      */
-    private Integer total_count;
+    @Json(name  = "total_count") private Integer totalCount;
     
     /**
      * Requested profile pictures (in up to 4 sizes each)

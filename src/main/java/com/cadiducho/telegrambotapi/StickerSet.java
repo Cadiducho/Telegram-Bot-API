@@ -8,6 +8,8 @@
 package com.cadiducho.telegrambotapi;
 
 import java.util.List;
+
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,7 +34,7 @@ public class StickerSet {
     /**
      * True, if the sticker set contains masks
      */
-    private Boolean contains_masks;
+    @Json(name  = "contains_masks") private Boolean containsMasks;
     
     /**
      * List of all set stickers

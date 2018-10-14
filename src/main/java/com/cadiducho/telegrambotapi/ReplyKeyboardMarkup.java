@@ -8,6 +8,8 @@
 package com.cadiducho.telegrambotapi;
 
 import java.util.List;
+
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,12 +30,12 @@ public class ReplyKeyboardMarkup {
      * Optional. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). 
      * Defaults to false, in which case the custom keyboard is always of the same height as the app's standard keyboard.
      */
-    private Boolean resize_keyboard;
+    @Json(name = "resize_keyboard") private Boolean resizeKeyboard;
     
     /**
      * Optional. Requests clients to hide the keyboard as soon as it's been used. Defaults to false.
      */
-    private Boolean one_time_keyboard;
+    @Json(name = "one_time_keyboard") private Boolean oneTimeKeyboard;
     
     /**
      * Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned 

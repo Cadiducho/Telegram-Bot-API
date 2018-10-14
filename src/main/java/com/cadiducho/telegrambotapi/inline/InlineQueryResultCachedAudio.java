@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class InlineQueryResultCachedAudio extends InlineQueryResult {
     /**
      * A valid file identifier for the audio file
      */
-    private String audio_file_id;
+    @Json(name = "audio_file_id") private String audioFileId;
 
     /**
      * Optional. Caption, 0-200 characters
@@ -36,26 +37,26 @@ public class InlineQueryResultCachedAudio extends InlineQueryResult {
 
     /**
      *
-     * @param audio_file_id A valid file identifier for the audio file
+     * @param audioFileId A valid file identifier for the audio file
      */
-    public InlineQueryResultCachedAudio(String audio_file_id) {
+    public InlineQueryResultCachedAudio(String audioFileId) {
         this();
-        this.audio_file_id = audio_file_id;
+        this.audioFileId = audioFileId;
     }
 
     /**
      *
-     * @param audio_file_id A valid file identifier for the audio file
+     * @param audioFileId A valid file identifier for the audio file
      * @param caption Optional. Caption, 0-200 characters
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultCachedAudio(String audio_file_id, String caption, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultCachedAudio(String audioFileId, String caption, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.audio_file_id = audio_file_id;
+        this.audioFileId = audioFileId;
         this.caption = caption;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

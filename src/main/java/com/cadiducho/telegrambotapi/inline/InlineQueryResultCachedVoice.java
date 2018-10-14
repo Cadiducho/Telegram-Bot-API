@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class InlineQueryResultCachedVoice extends InlineQueryResult {
     /**
      * A valid file identifier for the voice message
      */
-    private String voice_file_id;
+    @Json(name = "voice_file_id") private String voiceFileId;
 
     /**
      * Recording title
@@ -41,31 +42,30 @@ public class InlineQueryResultCachedVoice extends InlineQueryResult {
 
     /**
      *
-     * @param voice_file_id A valid file identifier for the voice message
+     * @param voiceFileId A valid file identifier for the voice message
      * @param title Title
      */
-    public InlineQueryResultCachedVoice(String voice_file_id, String title) {
+    public InlineQueryResultCachedVoice(String voiceFileId, String title) {
         this();
-        this.voice_file_id = voice_file_id;
+        this.voiceFileId = voiceFileId;
         this.title = title;
     }
 
     /**
      *
-     * @param voice_file_id A valid file identifier for the voice message
+     * @param voiceFileId A valid file identifier for the voice message
      * @param title Title
      * @param caption Optional. Caption, 0-200 characters
-     * @param performer Optional. Performer
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultCachedVoice(String voice_file_id, String title, String caption, String performer, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultCachedVoice(String voiceFileId, String title, String caption, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.voice_file_id = voice_file_id;
+        this.voiceFileId = voiceFileId;
         this.title = title;
         this.caption = caption;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

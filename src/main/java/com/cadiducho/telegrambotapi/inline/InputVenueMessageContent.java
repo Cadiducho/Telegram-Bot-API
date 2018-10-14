@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,12 +35,12 @@ public class InputVenueMessageContent extends InputMessageContent {
     private String title;
     
     /**
-     * Adress of the veune
+     * Address of the venue
      */
     private String address;
     
     /**
      * 	Optional. Foursquare identifier of the venue, if known
      */
-    private String foursquare_id;
+    @Json(name = "foursquare_id") private String foursquareId;
 }

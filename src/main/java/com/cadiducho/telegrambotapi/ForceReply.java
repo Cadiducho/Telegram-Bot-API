@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class ForceReply {
     /**
      * Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply'
      */
-    private Boolean force_reply;
+    @Json(name = "force_reply") private Boolean forceReply;
     
     /**
      * Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned

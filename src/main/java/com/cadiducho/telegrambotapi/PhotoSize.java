@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,7 +22,7 @@ public class PhotoSize {
     /**
      * Unique identifier for this file
      */
-    private String file_id;
+    @Json(name = "file_id") private String fileId;
 
     /**
      * Photo width
@@ -36,5 +37,5 @@ public class PhotoSize {
     /**
      * Optional. File size
      */
-    private Integer file_size;
+    @Json(name = "file_size") private Integer fileSize;
 }

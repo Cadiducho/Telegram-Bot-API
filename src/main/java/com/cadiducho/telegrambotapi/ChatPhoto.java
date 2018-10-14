@@ -8,6 +8,7 @@
 package com.cadiducho.telegrambotapi;
 
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,11 +23,11 @@ public class ChatPhoto {
     /**
      * Unique file identifier of small (160x160) chat photo. This file_id can be used only for photo download.
      */
-    private String small_file_id;
+    @Json(name = "small_file_id") private String smallFileId;
     
     /**
      * Unique file identifier of big (640x640) chat photo. This file_id can be used only for photo download.
      */
-    private String big_file_id;
+    @Json(name = "big_file_id") private String bigFileId;
     
 }

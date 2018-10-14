@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,12 +29,12 @@ public class InlineQueryResultDocument extends InlineQueryResult {
     /**
      * A valid URL for the file
      */
-    private String document_url;
+    @Json(name = "document_url") private String documentUrl;
     
     /**
      * Mime type of the content of the file, either “application/pdf” or “application/zip”
      */
-    private String mime_type;
+    @Json(name = "mime_type") private String mimeType;
     
     /**
      * Optional. Caption, 0-200 characters
@@ -48,17 +49,17 @@ public class InlineQueryResultDocument extends InlineQueryResult {
     /**
      * Optional. URL of the thumbnail (jpeg only) for the file
      */
-    private String thumb_url;
+    @Json(name = "thumb_url") private String thumbUrl;
     
     /**
      * Optional. Thumbnail width
      */
-    private Integer thumb_width;
+    @Json(name = "thumb_width") private Integer thumbWidth;
     
     /**
      * Optional. Thumbnail height
      */
-    private Integer thumb_height;
+    @Json(name = "thumb_height") private Integer thumbHeight;
 
     public InlineQueryResultDocument() {
         super("document");
@@ -66,44 +67,44 @@ public class InlineQueryResultDocument extends InlineQueryResult {
 
     /**
      *
-     * @param document_url A valid URL for the file
-     * @param mime_type Mime type of the content of the file, either “application/pdf” or “application/zip”
+     * @param documentUrl A valid URL for the file
+     * @param mimeType Mime type of the content of the file, either “application/pdf” or “application/zip”
      * @param title Title for the result
      */
-    public InlineQueryResultDocument(String document_url, String title, String mime_type) {
+    public InlineQueryResultDocument(String documentUrl, String title, String mimeType) {
         this();
-        this.document_url = document_url;
+        this.documentUrl = documentUrl;
         this.title = title;
-        this.mime_type = mime_type;
+        this.mimeType = mimeType;
     }
 
     /**
      *
-     * @param document_url A valid URL for the file
-     * @param mime_type Mime type of the content of the file, either “application/pdf” or “application/zip”
+     * @param documentUrl A valid URL for the file
+     * @param mimeType Mime type of the content of the file, either “application/pdf” or “application/zip”
      * @param title Title for the result
      * @param caption Optional. Caption of the document to be sent, 0-200 characters
      * @param description Optional. Short description of the result
-     * @param thumb_url Optional. URL of the thumbnail (jpeg only) for the file
-     * @param thumb_width Optional. Thumbnail width
-     * @param thumb_height Optional. Thumbnail height
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param thumbUrl Optional. URL of the thumbnail (jpeg only) for the file
+     * @param thumbWidth Optional. Thumbnail width
+     * @param thumbHeight Optional. Thumbnail height
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultDocument(String document_url, String title, String mime_type, String caption, 
-                        String description, String thumb_url, Integer thumb_width, Integer thumb_height, 
-                        InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultDocument(String documentUrl, String title, String mimeType, String caption,
+                        String description, String thumbUrl, Integer thumbWidth, Integer thumbHeight,
+                        InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.document_url = document_url;
+        this.documentUrl = documentUrl;
         this.title = title;
-        this.mime_type = mime_type;
+        this.mimeType = mimeType;
         this.caption = caption;
         this.description = description;
-        this.thumb_url = thumb_url;
-        this.thumb_width = thumb_width;
-        this.thumb_height = thumb_height;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.thumbUrl = thumbUrl;
+        this.thumbWidth = thumbWidth;
+        this.thumbHeight = thumbHeight;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

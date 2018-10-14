@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class InlineQueryResultCachedVideo extends InlineQueryResult {
     /**
      * A valid file identifier for the file
      */
-    private String video_file_id;
+    @Json(name = "video_file_id") private String videoFileId;
 
     /**
      * Title for the result
@@ -41,30 +42,30 @@ public class InlineQueryResultCachedVideo extends InlineQueryResult {
 
     /**
      *
-     * @param video_file_id A valid file identifier for the file
+     * @param videoFileId A valid file identifier for the file
      * @param title Title for the result
      */
-    public InlineQueryResultCachedVideo(String video_file_id, String title) {
+    public InlineQueryResultCachedVideo(String videoFileId, String title) {
         this();
-        this.video_file_id = video_file_id;
+        this.videoFileId = videoFileId;
         this.title = title;
     }
 
     /**
      *
-     * @param video_file_id A valid file identifier for the file
+     * @param videoFileId A valid file identifier for the file
      * @param title Title for the result
      * @param description Optional. Short description of the result
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultCachedVideo(String video_file_id, String title, String description, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultCachedVideo(String videoFileId, String title, String description, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.video_file_id = video_file_id;
+        this.videoFileId = videoFileId;
         this.title = title;
         this.description = description;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

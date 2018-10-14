@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,7 +24,7 @@ public class InlineQueryResultCachedSticker extends InlineQueryResult {
     /**
      * A valid file identifier of the sticker
      */
-    private String sticker_file_id;
+    @Json(name  = "sticker_file_id") private String stickerFileId;
 
     public InlineQueryResultCachedSticker() {
         super("sticker");
@@ -31,23 +32,23 @@ public class InlineQueryResultCachedSticker extends InlineQueryResult {
 
     /**
      *
-     * @param sticker_file_id A valid file identifier of the sticker
+     * @param stickerFileId A valid file identifier of the sticker
      */
-    public InlineQueryResultCachedSticker(String sticker_file_id) {
+    public InlineQueryResultCachedSticker(String stickerFileId) {
         this();
-        this.sticker_file_id = sticker_file_id;
+        this.stickerFileId = stickerFileId;
     }
     
     /**
      *
-     * @param sticker_file_id A valid file identifier of the sticker
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param stickerFileId A valid file identifier of the sticker
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultCachedSticker(String sticker_file_id, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultCachedSticker(String stickerFileId, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.sticker_file_id = sticker_file_id;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.stickerFileId = stickerFileId;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
 }

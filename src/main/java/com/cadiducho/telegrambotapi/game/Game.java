@@ -10,6 +10,8 @@ package com.cadiducho.telegrambotapi.game;
 import com.cadiducho.telegrambotapi.MessageEntity;
 import com.cadiducho.telegrambotapi.PhotoSize;
 import java.util.List;
+
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -46,7 +48,7 @@ public class Game {
     /**
      * Optional. Special entities that appear in text, such as usernames, URLs, bot commands, etc.
      */
-    private List<MessageEntity> text_entities;
+    @Json(name = "text_entities") private List<MessageEntity> textEntities;
     
     /**
      * Optional. Animation that will be displayed in the game message in chats. Upload via BotFather

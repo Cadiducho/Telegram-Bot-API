@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,15 +25,15 @@ public class File {
     /**
      * Unique identifier for this file
      */
-    private String file_id;
+    @Json(name = "file_id") private String fileId;
     
     /**
      * Optional. File size, if known
      */
-    private Integer file_size;
+    @Json(name = "file_size") private Integer fileSize;
     
     /**
      * Optional. File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.
      */
-    private String file_path;
+    @Json(name = "file_path") private String filePath;
 }

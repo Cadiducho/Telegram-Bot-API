@@ -8,6 +8,8 @@
 package com.cadiducho.telegrambotapi.inline;
 
 import java.util.UUID;
+
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -54,12 +56,12 @@ public abstract class InlineQueryResult {
     /**
      * Optional. Inline keyboard attached to the message
      */
-    protected InlineKeyboardMarkup reply_markup;
+    @Json(name = "reply_markup") protected InlineKeyboardMarkup replyMarkup;
     
     /**
      * Optional. Content of the message to be sent instead of the file
      */
-    protected InputMessageContent input_message_content;
+    @Json(name = "input_message_content") protected InputMessageContent inputMessageContent;
 
     public InlineQueryResult(String type) {
         this.type = type;

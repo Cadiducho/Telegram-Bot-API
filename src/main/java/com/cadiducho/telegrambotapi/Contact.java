@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,20 +22,20 @@ public class Contact {
     /**
      * Contact's phone number
      */
-    private String phone_number;
+    @Json(name = "phone_number") private String phoneNumber;
     
     /**
      * Contact's first name
      */
-    private String first_name;
+    @Json(name = "first_name") private String firstName;
     
     /**
      * Optional. Contact's last name
      */
-    private String last_name;
+    @Json(name = "last_name") private String lastName;
     
     /**
      * Optional. Contact's user identifier in Telegram
      */
-    private Integer user_id;
+    @Json(name = "user_id") private Integer userId;
 }

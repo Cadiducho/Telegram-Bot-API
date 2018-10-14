@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,7 +29,7 @@ public class InlineQueryResultCachedDocument extends InlineQueryResult {
     /**
      * A valid file identifier for the file
      */
-    private String document_file_id;
+    @Json(name = "document_file_id") private String documentFileId;
     
     /**
      * Optional. Caption, 0-200 characters
@@ -47,33 +48,33 @@ public class InlineQueryResultCachedDocument extends InlineQueryResult {
 
     /**
      *
-     * @param document_file_id A valid file identifier for the file
+     * @param documentFileId A valid file identifier for the file
      * @param title Title for the result
      */
-    public InlineQueryResultCachedDocument(String document_file_id, String title) {
+    public InlineQueryResultCachedDocument(String documentFileId, String title) {
         this();
-        this.document_file_id = document_file_id;
+        this.documentFileId = documentFileId;
         this.title = title;
     }
 
     /**
      *
-     * @param document_file_id A valid file identifier for the file
+     * @param documentFileId A valid file identifier for the file
      * @param title Title for the result
      * @param caption Optional. Caption of the document to be sent, 0-200 characters
      * @param description Optional. Short description of the result
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultCachedDocument(String document_file_id, String title, String caption, String description, 
-                                            InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultCachedDocument(String documentFileId, String title, String caption, String description,
+                                            InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.document_file_id = document_file_id;
+        this.documentFileId = documentFileId;
         this.title = title;
         this.caption = caption;
         this.description = description;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

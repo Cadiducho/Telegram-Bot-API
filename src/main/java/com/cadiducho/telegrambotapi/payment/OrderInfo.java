@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.payment;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,7 +27,7 @@ public class OrderInfo {
     /**
      * Optional. User's phone number
      */
-    private String phone_number;
+    @Json(name = "phone_number") private String phoneNumber;
     
     /**
      * Optional. User email
@@ -36,6 +37,6 @@ public class OrderInfo {
     /**
      * Optional. User shipping address
      */
-    private ShippingAddress shipping_address;
+    @Json(name = "shipping_address") private ShippingAddress shippingAddress;
     
 }

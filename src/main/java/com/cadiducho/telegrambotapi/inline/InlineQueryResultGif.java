@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,27 +23,27 @@ public class InlineQueryResultGif extends InlineQueryResult {
     /**
      * A valid URL for the GIF file. File size must not exceed 1MB
      */
-    private String gif_url;
+    @Json(name = "gif_url") private String gifUrl;
 
     /**
      * Optional. Width of the GIF
      */
-    private Integer gif_width;
+    @Json(name = "gif_width") private Integer gifWidth;
 
     /**
      * Optional. Height of the GIF
      */
-    private Integer gif_height;
+    @Json(name = "gif_height")  private Integer gifHeight;
     
     /**
      * Optional. Duration of the GIF
      */
-    private Integer gif_duration;
+    @Json(name = "gif_duration") private Integer gifDuration;
 
     /**
      * URL of the static thumbnail for the result (jpeg or gif)
      */
-    private String thumb_url;
+    @Json(name = "thumb_url") private String thumbUrl;
 
     /**
      * Optional. Title for the result
@@ -55,20 +56,10 @@ public class InlineQueryResultGif extends InlineQueryResult {
     private String caption;
 
     /**
-     * Optional. Text of a message to be sent instead of the animation, 1-512 characters
-     */
-    private String message_text;
-
-    /**
      * Optional. Send “Markdown”, if you want Telegram apps to show
      * <a href="https://core.telegram.org/bots/api#using-markdown">bold, italic and inline URLs</a> in your bot's message.
      */
-    private String parse_mode;
-
-    /**
-     * Optional. Disables link previews for links in the sent message
-     */
-    private Boolean disable_web_page_preview;
+    @Json(name = "parse_mode") private String parseMode;
 
     public InlineQueryResultGif() {
         super("gif");
@@ -76,46 +67,41 @@ public class InlineQueryResultGif extends InlineQueryResult {
 
     /**
      *
-     * @param gif_url A valid URL for the GIF file. File size must not exceed 1MB
-     * @param thumb_url URL of the static thumbnail for the result (jpeg or gif)
+     * @param gifUrl A valid URL for the GIF file. File size must not exceed 1MB
+     * @param thumbUrl URL of the static thumbnail for the result (jpeg or gif)
      */
-    public InlineQueryResultGif(String gif_url, String thumb_url) {
+    public InlineQueryResultGif(String gifUrl, String thumbUrl) {
         this();
-        this.gif_url = gif_url;
-        this.thumb_url = thumb_url;
+        this.gifUrl = gifUrl;
+        this.thumbUrl = thumbUrl;
     }
 
     /**
      *
-     * @param gif_url A valid URL for the GIF file. File size must not exceed 1MB
-     * @param thumb_url URL of the static thumbnail for the result (jpeg or gif)
-     * @param gif_width Optional. Width of the GIF
-     * @param gif_height Optional. Height of the GIF
+     * @param gifUrl A valid URL for the GIF file. File size must not exceed 1MB
+     * @param gifWidth Optional. Width of the GIF
+     * @param gifHeight Optional. Height of the GIF
+     * @param thumbUrl URL of the static thumbnail for the result (jpeg or gif)
      * @param title Optional. Title for the result
      * @param caption Optional. Caption of the GIF file to be sent, 0-200 characters
-     * @param message_text Optional. Text of a message to be sent instead of the animation, 1-512 characters
-     * @param parse_mode Optional. Send “Markdown”, if you want Telegram apps to show
+     * @param parseMode Optional. Send “Markdown”, if you want Telegram apps to show
      *                   <a href="https://core.telegram.org/bots/api#using-markdown">bold, italic and inline URLs</a>
      *                   in your bot's message.
-     * @param disable_web_page_preview Optional. Disables link previews for links in the sent message
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultGif(String gif_url, String thumb_url, Integer gif_width, Integer gif_height, String title,
-                                String caption, String message_text, String parse_mode, Boolean disable_web_page_preview,
-                                InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultGif(String gifUrl, Integer gifWidth, Integer gifHeight, String thumbUrl, String title,
+                                String caption, String parseMode, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.gif_url = gif_url;
-        this.gif_width = gif_width;
-        this.gif_height = gif_height;
-        this.thumb_url = thumb_url;
+        this.gifUrl = gifUrl;
+        this.gifWidth = gifWidth;
+        this.gifHeight = gifHeight;
+        this.thumbUrl = thumbUrl;
         this.title = title;
         this.caption = caption;
-        this.message_text = message_text;
-        this.parse_mode = parse_mode;
-        this.disable_web_page_preview = disable_web_page_preview;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.parseMode = parseMode;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }

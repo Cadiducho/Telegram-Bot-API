@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,7 +22,7 @@ public class Video {
     /**
      * Unique identifier for this file
      */
-    private String file_id;
+    @Json(name = "file_id") private String file_id;
     
     /**
      * Video width as defined by sender
@@ -46,11 +47,11 @@ public class Video {
     /**
      * Optional. Mime type of a file as defined by sender
      */
-    private String mime_type;
+    @Json(name = "mime_type") private String mimeType;
     
     /**
      * Optional. File size
      */
-    private Integer file_size;
+    @Json(name = "file_size") Integer fileSize;
 
 }

@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,10 +29,10 @@ public class KeyboardButton {
     /**
      * Optional. If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only
      */
-    private Boolean request_contact;
+    @Json(name = "request_contact") private Boolean requestContact;
     
     /**
      * Optional. If True, the user's current location will be sent when the button is pressed. Available in private chats only
      */
-    private Boolean request_location;
+    @Json(name = "request_location") private Boolean requestLocation;
 }

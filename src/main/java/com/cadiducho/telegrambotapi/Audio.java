@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,7 +22,7 @@ public class Audio {
     /**
      * Unique identifier for this file
      */
-    private String file_id;
+    @Json(name = "file_id") private String fileId;
 
     /**
      * Duration of the audio in seconds as defined by sender
@@ -41,10 +42,10 @@ public class Audio {
     /**
      * Optional. MIME type of the file as defined by sender
      */
-    private String mime_type;
+    @Json(name = "mime_type") private String mimeType;
 
     /**
      * Optional. File size
      */
-    private Integer file_size;
+    @Json(name = "file_size") private Integer fileSize;
 }

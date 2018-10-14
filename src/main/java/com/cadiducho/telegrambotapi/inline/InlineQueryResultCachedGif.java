@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,7 +23,7 @@ public class InlineQueryResultCachedGif extends InlineQueryResult {
     /**
      * A valid URL for the GIF file. File size must not exceed 1MB
      */
-    private String gif_file_id;
+    @Json(name = "gif_file_id") private String gifFileId;
 
     /**
      * Optional. Title for the result
@@ -40,28 +41,28 @@ public class InlineQueryResultCachedGif extends InlineQueryResult {
 
     /**
      *
-     * @param gif_file_id A valid file identifier for the GIF file
+     * @param gifFileId A valid file identifier for the GIF file
      */
-    public InlineQueryResultCachedGif(String gif_file_id) {
+    public InlineQueryResultCachedGif(String gifFileId) {
         this();
-        this.gif_file_id = gif_file_id;
+        this.gifFileId = gifFileId;
     }
 
     /**
      *
-     * @param gif_file_id A valid file identifier for the GIF file
+     * @param gifFileId A valid file identifier for the GIF file
      * @param title Optional. Title for the result
      * @param caption Optional. Caption of the GIF file to be sent, 0-200 characters
-     * @param reply_markup Optional. Inline keyboard attached to the message
-     * @param input_message_content Optional. Content of the message
+     * @param replyMarkup Optional. Inline keyboard attached to the message
+     * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultCachedGif(String gif_file_id,String title, String caption, InlineKeyboardMarkup reply_markup, InputMessageContent input_message_content) {
+    public InlineQueryResultCachedGif(String gifFileId,String title, String caption, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
-        this.gif_file_id = gif_file_id;
+        this.gifFileId = gifFileId;
         this.title = title;
         this.caption = caption;
-        this.reply_markup = reply_markup;
-        this.input_message_content = input_message_content;
+        this.replyMarkup = replyMarkup;
+        this.inputMessageContent = inputMessageContent;
     }
     
 }
