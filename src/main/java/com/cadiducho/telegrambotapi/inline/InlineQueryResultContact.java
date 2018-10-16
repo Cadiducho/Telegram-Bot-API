@@ -34,11 +34,16 @@ public class InlineQueryResultContact extends InlineQueryResult {
      * Optional. Contact's last name
      */
     @Json(name = "last_name") private String lastName;
+
+    /**
+     * Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes
+     */
+    private String vcard;
     
     /**
      * Optional. URL of the thumbnail (jpeg only) for the file
      */
-    @Json(name = "thumbUrl") private String thumbUrl;
+    @Json(name = "thumb_url") private String thumbUrl;
     
     /**
      * Optional. Thumbnail width

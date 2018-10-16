@@ -33,4 +33,9 @@ public class InputContactMessageContent extends InputMessageContent {
      * Optional. Contact's last name
      */
     @Json(name = "last_name") private String lastName;
+
+    /**
+     * Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes
+     */
+    private String vcard;
 }
