@@ -460,7 +460,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address) throws TelegramException {
-        return sendVenue(chat_id, latitude, longitude, title, address, null, false, null, null);
+        return sendVenue(chat_id, latitude, longitude, title, address, null, null, false, null, null);
     }
     
     /**
@@ -471,6 +471,7 @@ public interface BotAPI {
      * @param title Name of the venue
      * @param address Address of the venue
      * @param foursquare_id Foursquare identifier of the venue
+     * @param foursquare_type Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
@@ -478,7 +479,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address, String foursquare_id, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address, String foursquare_id, String foursquare_type, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send phone contacts. On success, the sent {@link Message} is returned.

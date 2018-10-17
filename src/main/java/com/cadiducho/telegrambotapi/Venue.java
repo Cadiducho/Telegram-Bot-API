@@ -18,25 +18,30 @@ import lombok.ToString;
 @ToString
 @Getter @Setter
 public class Venue {
-    
+
     /**
      * Venue location
      */
     private Location location;
-    
+
     /**
      * Name of the venue
      */
     private String title;
-    
+
     /**
      * Address of the venue
      */
     private String address;
-    
+
     /**
      * Optional. Foursquare identifier of the venue
      */
     @Json(name = "foursquare_id") private String foursquareId;
-    
+
+    /**
+     * Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+     */
+    @Json(name = "foursquare_type") private String foursquareType;
+
 }

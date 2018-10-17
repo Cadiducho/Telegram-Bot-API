@@ -43,7 +43,12 @@ public class InlineQueryResultVenue extends InlineQueryResult {
     /**
      * Optional. Foursquare identifier of the venue if known
      */
-    @Json(name = "foursquare_id") private String foursquare_id;
+    @Json(name = "foursquare_id") private String foursquareId;
+
+    /**
+     * Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+     */
+    @Json(name = "foursquare_type") private String foursquareType;
     
     /**
      * Optional. URL of the thumbnail (jpeg only) for the file
@@ -83,7 +88,8 @@ public class InlineQueryResultVenue extends InlineQueryResult {
      *
      * @param title Location title
      * @param address Address of the venue
-     * @param foursquare_id Optional. Foursquare identifier of the venue if known
+     * @param foursquareId Optional. Foursquare identifier of the venue if known
+     * @param foursquareType Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
      * @param latitude Location latitude in degrees
      * @param longitude Location longitude in degrees
      * @param thumbUrl Optional. URL of the thumbnail (jpeg only) for the file
@@ -92,13 +98,14 @@ public class InlineQueryResultVenue extends InlineQueryResult {
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultVenue(String title, String address, String foursquare_id, Float latitude, Float longitude,
+    public InlineQueryResultVenue(String title, String address, String foursquareId, String foursquareType, Float latitude, Float longitude,
                                     String thumbUrl, Integer thumbWidth, Integer thumbHeight,
                                     InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.title = title;
         this.address = address;
-        this.foursquare_id = foursquare_id;
+        this.foursquareId = foursquareId;
+        this.foursquareType = foursquareType;
         this.latitude = latitude;
         this.longitude = longitude;
         this.thumbUrl = thumbUrl;

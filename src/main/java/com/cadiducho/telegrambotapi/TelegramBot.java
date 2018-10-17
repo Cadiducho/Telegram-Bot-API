@@ -359,6 +359,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "title", title);
         safeAdd(parameters, "address", address);
         safeAdd(parameters, "foursquare_id", foursquare_id);
+        safeAdd(parameters, "foursquare_type", foursquare_type);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);
