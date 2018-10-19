@@ -38,4 +38,9 @@ public class Contact {
      * Optional. Contact's user identifier in Telegram
      */
     @Json(name = "user_id") private Integer userId;
+
+    /**
+     * Optional. Additional data about the contact in the form of a vCard
+     */
+    private String vcard;
 }

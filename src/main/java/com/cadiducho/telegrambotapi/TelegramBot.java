@@ -349,7 +349,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address, String foursquare_id, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address, String foursquare_id, String foursquare_type, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -372,7 +372,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, String vcard, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         checkChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -380,6 +380,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "phone_number", phone_number);
         safeAdd(parameters, "first_name", first_name);
         safeAdd(parameters, "last_name", last_name);
+        safeAdd(parameters, "vcard", vcard);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);

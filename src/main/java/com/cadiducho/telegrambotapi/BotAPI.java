@@ -490,7 +490,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendContact(Object chat_id, String phone_number, String first_name)  throws TelegramException {
-        return sendContact(chat_id, phone_number, first_name, null, false, null, null);
+        return sendContact(chat_id, phone_number, first_name, null, null, false, null, null);
     }
     
     /**
@@ -499,6 +499,7 @@ public interface BotAPI {
      * @param phone_number Contact's phone number
      * @param first_name Contact's first name
      * @param last_name Contact's last name
+     * @param vcard Additional data about the contact in the form of a vCard, 0-2048 bytes
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
@@ -506,7 +507,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, String vcard, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method when you need to tell the user that something is happening on the bot's side. 
