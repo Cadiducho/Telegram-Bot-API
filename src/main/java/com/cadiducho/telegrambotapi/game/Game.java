@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.game;
 
+import com.cadiducho.telegrambotapi.Animation;
 import com.cadiducho.telegrambotapi.MessageEntity;
 import com.cadiducho.telegrambotapi.PhotoSize;
 import java.util.List;
