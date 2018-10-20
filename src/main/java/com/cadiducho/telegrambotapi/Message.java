@@ -108,6 +108,11 @@ public class Message {
      * Optional. Message is a general file, information about the file
      */
     private Document document;
+
+    /**
+     * Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+     */
+    private Animation animation;
     
     /**
      * Optional. Message is a game, information about the game. Check https://core.telegram.org/bots/api#games
@@ -230,8 +235,10 @@ public class Message {
     @Json(name = "connected_website") private String connectedWebsite;
     
     /**
-     * Type of message, can be either text, audio, document, photo, sticker, video, contact, location, new_chat_participant
-     *      left_chat_participant, new_chat_photo, delete_chat_photo or group_chat_created
+     * Type of message, can be either text, audio, document, animation, game, photo, sticker, video, video_note, contact,
+     *      location, venue, new_chat_member, left_chat_member, new_chat_tile, new_chat_photo, delete_chat_photo,
+     *      group_chat_created, supergroup_chat_created, channel_chat_created, migrate_to_chat_id, migrate_from_chat_id,
+     *      pinned_message, invoice, successful_payment, connected_website or passport_data
      */
     private Type type;
     
@@ -249,6 +256,7 @@ public class Message {
         if (text != null) type = Type.TEXT;
         else if (audio != null) type = Type.AUDIO;
         else if (document != null) type = Type.DOCUMENT;
+        else if (animation != null) type = Type.ANIMATION;
         else if (game != null) type = Type.GAME;
         else if (photo != null) type = Type.PHOTO;
         else if (sticker != null) type = Type.STICKER;
@@ -282,6 +290,7 @@ public class Message {
         TEXT,
         AUDIO,
         DOCUMENT,
+        ANIMATION,
         GAME,
         PHOTO,
         STICKER,

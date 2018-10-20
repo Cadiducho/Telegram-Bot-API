@@ -51,14 +51,6 @@ public class TelegramBot implements BotAPI {
         updatesPoller = new DefaultBotUpdatesPoller(this);
     }
 
-    @Override
-    public User getMe() throws TelegramException {
-        final Request request = new Request.Builder()
-                .url(apiUrl + "getMe")
-                .build();
-        return handleRequest(request, User.class);
-    }
-
     private <T> T handleRequest(Request request, java.lang.reflect.Type type) throws TelegramException {
         try (Response response = httpClient.newCall(request).execute()) {
             ApiResponse<T> apiResponse = ApiResponse.from(response.body().source(), type);
@@ -82,6 +74,7 @@ public class TelegramBot implements BotAPI {
             }
         }
     }
+
 
     private void safeAdd(MultipartBody.Builder parameters, String str, Object obj) {
         //Check markup style if exists
@@ -114,7 +107,16 @@ public class TelegramBot implements BotAPI {
             throw new IllegalArgumentException("The photo must be a string or a file!");
         }
     }
+
     //----------------
+
+    @Override
+    public User getMe() throws TelegramException {
+        final Request request = new Request.Builder()
+                .url(apiUrl + "getMe")
+                .build();
+        return handleRequest(request, User.class);
+    }
 
     @Override
     public Message sendMessage(Object chat_id, String text, String parse_mode, Boolean disable_web_page_preview, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
@@ -230,6 +232,30 @@ public class TelegramBot implements BotAPI {
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "sendVideo")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Message.class);
+    }
+
+    @Override
+    public Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, String parse_mode, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+        checkChatId(chat_id);
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "chat_id", chat_id);
+        addFile(parameters, "animation", animation, MediaTypes.MEDIA_TYPE_VIDEO);
+        safeAdd(parameters, "duration", duration);
+        safeAdd(parameters, "width", width);
+        safeAdd(parameters, "height", height);
+        safeAdd(parameters, "caption", caption);
+        addFile(parameters, "thumb", thumb, MediaTypes.MEDIA_TYPE_PHOTO);
+        safeAdd(parameters, "parse_mode", parse_mode);
+        safeAdd(parameters, "disable_notification", disable_notification);
+        safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
+        safeAdd(parameters, "reply_markup", reply_markup);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "sendAnimation")
                 .post(parameters.build())
                 .build();
         return handleRequest(request, Message.class);

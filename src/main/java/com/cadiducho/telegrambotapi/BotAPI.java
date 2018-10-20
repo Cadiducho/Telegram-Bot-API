@@ -273,7 +273,7 @@ public interface BotAPI {
      * Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param video Video file to send. You can either pass a file_id as String to resend an audio that is already on the Telegram servers, or upload a new audio file using multipart/form-data.
-     * @param duration Duration of the audio in seconds
+     * @param duration Duration of the video in seconds
      * @param width Video width
      * @param height Video height
      * @param caption Video caption (may also be used when resending videos by file_id), 0-200 characters
@@ -287,7 +287,54 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, String parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
-    
+
+    /**
+     * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).
+     * On success, the sent {@link Message} is returned.
+     * Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param animation Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data.
+     * @return {@link Message}
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Message sendAnimation(Object chat_id, String animation) throws TelegramException {
+        return sendAnimation(chat_id, animation, null, null, null, null, null, null, false, null, null);
+    }
+
+    /**
+     * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).
+     * On success, the sent {@link Message} is returned.
+     * Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param animation Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data.
+     * @return {@link Message}
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default Message sendAnimation(Object chat_id, java.io.File animation) throws TelegramException {
+        return sendAnimation(chat_id, animation, null, null, null, null, null, null, false, null, null);
+    }
+
+    /**
+     * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).
+     * On success, the sent {@link Message} is returned.
+     * Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param animation Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data.
+     * @param duration Duration of the animation in seconds
+     * @param width Animation width
+     * @param height Animation height
+     * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>.
+     * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
+     * @param parse_mode Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param reply_to_message_id If the message is a reply, ID of the original message
+     * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
+     * @return {@link Message}
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, String parse_mode, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. 
      * For this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as {@link Audio} or {@link Document}). 
