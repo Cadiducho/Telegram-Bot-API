@@ -11,6 +11,9 @@ import lombok.Setter;
  * <ul>
  * <li>{@link InputMediaPhoto}</li>
  * <li>{@link InputMediaVideo}</li>
+ * <li>{@link InputMediaAnimation}</li>
+ * <li>{@link InputMediaAudio}</li>
+ * <li>{@link InputMediaDocument}</li>
  * </ul>
  */
 @Getter @Setter
@@ -18,7 +21,7 @@ import lombok.Setter;
 public abstract class InputMedia {
 
     /**
-     * Type of the result, must be photo
+     * Type of the result
      */
     protected String type;
 
@@ -28,7 +31,7 @@ public abstract class InputMedia {
     protected String media;
 
     /**
-     * Optional. Caption of the photo to be sent, 0-200 characters
+     * Optional. Caption of the InputMedia to be sent, 0-200 characters
      */
     protected String caption;
 

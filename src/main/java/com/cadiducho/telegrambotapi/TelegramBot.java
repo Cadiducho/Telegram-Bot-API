@@ -793,6 +793,24 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
+    public Boolean editMessageMedia(Object chat_id, Integer message_id, String inline_message_id, InputMedia media, InlineKeyboardMarkup reply_markup) throws TelegramException {
+        checkChatId(chat_id);
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "message_id", message_id);
+        safeAdd(parameters, "inline_message_id", inline_message_id);
+        safeAdd(parameters, "media", media);
+        safeAdd(parameters, "reply_markup", reply_markup);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "editMessageMedia")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
     public Boolean editMessageReplyMarkup(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
         checkChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);

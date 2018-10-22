@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 3.6
+ * Telegram Bot API version 4.1
  */
 public interface BotAPI {
 
@@ -944,7 +944,23 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers 
      */
     Boolean editMessageCaption(Object chat_id, Integer message_id, String inline_message_id, String caption, InlineKeyboardMarkup reply_markup) throws TelegramException;
-    
+
+    /**
+     * Use this method to edit audio, document, photo, or video messages.
+     * If a message is a part of a message album, then it can be edited only to a photo or a video.
+     * Otherwise, message type can be changed arbitrarily.
+     * When inline message is edited, new file can't be uploaded. Use previously uploaded file via its file_id or specify a URL.
+     * On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
+     * @param chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param message_id Required if inline_message_id is not specified. Identifier of the sent message
+     * @param inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
+     * @param media A JSON-serialized object for a new media content of the message
+     * @param reply_markup A JSON-serialized object for a new inline keyboard.
+     * @return On success, True is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean editMessageMedia(Object chat_id, Integer message_id, String inline_message_id, InputMedia media, InlineKeyboardMarkup reply_markup) throws TelegramException;
+
     /**
      * Use this method to edit only the reply markup of messages sent by the bot or via the bot (for inline bots). 
      * On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
