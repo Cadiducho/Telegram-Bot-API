@@ -160,6 +160,7 @@ public class TelegramBot implements BotAPI {
         checkChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
+        safeAdd(parameters, "chat_id", chat_id);
         safeAdd(parameters, "caption", caption);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
