@@ -24,6 +24,7 @@ public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
     private final TelegramBot bot;
     @Setter private LongPollingHandler handler;
     @Setter private UpdatesSupplier updatesSupplier;
+    @Setter private ExceptionHandler exceptionHandler;
     private ReaderThread readerThread;
     private HandlerThread handlerThread;
     private int lastReceivedUpdate = 0;
@@ -150,6 +151,7 @@ public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
                 exponentialBackOff.reset();
                 return updates;
             } catch (TelegramException ex) {
+                Optional.ofNullable(exceptionHandler).ifPresent(exHandler -> exHandler.handle(ex));
                 return new ArrayList<>();
             }
         }

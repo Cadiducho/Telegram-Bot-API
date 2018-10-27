@@ -6,6 +6,8 @@ public interface BotUpdatesPoller {
 
     void setUpdatesSupplier(UpdatesSupplier supplier);
 
+    void setExceptionHandler(ExceptionHandler exceptionHandler);
+
     /**
      * Starts the bot poller
      */
