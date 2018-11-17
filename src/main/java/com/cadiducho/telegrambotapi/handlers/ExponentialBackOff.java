@@ -164,8 +164,6 @@ public class ExponentialBackOff {
     }
 
     /**
-     * {@inheritDoc}
-     *
      * <p>
      * This method calculates the next back off interval using the formula: randomized_interval =
      * retry_interval +/- (randomization_factor * retry_interval)

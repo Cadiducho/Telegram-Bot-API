@@ -123,10 +123,10 @@ public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
                             if (!running) {
                                 receivedUpdates.clear();
                             }
-                            log.severe(e.getMessage());
+                            //log.severe(e.getMessage());
                             interrupt();
                         } catch (Exception global) {
-                            log.severe(global.getMessage());
+                            //log.severe(global.getMessage());
                             try {
                                 synchronized (lock) {
                                     lock.wait(exponentialBackOff.nextBackOffMillis());
@@ -135,7 +135,7 @@ public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
                                 if (!running) {
                                     receivedUpdates.clear();
                                 }
-                                log.severe(e.getMessage());
+                                //log.severe(e.getMessage());
                                 interrupt();
                             }
                         }

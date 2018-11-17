@@ -36,8 +36,8 @@ public interface BotAPI {
     void stopUpdatesPoller();
 
     /**
-     *
-     * @return
+     * Get the UpdatesPoller instance
+     * @return the updates poller instance
      */
     BotUpdatesPoller getUpdatesPoller();
     
@@ -930,7 +930,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, String parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, String parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
      * Use this method to edit captions of messages sent by the bot or via the bot (for inline bots). 
@@ -943,7 +943,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers 
      */
-    Boolean editMessageCaption(Object chat_id, Integer message_id, String inline_message_id, String caption, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    Message editMessageCaption(Object chat_id, Integer message_id, String inline_message_id, String caption, InlineKeyboardMarkup reply_markup) throws TelegramException;
 
     /**
      * Use this method to edit audio, document, photo, or video messages.
@@ -959,7 +959,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    Boolean editMessageMedia(Object chat_id, Integer message_id, String inline_message_id, InputMedia media, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    Message editMessageMedia(Object chat_id, Integer message_id, String inline_message_id, InputMedia media, InlineKeyboardMarkup reply_markup) throws TelegramException;
 
     /**
      * Use this method to edit only the reply markup of messages sent by the bot or via the bot (for inline bots). 
@@ -971,7 +971,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers 
      */
-    Boolean editMessageReplyMarkup(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    Message editMessageReplyMarkup(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
      * Use this method to delete a message. A message can only be deleted if it was sent less than 48 hours ago. Any such recently sent outgoing message may be deleted.

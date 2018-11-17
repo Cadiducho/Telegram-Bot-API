@@ -25,6 +25,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class TelegramBot implements BotAPI {
 
@@ -53,7 +54,7 @@ public class TelegramBot implements BotAPI {
 
     private <T> T handleRequest(Request request, java.lang.reflect.Type type) throws TelegramException {
         try (Response response = httpClient.newCall(request).execute()) {
-            ApiResponse<T> apiResponse = ApiResponse.from(response.body().source(), type);
+            ApiResponse<T> apiResponse = ApiResponse.from(Objects.requireNonNull(response.body()).source(), type);
             if (apiResponse.getOk()) {
                 return apiResponse.getResult();
             } else {
@@ -89,6 +90,8 @@ public class TelegramBot implements BotAPI {
                         ReplyKeyboardMarkup.class.getName() + ", " +
                         InlineKeyboardMarkup.class.getName() + ", " +
                         ForceReply.class.getName());
+
+            //noinspection unchecked
             parameters.addFormDataPart("reply_markup", adapter.toJson(obj));
             return;
         }
@@ -756,7 +759,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, String parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException {
+    public Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, String parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException {
         checkChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -772,11 +775,11 @@ public class TelegramBot implements BotAPI {
                 .url(apiUrl + "editMessageText")
                 .post(parameters.build())
                 .build();
-        return handleRequest(request, Boolean.class);
+        return handleRequest(request, Message.class);
     }
 
     @Override
-    public Boolean editMessageCaption(Object chat_id, Integer message_id, String inline_message_id, String caption, InlineKeyboardMarkup reply_markup) throws TelegramException {
+    public Message editMessageCaption(Object chat_id, Integer message_id, String inline_message_id, String caption, InlineKeyboardMarkup reply_markup) throws TelegramException {
         checkChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -790,11 +793,11 @@ public class TelegramBot implements BotAPI {
                 .url(apiUrl + "editMessageCaption")
                 .post(parameters.build())
                 .build();
-        return handleRequest(request, Boolean.class);
+        return handleRequest(request, Message.class);
     }
 
     @Override
-    public Boolean editMessageMedia(Object chat_id, Integer message_id, String inline_message_id, InputMedia media, InlineKeyboardMarkup reply_markup) throws TelegramException {
+    public Message editMessageMedia(Object chat_id, Integer message_id, String inline_message_id, InputMedia media, InlineKeyboardMarkup reply_markup) throws TelegramException {
         checkChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -808,11 +811,11 @@ public class TelegramBot implements BotAPI {
                 .url(apiUrl + "editMessageMedia")
                 .post(parameters.build())
                 .build();
-        return handleRequest(request, Boolean.class);
+        return handleRequest(request, Message.class);
     }
 
     @Override
-    public Boolean editMessageReplyMarkup(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
+    public Message editMessageReplyMarkup(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
         checkChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -825,7 +828,7 @@ public class TelegramBot implements BotAPI {
                 .url(apiUrl + "editMessageReplyMarkup")
                 .post(parameters.build())
                 .build();
-        return handleRequest(request, Boolean.class);
+        return handleRequest(request, Message.class);
     }
 
     @Override
