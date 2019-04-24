@@ -117,6 +117,11 @@ public class ChatMember {
     @Json(name = "can_promote_members") private Boolean canPromoteMembers;
 
     /**
+     * Optional. Restricted only. True, if the user is a member of the chat at the moment of the request
+     */
+    @Json(name = "is_member") private Boolean isMember;
+    
+    /**
      * Optional. Restricted only. True, if the user can send text messages, contacts, locations and venues
      */
     @Json(name = "can_send_messages") private Boolean canSendMessages;

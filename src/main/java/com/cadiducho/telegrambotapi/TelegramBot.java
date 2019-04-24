@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2019 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -49,7 +49,7 @@ public class TelegramBot implements BotAPI {
     public TelegramBot(String token){
         instance = this;
         apiUrl = "https://api.telegram.org/bot" + token + "/";
-        updatesPoller = new DefaultBotUpdatesPoller(this);
+        updatesPoller = new DefaultBotUpdatesPoller(instance);
     }
 
     private <T> T handleRequest(Request request, java.lang.reflect.Type type) throws TelegramException {
@@ -65,15 +65,26 @@ public class TelegramBot implements BotAPI {
         }
     }
 
-    private void checkChatId(Object chatId) {
-        if (chatId != null) {
-            if (!(  chatId instanceof String ||
-                    chatId instanceof Integer ||
-                    chatId instanceof Long)){
-
-                throw new IllegalStateException("The chatId must be a String or a Number!");
-            }
+    
+    private Object getSafeChatId(Object rawChatId) {
+        if (rawChatId == null) {
+            throw new IllegalArgumentException ("The chatId must be a String, a Number, a Chat, a User or a ChatMember!");
         }
+        
+        Object safeChatId;
+        if (rawChatId instanceof Chat) {
+            safeChatId = ((Chat) rawChatId).getId();
+        } else if (rawChatId instanceof User) {
+            safeChatId = ((User) rawChatId).getId();
+        } else if (rawChatId instanceof ChatMember) {
+            safeChatId = ((ChatMember) rawChatId).getUser().getId();
+        } else if (rawChatId instanceof String || rawChatId instanceof Number) {
+            safeChatId = rawChatId;
+        } else {
+            throw new IllegalArgumentException ("The chatId must be a String, a Number, a Chat, a User or a ChatMember!");
+        }
+        
+        return safeChatId;
     }
 
 
@@ -85,7 +96,7 @@ public class TelegramBot implements BotAPI {
             else if (obj instanceof ReplyKeyboardMarkup) adapter = moshi.adapter(ReplyKeyboardMarkup.class);
             else if (obj instanceof InlineKeyboardMarkup) adapter = moshi.adapter(InlineKeyboardMarkup.class);
             else if (obj instanceof ForceReply) adapter = moshi.adapter(ForceReply.class);
-            else throw new IllegalStateException("The replyMarkup must be on of the following classes: " +
+            else throw new IllegalArgumentException ("The replyMarkup must be on of the following classes: " +
                         ReplyKeyboardRemove.class.getName() + ", " +
                         ReplyKeyboardMarkup.class.getName() + ", " +
                         InlineKeyboardMarkup.class.getName() + ", " +
@@ -123,10 +134,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendMessage(Object chat_id, String text, String parse_mode, Boolean disable_web_page_preview, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "text", text);
         safeAdd(parameters, "parse_mode", parse_mode);
         safeAdd(parameters, "disableWebPagePreview", disable_web_page_preview);
@@ -143,10 +154,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message forwardMessage(Object chat_id, Integer from_chat_id, Boolean disable_notification, Integer message_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "from_chat_id", from_chat_id);
         safeAdd(parameters, "message_id", message_id);
@@ -160,10 +171,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendPhoto(Object chat_id, Object photo, String caption, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "caption", caption);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -179,10 +190,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendAudio(Object chat_id, Object audio, String caption, Integer duration, String performer, String title, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "caption", caption);
         safeAdd(parameters, "duration", duration);
         safeAdd(parameters, "performer", performer);
@@ -201,10 +212,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendDocument(Object chat_id, Object document, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
         
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);
@@ -219,10 +230,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, String parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "duration", duration);
         safeAdd(parameters, "width", width);
         safeAdd(parameters, "height", height);
@@ -243,10 +254,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, String parse_mode, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         addFile(parameters, "animation", animation, MediaTypes.MEDIA_TYPE_VIDEO);
         safeAdd(parameters, "duration", duration);
         safeAdd(parameters, "width", width);
@@ -267,10 +278,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendVoice(Object chat_id, Object voice, String caption, Integer duration, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "caption", caption);
         safeAdd(parameters, "duration", duration);
         safeAdd(parameters, "disable_notification", disable_notification);
@@ -287,10 +298,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendMediaGroup(Object chat_id, List<InputMedia> media, Boolean disable_notification, Integer reply_to_message_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "media", moshi.adapter(Types.newParameterizedType(List.class, InputMedia.class)).toJson(media));
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -304,10 +315,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendLocation(Object chat_id, Float latitude, Float longitude, Integer live_period, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "latitude", latitude);
         safeAdd(parameters, "longitude", longitude);
         safeAdd(parameters, "live_period", live_period);
@@ -324,10 +335,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Object editMessageLiveLocation(Object chat_id, Integer message_id, String inline_message_id, Float latitude, Float longitude, InlineKeyboardMarkup reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
         safeAdd(parameters, "latitude", latitude);
@@ -343,10 +354,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Object stopMessageLiveLocation(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);
@@ -360,10 +371,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendVideoNote(Object chat_id, Object video_note, Integer duration, Integer length, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "duration", duration);
         safeAdd(parameters, "length ", length);
         safeAdd(parameters, "disable_notification", disable_notification);
@@ -380,10 +391,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address, String foursquare_id, String foursquare_type, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "latitude", latitude);
         safeAdd(parameters, "longitude", longitude);
         safeAdd(parameters, "title", title);
@@ -403,10 +414,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, String vcard, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "phone_number", phone_number);
         safeAdd(parameters, "first_name", first_name);
         safeAdd(parameters, "last_name", last_name);
@@ -423,11 +434,30 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean sendChatAction(Object chat_id, String action) throws TelegramException {
-        checkChatId(chat_id);
+    public Message sendPoll(Object chat_id, String question, List<String> options, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "question", question);
+        safeAdd(parameters, "options", moshi.adapter(Types.newParameterizedType(List.class, String.class)).toJson(options));
+        safeAdd(parameters, "disable_notification", disable_notification);
+        safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
+        safeAdd(parameters, "reply_markup", reply_markup);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "sendPoll")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Message.class);
+    }
+    
+    @Override
+    public Boolean sendChatAction(Object chat_id, String action) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "action", action);
 
         final Request request = new Request.Builder()
@@ -467,10 +497,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean kickChatMember(Object chat_id, Integer user_id, Integer until_date) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "user_id", user_id);
         safeAdd(parameters, "until_date", until_date);
 
@@ -483,10 +513,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean restrictChatMember(Object chat_id, Integer user_id, Integer until_date, Boolean can_send_messages, Boolean can_send_media_messages, Boolean can_send_other_messages, Boolean can_add_web_page_previews) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "user_id", user_id);
         safeAdd(parameters, "until_date", until_date);
         safeAdd(parameters, "can_send_messages", can_send_messages);
@@ -503,10 +533,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean promoteChatMember(Object chat_id, Integer user_id, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages, Boolean can_delete_messages, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "user_id", user_id);
         safeAdd(parameters, "can_change_info", can_change_info);
         safeAdd(parameters, "can_post_messages", can_post_messages);
@@ -526,10 +556,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public String exportChatInviteLink(Object chat_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "exportChatInviteLink")
@@ -540,10 +570,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean setChatPhoto(Object chat_id, java.io.File photo) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "setChatPhoto")
@@ -554,10 +584,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean deleteChatPhoto(Object chat_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "deleteChatPhoto")
@@ -568,10 +598,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean setChatTitle(Object chat_id, String title) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "title", title);
 
         final Request request = new Request.Builder()
@@ -583,10 +613,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean setChatDescription(Object chat_id, String description) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "description", description);
 
         final Request request = new Request.Builder()
@@ -598,10 +628,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean pinChatMessage(Object chat_id, Integer message_id, Boolean disable_notification) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "disable_notification", disable_notification);
 
@@ -614,10 +644,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean unpinChatMessage(Object chat_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "unpinChatMessage")
@@ -628,10 +658,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean leaveChat(Object chat_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "leaveChat")
@@ -642,10 +672,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean unbanChatMember(Object chat_id, Integer user_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "user_id", user_id);
 
         final Request request = new Request.Builder()
@@ -657,10 +687,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Chat getChat(Object chat_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "getChat")
@@ -671,10 +701,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public List<ChatMember> getChatAdministrators(Object chat_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "getChatAdministrators")
@@ -685,10 +715,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Integer getChatMembersCount(Object chat_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "getChatMembersCount")
@@ -699,10 +729,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public ChatMember getChatMember(Object chat_id, Integer user_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "user_id", user_id);
 
         final Request request = new Request.Builder()
@@ -714,10 +744,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean setChatStickerSet(Object chat_id, String sticker_set_name) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "sticker_set_name", sticker_set_name);
 
         final Request request = new Request.Builder()
@@ -729,10 +759,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean deleteChatStickerSet(Object chat_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "deleteChatStickerSet")
@@ -760,10 +790,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, String parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
         safeAdd(parameters, "text", text);
@@ -780,10 +810,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message editMessageCaption(Object chat_id, Integer message_id, String inline_message_id, String caption, InlineKeyboardMarkup reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "caption", caption);
         safeAdd(parameters, "inline_message_id", inline_message_id);
@@ -798,10 +828,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message editMessageMedia(Object chat_id, Integer message_id, String inline_message_id, InputMedia media, InlineKeyboardMarkup reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
         safeAdd(parameters, "media", media);
@@ -816,10 +846,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message editMessageReplyMarkup(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);
@@ -830,14 +860,31 @@ public class TelegramBot implements BotAPI {
                 .build();
         return handleRequest(request, Message.class);
     }
-
+    
     @Override
-    public Boolean deleteMessage(Object chat_id, Integer message_id) throws TelegramException {
-        checkChatId(chat_id);
+    public Poll stopPoll(Object chat_id, Integer message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
 
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "message_id", message_id);
+        safeAdd(parameters, "reply_markup", reply_markup);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "stopPoll")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Poll.class);
+    }
+    
+    @Override
+    public Boolean deleteMessage(Object chat_id, Integer message_id) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
 
         final Request request = new Request.Builder()
@@ -897,10 +944,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendSticker(Object chat_id, Object sticker, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);
@@ -1021,10 +1068,10 @@ public class TelegramBot implements BotAPI {
             List<LabeledPrice> prices, String provider_data, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height, Boolean need_name, Boolean need_phone_number,
             Boolean need_email, Boolean need_shipping_address, Boolean send_phone_number_to_provider, Boolean send_email_to_provider, Boolean is_flexible, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
 
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
 
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "title", title);
         safeAdd(parameters, "description", description);
         safeAdd(parameters, "payload", payload);
@@ -1085,10 +1132,10 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendGame(Object chat_id, String game_short_name, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "game_short_name", game_short_name);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -1103,14 +1150,14 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message setGameScore(Integer user_id, Integer score, Boolean force, Boolean disable_edit_message, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "user_id", user_id);
         safeAdd(parameters, "score", score);
         safeAdd(parameters, "force", force);
         safeAdd(parameters, "disable_edit_message", disable_edit_message);
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
 
@@ -1123,11 +1170,11 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public List<GameHighScore> getGameHighScores(Integer user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException {
-        checkChatId(chat_id);
+        Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "user_id", user_id);
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
 

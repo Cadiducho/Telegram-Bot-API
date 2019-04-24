@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2019 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -323,7 +323,7 @@ public interface BotAPI {
      * @param duration Duration of the animation in seconds
      * @param width Animation width
      * @param height Animation height
-     * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>.
+     * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://\<file_attach_name\>” if the thumbnail was uploaded using multipart/form-data under \<file_attach_name\>.
      * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
      * @param parse_mode Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
@@ -555,6 +555,33 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, String vcard, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    
+    /**
+     * Use this method to send a native poll. A native poll can't be sent to a private chat. On success, the sent {@link Message} is returned.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername). A native poll can't be sent to a private chat.
+     * @param question Poll question, 1-255 characters
+     * @param options List of answer options, 2-10 strings 1-100 characters each
+     * @return {@link Message}
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    default Message sendPoll(Object chat_id, String question, List<String> options) throws TelegramException {
+        return sendPoll(chat_id, question, options, null, null, null);
+    }
+    
+    
+    /**
+     * Use this method to send a native poll. A native poll can't be sent to a private chat. On success, the sent {@link Message} is returned.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername). A native poll can't be sent to a private chat.
+     * @param question Poll question, 1-255 characters
+     * @param options List of answer options, 2-10 strings 1-100 characters each
+     * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
+     * @param reply_to_message_id If the message is a reply, ID of the original message
+     * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
+     *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
+     * @return {@link Message}
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Message sendPoll(Object chat_id, String question, List<String> options, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method when you need to tell the user that something is happening on the bot's side. 
@@ -802,8 +829,8 @@ public interface BotAPI {
     Boolean setChatDescription(Object chat_id, String description) throws TelegramException;
 
     /**
-     * Use this method to pin a message in a supergroup. 
-     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * Use this method to pin a message in a group, a supergroup, or a channel. 
+     * The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param message_id Identifier of a message to pin
      * @return On success, True is returned.
@@ -825,8 +852,8 @@ public interface BotAPI {
     Boolean pinChatMessage(Object chat_id, Integer message_id, Boolean disable_notification) throws TelegramException;
 
     /**
-     * Use this method to unpin a message in a supergroup chat.
-     * The bot must be an administrator in the chat for this to work and must have the appropriate admin rights.
+     * Use this method to unpin a message in a group, a supergroup, or a channel.
+     * The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
@@ -974,10 +1001,35 @@ public interface BotAPI {
     Message editMessageReplyMarkup(Object chat_id, Integer message_id, String inline_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
-     * Use this method to delete a message. A message can only be deleted if it was sent less than 48 hours ago. Any such recently sent outgoing message may be deleted.
-     * Additionally, if the bot is an administrator in a group chat, it can delete any message.
-     * If the bot is an administrator in a supergroup, it can delete messages from any other user and service messages about people joining or leaving the group (other types of service messages may only be removed by the group creator).
-     * In channels, bots can only remove their own messages.
+     * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param message_id Identifier of the original message with the poll
+     * @return {@link Poll}
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    default Poll stopPoll(Object chat_id, Integer message_id) throws TelegramException {
+        return stopPoll(chat_id, message_id, null);
+    }
+    
+   
+    /**
+     * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param message_id Identifier of the original message with the poll
+     * @param reply_markup Optional. A JSON-serialized object for a new message inline keyboard.
+     * @return {@link Poll}
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Poll stopPoll(Object chat_id, Integer message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
+
+    /**
+     * Use this method to delete a message, including service messages, with the following limitations:
+     * - A message can only be deleted if it was sent less than 48 hours ago.
+     * - Bots can delete outgoing messages in private chats, groups, and supergroups.
+     * - Bots can delete incoming messages in private chats.
+     * - Bots granted can_post_messages permissions can delete outgoing messages in channels.
+     * - If the bot is an administrator of a group, it can delete any message there.
+     * - If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.
      * @param chat_id Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param message_id Required if inline_message_id is not specified. Unique identifier of the sent message
      * @return On success, True is returned.

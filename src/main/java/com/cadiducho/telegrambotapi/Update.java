@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2019 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -74,5 +74,10 @@ public class Update {
      * Optional. New incoming pre-checkout query. Contains full information about checkout
      */
     @Json(name = "pre_checkout_query") private PreCheckoutQuery preCheckoutQuery;
+    
+    /**
+     * Optional. New poll state. Bots receive only updates about polls, which are sent or stopped by the bot
+     */
+    private Poll poll;
     
 }

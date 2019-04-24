@@ -1,27 +1,30 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2019 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 package com.cadiducho.telegrambotapi.handlers;
 
-import com.cadiducho.telegrambotapi.TelegramBot;
+import com.cadiducho.telegrambotapi.BotAPI;
 import com.cadiducho.telegrambotapi.Update;
 import com.cadiducho.telegrambotapi.exception.TelegramException;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import lombok.RequiredArgsConstructor;
 
 @Log
+@RequiredArgsConstructor
 public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
 
-    private final TelegramBot bot;
+    private final BotAPI bot;
     @Setter private LongPollingHandler handler;
     @Setter private UpdatesSupplier updatesSupplier;
     @Setter private ExceptionHandler exceptionHandler;
@@ -32,10 +35,6 @@ public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
 
     private final ConcurrentLinkedDeque<Update> receivedUpdates = new ConcurrentLinkedDeque<>();
     
-    public DefaultBotUpdatesPoller(TelegramBot instance) {
-        bot = instance;
-    }
-
     @Override
     public synchronized void start() {
         if (running) {
@@ -185,10 +184,12 @@ public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
                     }
                     updates.forEach(handler::handleUpdate);
                 } catch (InterruptedException e) {
-                    log.severe(e.getMessage());
+                    log.severe("Procesamiendo de una update interrumpida: ");
+                    log.severe(Arrays.toString(e.getStackTrace()));
                     interrupt();
                 } catch (Exception e) {
-                    log.severe(e.getMessage());
+                    log.severe("Error procesando una update: ");
+                    log.severe(Arrays.toString(e.getStackTrace()));
                 }
             }
             log.info("Handler thread has being closed");

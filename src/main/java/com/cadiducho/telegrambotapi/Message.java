@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2019 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -63,6 +63,11 @@ public class Message {
      * Optional. For messages forwarded from channels, signature of the post author if present
      */
     @Json(name = "forward_signature") private String forwardSignature;
+    
+    /**
+     * Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
+     */
+    @Json(name = "forward_sender_name") private String forwardSenderName;
     
     /**
      * Optional. For forwarded messages, date the original message was sent in Unix time
@@ -160,9 +165,14 @@ public class Message {
     private Location location;
     
     /**
-     * 	Optional. Message is a venue, information about the venue
+     * Optional. Message is a venue, information about the venue
      */
     private Venue venue;
+    
+    /**
+     * Optional. Message is a native poll, information about the poll
+     */
+    private Poll poll;
     
     /**
      * Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
