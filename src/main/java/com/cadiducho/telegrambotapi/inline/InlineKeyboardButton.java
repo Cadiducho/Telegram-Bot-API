@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.cadiducho.telegrambotapi.LoginUrl;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,11 @@ public class InlineKeyboardButton {
      * Optional. HTTP url to be opened when button is pressed
      */
     private String url;
+
+    /**
+     * Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget.
+     */
+    @Json(name = "login_url") private LoginUrl loginUrl;
     
     /**
      * 	Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes

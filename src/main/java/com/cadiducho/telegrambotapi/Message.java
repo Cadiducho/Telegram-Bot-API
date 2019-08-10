@@ -8,6 +8,7 @@
 package com.cadiducho.telegrambotapi;
 
 import com.cadiducho.telegrambotapi.game.Game;
+import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.payment.Invoice;
 import com.cadiducho.telegrambotapi.payment.SuccessfulPayment;
 import java.util.List;
@@ -243,7 +244,12 @@ public class Message {
      * Optional. The domain name of the website on which the user has logged in. See https://core.telegram.org/widgets/login
      */
     @Json(name = "connected_website") private String connectedWebsite;
-    
+
+    /**
+     * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
+     */
+    @Json(name = "reply_markup") private InlineKeyboardMarkup replyMarkup;
+
     /**
      * Type of message, can be either text, audio, document, animation, game, photo, sticker, video, video_note, contact,
      *      location, venue, new_chat_member, left_chat_member, new_chat_tile, new_chat_photo, delete_chat_photo,
