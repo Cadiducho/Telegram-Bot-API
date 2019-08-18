@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2019 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -131,6 +131,11 @@ public class ChatMember {
      */
     @Json(name = "can_send_media_messages") private Boolean canSendMediaMessages;
 
+    /**
+     * Optional. Restricted only. True, if the user is allowed to send polls
+     */
+    @Json(name = "can_send_polls") private Boolean canSendPolls;
+    
     /**
      * Optional. Restricted only. True, if the user can send animations, games, stickers and use inline bots, implies can_send_media_messages
      */
