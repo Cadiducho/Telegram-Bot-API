@@ -1101,7 +1101,7 @@ public interface BotAPI {
     Boolean deleteWebhook() throws TelegramException;
     
     /**
-     * Use this method to send .webp stickers. On success, the sent {@link Message} is returned.
+     * Use this method to send static .WEBP or animated .TGS stickers. On success, the sent {@link Message} is returned.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param sticker Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, 
      *                  or upload a new sticker using multipart/form-data.
@@ -1113,7 +1113,7 @@ public interface BotAPI {
     }
     
     /**
-     * Use this method to send .webp stickers. On success, the sent {@link Message} is returned.
+     * Use this method to send static .WEBP or animated .TGS stickers. On success, the sent {@link Message} is returned.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param sticker Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, 
      *                  or upload a new sticker using multipart/form-data.
@@ -1125,7 +1125,7 @@ public interface BotAPI {
     }
     
     /**
-     * Use this method to send .webp stickers. On success, the sent {@link Message} is returned.
+     * Use this method to send static .WEBP or animated .TGS stickers. On success, the sent {@link Message} is returned.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param sticker Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, 
      *                  or upload a new sticker using multipart/form-data.

@@ -35,6 +35,12 @@ public class Sticker {
     private Integer height;
     
     /**
+     * True, if the sticker is animated. 
+     * See {@link https://telegram.org/blog/animated-stickers}
+     */
+    @Json(name = "is_animated") private Boolean isAnimated;
+    
+    /**
      * Optional. Sticker thumbnail in .webp or .jpg format
      */
     private PhotoSize thumb;

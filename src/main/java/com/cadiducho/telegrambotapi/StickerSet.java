@@ -32,6 +32,12 @@ public class StickerSet {
     private String title;
     
     /**
+     * True, if the sticker set contains animated stickers
+     * See {@link https://telegram.org/blog/animated-stickers}
+     */
+    @Json(name = "is_animated") private Boolean isAnimated;
+    
+    /**
      * True, if the sticker set contains masks
      */
     @Json(name  = "contains_masks") private Boolean containsMasks;
