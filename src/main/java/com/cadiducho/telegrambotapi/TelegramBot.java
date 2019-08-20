@@ -512,17 +512,14 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean restrictChatMember(Object chat_id, Integer user_id, Integer until_date, Boolean can_send_messages, Boolean can_send_media_messages, Boolean can_send_other_messages, Boolean can_add_web_page_previews) throws TelegramException {
+    public Boolean restrictChatMember(Object chat_id, Integer user_id, ChatPermissions permissions, Integer until_date) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "user_id", user_id);
+        safeAdd(parameters, "permissions", permissions);
         safeAdd(parameters, "until_date", until_date);
-        safeAdd(parameters, "can_send_messages", can_send_messages);
-        safeAdd(parameters, "can_send_media_messages", can_send_media_messages);
-        safeAdd(parameters, "can_send_other_messages", can_send_other_messages);
-        safeAdd(parameters, "can_add_web_page_previews", can_add_web_page_previews);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "restrictChatMember")
@@ -554,6 +551,21 @@ public class TelegramBot implements BotAPI {
         return handleRequest(request, Boolean.class);
     }
 
+    @Override
+    public Boolean setChatPermissions(Object chat_id, ChatPermissions permissions) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "permissions", permissions);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setChatPermissions")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+    
     @Override
     public String exportChatInviteLink(Object chat_id) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);

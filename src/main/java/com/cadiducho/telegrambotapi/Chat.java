@@ -52,11 +52,6 @@ public class Chat {
     @Json(name = "last_name") private String lastName;
     
     /**
-     * Optional. True if a group has ‘All Members Are Admins’ enabled.
-     */
-    @Json(name = "all_members_are_administrators") private Boolean allMembersAreAdministrators;
-    
-    /**
      * Optional. Chat photo. Returned only in getChat.
      */
     private ChatPhoto photo;
@@ -75,6 +70,11 @@ public class Chat {
      * Optional. Pinned message, for supergroups. Returned only in getChat.
      */
     @Json(name = "pinned_message") private Message pinnedMessage;
+    
+    /**
+     * Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
+     */
+    private ChatPermissions permissions;
     
     /**
      * Optional. For supergroups, name of group sticker set. Returned only in getChat.
