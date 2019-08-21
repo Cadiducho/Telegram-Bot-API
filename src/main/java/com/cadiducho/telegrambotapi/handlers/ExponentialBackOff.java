@@ -172,6 +172,7 @@ public class ExponentialBackOff {
      * <p>
      * Subclasses may override if a different algorithm is required.
      * </p>
+     * @return next back off millis
      */
     public long nextBackOffMillis() {
         // Make sure we have not gone over the maximum elapsed time.
@@ -200,7 +201,10 @@ public class ExponentialBackOff {
         return randomValue;
     }
 
-    /** Returns the initial retry interval in milliseconds. */
+    /**
+     * Returns the initial retry interval in milliseconds.
+     * @return the initial retry interval in milliseconds.
+     */
     public final int getInitialIntervalMillis() {
         return initialIntervalMillis;
     }
@@ -212,6 +216,7 @@ public class ExponentialBackOff {
      * A randomization factor of 0.5 results in a random period ranging between 50% below and 50%
      * above the retry interval.
      * </p>
+     * @return the randomization factor
      */
     public final double getRandomizationFactor() {
         return randomizationFactor;
@@ -219,6 +224,7 @@ public class ExponentialBackOff {
 
     /**
      * Returns the current retry interval in milliseconds.
+     * @return the current retry interval in milliseconds.
      */
     public final int getCurrentIntervalMillis() {
         return currentIntervalMillis;
@@ -226,14 +232,16 @@ public class ExponentialBackOff {
 
     /**
      * Returns the value to multiply the current interval with for each retry attempt.
+     * @return the value to multiply the current interval
      */
     public final double getMultiplier() {
         return multiplier;
     }
 
     /**
-     * Returns the maximum value of the back off period in milliseconds. Once the current interval
-     * reaches this value it stops increasing.
+     * Returns the maximum value of the back off period in milliseconds.
+     * Once the current interval reaches this value it stops increasing.
+     * @return the maximum value of the back off period in milliseconds
      */
     public final int getMaxIntervalMillis() {
         return maxIntervalMillis;
@@ -247,6 +255,7 @@ public class ExponentialBackOff {
      * max_elapsed_time then the method {@link #nextBackOffMillis()} starts returning
      * this value. The elapsed time can be reset by calling {@link #reset()}.
      * </p>
+     * @return the maximum elapsed time in milliseconds
      */
     public final int getMaxElapsedTimeMillis() {
         return maxElapsedTimeMillis;
@@ -259,6 +268,7 @@ public class ExponentialBackOff {
      * <p>
      * The elapsed time is computed using {@link System#nanoTime()}.
      * </p>
+     * @return the elapsed time in milliseconds
      */
     public final long getElapsedTimeMillis() {
         return (nanoTime() - startTimeNanos) / 1000000;

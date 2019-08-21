@@ -323,7 +323,7 @@ public interface BotAPI {
      * @param duration Duration of the animation in seconds
      * @param width Animation width
      * @param height Animation height
-     * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://\<file_attach_name\>” if the thumbnail was uploaded using multipart/form-data under \<file_attach_name\>.
+     * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;.
      * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
      * @param parse_mode Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
@@ -764,8 +764,8 @@ public interface BotAPI {
      * The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights.
      * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param permissions New default chat permissions
-     * @return
-     * @throws TelegramException 
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     Boolean setChatPermissions(Object chat_id, ChatPermissions permissions) throws TelegramException;
     
