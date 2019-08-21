@@ -1,6 +1,6 @@
 Simple Telegram Bot API implementation to Java 
 ========================================
-> This API is a unofficial one. Check [Telegram Bot API](https://core.telegram.org/bots) for more info.
+> This API is an unofficial one. Check [Telegram Bot API](https://core.telegram.org/bots) for more info.
 
 <p align="center">
     <a href="https://github.com/Cadiducho/Telegram-Bot-API/commits/master"><img src="https://img.shields.io/github/release/Cadiducho/Telegram-Bot-API.svg" alt="Project Version" /></a>
@@ -48,7 +48,7 @@ If you want use Telegram Bot API as a Maven Dependency simply add repo and artif
 <dependency>
     <groupId>com.cadiducho</groupId>
     <artifactId>TelegramBotAPI</artifactId>
-    <version>4.1.1</version>
+    <version>4.4</version>
 </dependency>
 ```
 
