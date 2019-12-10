@@ -22,7 +22,7 @@ public class Video {
     /**
      * Unique identifier for this file
      */
-    @Json(name = "file_id") private String file_id;
+    @Json(name = "file_id") private String fileId;
     
     /**
      * Video width as defined by sender
