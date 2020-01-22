@@ -115,10 +115,10 @@ public class TelegramBot implements BotAPI {
         if (obj instanceof String) {
             parameters.addFormDataPart(name, obj.toString());
         } else if (obj instanceof java.io.File) {
-            java.io.File fPhoto = (java.io.File) obj;
-            parameters.addFormDataPart("photo", fPhoto.getName(), RequestBody.create(type, fPhoto));
+            java.io.File fFile = (java.io.File) obj;
+            parameters.addFormDataPart(name, fFile.getName(), RequestBody.create(fFile, type));
         } else {
-            throw new IllegalArgumentException("The photo must be a string or a file!");
+            throw new IllegalArgumentException("The " + name + " must be a string or a file!");
         }
     }
 
@@ -966,7 +966,7 @@ public class TelegramBot implements BotAPI {
         addFile(parameters, "sticker", sticker, MediaTypes.MEDIA_TYPE_APPLICATION);
 
         final Request request = new Request.Builder()
-                .url(apiUrl + "sendAudio")
+                .url(apiUrl + "sendSticker")
                 .post(parameters.build())
                 .build();
         return handleRequest(request, Message.class);
@@ -1108,7 +1108,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "reply_markup", reply_markup);
 
         final Request request = new Request.Builder()
-                .url(apiUrl + "sendAudio")
+                .url(apiUrl + "sendInvoice")
                 .post(parameters.build())
                 .build();
         return handleRequest(request, Message.class);
