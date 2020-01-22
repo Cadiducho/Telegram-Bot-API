@@ -75,6 +75,12 @@ public class Chat {
      * Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
      */
     private ChatPermissions permissions;
+
+    /**
+     * Optional. For supergroups, the minimum allowed delay between consecutive messages sent by each unpriviledged user.
+     * Returned only in getChat.
+     */
+    @Json(name = "slow_mode_delay") private Integer slowModeDelay;
     
     /**
      * Optional. For supergroups, name of group sticker set. Returned only in getChat.

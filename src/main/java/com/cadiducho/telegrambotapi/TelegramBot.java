@@ -552,6 +552,22 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
+    public Boolean setChatAdministratorCustomTitle(Object chat_id, Integer user_id, String custom_title) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "user_id", user_id);
+        safeAdd(parameters, "user_id", custom_title);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setChatAdministratorCustomTitle")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
     public Boolean setChatPermissions(Object chat_id, ChatPermissions permissions) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);

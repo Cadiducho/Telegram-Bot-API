@@ -66,6 +66,11 @@ public class ChatMember {
     }
 
     /**
+     * 	Optional. Owner and administrators only. Custom title for this user
+     */
+    @Json(name = "custom_title") private String customTitle;
+
+    /**
      * Optional. Restictred and kicked only.
      * Date when restrictions will be lifted for this user, unix time
      */

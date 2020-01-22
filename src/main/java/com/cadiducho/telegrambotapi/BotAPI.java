@@ -758,7 +758,17 @@ public interface BotAPI {
      */
     Boolean promoteChatMember(Object chat_id, Integer user_id, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages,
                               Boolean can_delete_messages, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException;
-    
+
+    /**
+     * Use this method to set a custom title for an administrator in a supergroup promoted by the bot
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param user_id Unique identifier of the target user
+     * @param custom_title New custom title for the administrator; 0-16 characters, emoji are not allowed
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     * @return True on success.
+     */
+    Boolean setChatAdministratorCustomTitle(Object chat_id, Integer user_id, String custom_title) throws TelegramException;
+
     /**
      * Use this method to set default chat permissions for all members.
      * The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights.
