@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2019 Cadiducho.
+ * Copyright 2020 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -434,13 +434,19 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendPoll(Object chat_id, String question, List<String> options, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendPoll(Object chat_id, String question, List<String> options, Boolean is_anonymous, String type, Boolean allows_multiple_answers,
+                            Integer correct_option_id, Boolean is_closed, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "question", question);
         safeAdd(parameters, "options", moshi.adapter(Types.newParameterizedType(List.class, String.class)).toJson(options));
+        safeAdd(parameters, "is_anonymous", is_anonymous);
+        safeAdd(parameters, "type", type);
+        safeAdd(parameters, "allows_multiple_answers", allows_multiple_answers);
+        safeAdd(parameters, "correct_option_id", correct_option_id);
+        safeAdd(parameters, "is_closed", is_closed);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);

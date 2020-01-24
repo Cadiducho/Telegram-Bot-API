@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2019 Cadiducho.
+ * Copyright 2020 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 4.1
+ * Telegram Bot API version 4.6
  */
 public interface BotAPI {
 
@@ -565,15 +565,19 @@ public interface BotAPI {
      * @throws TelegramException if the method fails in Telegram servers
      */
     default Message sendPoll(Object chat_id, String question, List<String> options) throws TelegramException {
-        return sendPoll(chat_id, question, options, null, null, null);
+        return sendPoll(chat_id, question, options, null, null, null, null, null, null, null, null);
     }
-    
-    
+
     /**
      * Use this method to send a native poll. A native poll can't be sent to a private chat. On success, the sent {@link Message} is returned.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername). A native poll can't be sent to a private chat.
      * @param question Poll question, 1-255 characters
      * @param options List of answer options, 2-10 strings 1-100 characters each
+     * @param is_anonymous True, if the poll needs to be anonymous, defaults to True
+     * @param type Poll type, “quiz” or “regular”, defaults to “regular”
+     * @param allows_multiple_answers True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False
+     * @param correct_option_id 0-based identifier of the correct answer option, required for polls in quiz mode
+     * @param is_closed Pass True, if the poll needs to be immediately closed
      * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
@@ -581,7 +585,8 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws TelegramException if the method fails in Telegram servers
      */
-    Message sendPoll(Object chat_id, String question, List<String> options, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendPoll(Object chat_id, String question, List<String> options, Boolean is_anonymous, String type, Boolean allows_multiple_answers,
+                     Integer correct_option_id, Boolean is_closed, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method when you need to tell the user that something is happening on the bot's side. 

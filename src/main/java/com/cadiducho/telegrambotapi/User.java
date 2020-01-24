@@ -50,6 +50,21 @@ public class User {
     @Json(name = "language_code") private String languageCode;
 
     /**
+     * Optional. True, if the bot can be invited to groups. Returned only in getMe.
+     */
+    @Json(name = "can_join_groups") private Boolean canJoinGroups;
+
+    /**
+     * Optional. True, if privacy mode is disabled for the bot. Returned only in getMe.
+     */
+    @Json(name = "can_read_all_group_messages") private Boolean canReadAllGroupMessages;
+
+    /**
+     * Optional. True, if the bot supports inline queries. Returned only in getMe.
+     */
+    @Json(name = "supports_inline_queries") private Boolean supportsInlineQueries;
+
+    /**
      * Constructor used by Chat
      * @param id The id of the user
      * @param firstName The first name of the user
