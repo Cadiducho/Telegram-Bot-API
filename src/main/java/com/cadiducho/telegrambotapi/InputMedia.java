@@ -38,5 +38,5 @@ public abstract class InputMedia {
     /**
      * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
      */
-    @Json(name = "parse_mode") protected String parseMode;
+    @Json(name = "parse_mode") protected ParseMode parseMode;
 }

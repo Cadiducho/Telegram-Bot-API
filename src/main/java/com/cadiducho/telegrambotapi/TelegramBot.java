@@ -133,13 +133,13 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendMessage(Object chat_id, String text, String parse_mode, Boolean disable_web_page_preview, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendMessage(Object chat_id, String text, ParseMode parse_mode, Boolean disable_web_page_preview, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "text", text);
-        safeAdd(parameters, "parse_mode", parse_mode);
+        safeAdd(parameters, "parse_mode", parse_mode.getMode().toLowerCase());
         safeAdd(parameters, "disableWebPagePreview", disable_web_page_preview);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -229,7 +229,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, String parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -238,7 +238,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "width", width);
         safeAdd(parameters, "height", height);
         safeAdd(parameters, "caption", caption);
-        safeAdd(parameters, "parse_mode", parse_mode);
+        safeAdd(parameters, "parse_mode", parse_mode.getMode().toLowerCase());
         safeAdd(parameters, "supports_streaming", supports_streaming);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -253,7 +253,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, String parse_mode, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -264,7 +264,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "height", height);
         safeAdd(parameters, "caption", caption);
         addFile(parameters, "thumb", thumb, MediaTypes.MEDIA_TYPE_PHOTO);
-        safeAdd(parameters, "parse_mode", parse_mode);
+        safeAdd(parameters, "parse_mode", parse_mode.getMode().toLowerCase());
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);
@@ -823,7 +823,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, String parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException {
+    public Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, ParseMode parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -831,7 +831,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
         safeAdd(parameters, "text", text);
-        safeAdd(parameters, "parse_mode", parse_mode);
+        safeAdd(parameters, "parse_mode", parse_mode.getMode().toLowerCase());
         safeAdd(parameters, "disableWebPagePreview", disable_web_page_preview);
         safeAdd(parameters, "reply_markup", reply_markup);
 

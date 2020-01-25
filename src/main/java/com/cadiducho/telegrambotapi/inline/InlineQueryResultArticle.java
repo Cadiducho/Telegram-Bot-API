@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi.inline;
 
+import com.cadiducho.telegrambotapi.ParseMode;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,9 +31,9 @@ public class InlineQueryResultArticle extends InlineQueryResult {
     @Json(name = "message_text") private String messageText;
 
     /**
-     * Optional. Send “Markdown”, if you want Telegram apps to show bold, italic and inline URLs in your bot's message.
+     * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      */
-    @Json(name = "parse_mode") private String parseMode;
+    @Json(name = "parse_mode") private ParseMode parseMode;
 
     /**
      * Optional. Disables link previews for links in the sent message

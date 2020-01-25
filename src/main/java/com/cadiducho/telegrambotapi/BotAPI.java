@@ -71,8 +71,7 @@ public interface BotAPI {
      * Use this method to send text messages. On success, the sent {@link Message} is returned.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param text Text of the message to be sent
-     * @param parse_mode Send Markdown, if you want Telegram apps to show bold, italic and inline URLs in your bot's message. For the moment, only Telegram for Android supports this.
-     *                  See https://core.telegram.org/bots/api#using-markdown
+     * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param disable_web_page_preview Disables link previews for links in this message
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
@@ -81,7 +80,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendMessage(Object chat_id, String text, String parse_mode, Boolean disable_notification, Boolean disable_web_page_preview, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendMessage(Object chat_id, String text, ParseMode parse_mode, Boolean disable_notification, Boolean disable_web_page_preview, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to forward messages of any kind. On success, the sent {@link Message} is returned.
@@ -277,7 +276,7 @@ public interface BotAPI {
      * @param width Video width
      * @param height Video height
      * @param caption Video caption (may also be used when resending videos by file_id), 0-200 characters
-     * @param parse_mode Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param supports_streaming Pass True, if the uploaded video is suitable for streaming
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
@@ -286,7 +285,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, String parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).
@@ -325,7 +324,7 @@ public interface BotAPI {
      * @param height Animation height
      * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;.
      * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
-     * @param parse_mode Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+     * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
@@ -333,7 +332,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, String parse_mode, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. 
@@ -970,13 +969,13 @@ public interface BotAPI {
      * @param message_id Required if inline_message_id is not specified. Unique identifier of the sent message
      * @param inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
      * @param text New text of the message
-     * @param parse_mode Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
+     * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param disable_web_page_preview Disables link previews for links in this message
      * @param reply_markup A JSON-serialized object for an inline keyboard.
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, String parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, ParseMode parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
      * Use this method to edit captions of messages sent by the bot or via the bot (for inline bots). 
