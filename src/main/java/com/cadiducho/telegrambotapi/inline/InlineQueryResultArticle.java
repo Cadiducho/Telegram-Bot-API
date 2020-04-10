@@ -100,7 +100,7 @@ public class InlineQueryResultArticle extends InlineQueryResult {
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message to be sent
      */
-    public InlineQueryResultArticle(String title, String messageText, String parseMode,
+    public InlineQueryResultArticle(String title, String messageText, ParseMode parseMode,
                                     Boolean disableWebPagePreview, String url, Boolean hideUrl, String description,
                                     String thumbUrl, Integer thumbWidth, Integer thumbHeight, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();

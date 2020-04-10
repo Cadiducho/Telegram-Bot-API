@@ -91,7 +91,7 @@ public class InlineQueryResultGif extends InlineQueryResult {
      * @param inputMessageContent Optional. Content of the message
      */
     public InlineQueryResultGif(String gifUrl, Integer gifWidth, Integer gifHeight, String thumbUrl, String title,
-                                String caption, String parseMode, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
+                                String caption, ParseMode parseMode, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.gifUrl = gifUrl;
         this.gifWidth = gifWidth;

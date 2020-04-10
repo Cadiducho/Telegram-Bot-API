@@ -92,7 +92,7 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
      * @param inputMessageContent Optional. Content of the message
      */
     public InlineQueryResultMpeg4Gif(String mpeg4Url, String thumbUrl, Integer mpeg4Width, Integer mpeg4Height,
-                                     String title, String caption, String parseMode,
+                                     String title, String caption, ParseMode parseMode,
                                      InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.mpeg4Url = mpeg4Url;

@@ -107,6 +107,12 @@ public class TelegramBot implements BotAPI {
             return;
         }
 
+        if (str.equals("parse_mode")) {
+            if (obj == null) return;
+
+            parameters.addFormDataPart(str, ((ParseMode) obj).getMode().toLowerCase());
+        }
+
         //Return normal values (check optionals -> null)
         if (obj != null) parameters.addFormDataPart(str, obj.toString());
     }
@@ -139,7 +145,7 @@ public class TelegramBot implements BotAPI {
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "text", text);
-        safeAdd(parameters, "parse_mode", parse_mode.getMode().toLowerCase());
+        safeAdd(parameters, "parse_mode", parse_mode);
         safeAdd(parameters, "disableWebPagePreview", disable_web_page_preview);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -238,7 +244,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "width", width);
         safeAdd(parameters, "height", height);
         safeAdd(parameters, "caption", caption);
-        safeAdd(parameters, "parse_mode", parse_mode.getMode().toLowerCase());
+        safeAdd(parameters, "parse_mode", parse_mode);
         safeAdd(parameters, "supports_streaming", supports_streaming);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -264,7 +270,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "height", height);
         safeAdd(parameters, "caption", caption);
         addFile(parameters, "thumb", thumb, MediaTypes.MEDIA_TYPE_PHOTO);
-        safeAdd(parameters, "parse_mode", parse_mode.getMode().toLowerCase());
+        safeAdd(parameters, "parse_mode", parse_mode);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);
@@ -457,7 +463,25 @@ public class TelegramBot implements BotAPI {
                 .build();
         return handleRequest(request, Message.class);
     }
-    
+
+    @Override
+    public Message sendDice(Object chat_id, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "disable_notification", disable_notification);
+        safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
+        safeAdd(parameters, "reply_markup", reply_markup);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "sendDice")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Message.class);
+    }
+
     @Override
     public Boolean sendChatAction(Object chat_id, String action) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
@@ -608,6 +632,7 @@ public class TelegramBot implements BotAPI {
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "chat_id", safeChatId);
+        addFile(parameters, "photo", photo, MediaTypes.MEDIA_TYPE_PHOTO);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "setChatPhoto")
@@ -823,6 +848,27 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
+    public Boolean setMyCommands(List<BotCommand> commands) throws TelegramException {
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "commands", moshi.adapter(Types.newParameterizedType(List.class, BotCommand.class)).toJson(commands));
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setMyCommands")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public List<BotCommand> getMyCommands() throws TelegramException {
+        final Request request = new Request.Builder()
+                .url(apiUrl + "getMyCommands")
+                .build();
+        return handleRequest(request, Types.newParameterizedType(List.class, BotCommand.class));
+    }
+
+    @Override
     public Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, ParseMode parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
@@ -831,7 +877,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
         safeAdd(parameters, "text", text);
-        safeAdd(parameters, "parse_mode", parse_mode.getMode().toLowerCase());
+        safeAdd(parameters, "parse_mode", parse_mode);
         safeAdd(parameters, "disableWebPagePreview", disable_web_page_preview);
         safeAdd(parameters, "reply_markup", reply_markup);
 
@@ -843,13 +889,14 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message editMessageCaption(Object chat_id, Integer message_id, String inline_message_id, String caption, InlineKeyboardMarkup reply_markup) throws TelegramException {
+    public Message editMessageCaption(Object chat_id, Integer message_id, String inline_message_id, String caption, ParseMode parse_mode, InlineKeyboardMarkup reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "caption", caption);
+        safeAdd(parameters, "caption", parse_mode);
         safeAdd(parameters, "inline_message_id", inline_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);
 
@@ -958,7 +1005,7 @@ public class TelegramBot implements BotAPI {
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "url", url);
-        safeAdd(parameters, "certificate", certificate);
+        addFile(parameters, "certificate", certificate, MediaTypes.MEDIA_TYPE_APPLICATION);
         safeAdd(parameters, "max_connections", max_connections);
         safeAdd(parameters, "allowed_updates", allowed_updates);
 
@@ -1011,7 +1058,7 @@ public class TelegramBot implements BotAPI {
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "user_id", user_id);
-        safeAdd(parameters, "png_sticker", png_sticker);
+        addFile(parameters, "png_sticker", png_sticker, MediaTypes.MEDIA_TYPE_PHOTO);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "uploadStickerFile")
@@ -1020,7 +1067,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean createNewStickerSet(Integer user_id, String name, String title, Object png_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException {
+    public Boolean createNewStickerSet(Integer user_id, String name, String title, Object png_sticker, java.io.File tgs_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException {
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "user_id", user_id);
@@ -1029,7 +1076,8 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "emojis", emojis);
         safeAdd(parameters, "contains_masks", contains_masks);
         safeAdd(parameters, "mask_position", mask_position);
-        addFile(parameters, "png_sticker", png_sticker, MediaTypes.MEDIA_TYPE_APPLICATION);
+        addFile(parameters, "png_sticker", png_sticker, MediaTypes.MEDIA_TYPE_PHOTO);
+        addFile(parameters, "tgs_sticker", png_sticker, MediaTypes.MEDIA_TYPE_PHOTO);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "createNewStickerSet")
@@ -1074,6 +1122,34 @@ public class TelegramBot implements BotAPI {
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "deleteStickerFromSet")
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean setStickerSetThumb(String name, Integer user_id, java.io.File thumb) throws TelegramException {
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "name", name);
+        safeAdd(parameters, "user_id", user_id);
+        addFile(parameters, "thumb", thumb, MediaTypes.MEDIA_TYPE_PHOTO);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setStickerSetThumb")
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean setStickerSetThumb(String name, Integer user_id, String thumb) throws TelegramException {
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "name", name);
+        safeAdd(parameters, "user_id", user_id);
+        safeAdd(parameters, "thumb", thumb);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setStickerSetThumb")
                 .build();
         return handleRequest(request, Boolean.class);
     }

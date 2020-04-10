@@ -18,7 +18,7 @@ public class InputMediaDocument extends InputMedia {
      */
     private Object thumb;
 
-    public InputMediaDocument(String media,Object thumb, String caption, String parseMode) {
+    public InputMediaDocument(String media,Object thumb, String caption, ParseMode parseMode) {
         super("document", media, caption, parseMode);
         this.thumb = thumb;
     }

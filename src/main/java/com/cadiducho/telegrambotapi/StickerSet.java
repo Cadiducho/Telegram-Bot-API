@@ -46,5 +46,10 @@ public class StickerSet {
      * List of all set stickers
      */
     private List<Sticker> stickers;
+
+    /**
+     * Optional. Sticker set thumbnail in the .WEBP or .TGS format
+     */
+    private PhotoSize thumb;
     
 }

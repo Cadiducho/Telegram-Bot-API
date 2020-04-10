@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 public class InputMediaPhoto extends InputMedia {
 
-    public InputMediaPhoto(String media, String caption, String parseMode) {
+    public InputMediaPhoto(String media, String caption, ParseMode parseMode) {
         super("photo", media, caption, parseMode);
     }
 }

@@ -116,7 +116,7 @@ public class InlineQueryResultVideo extends InlineQueryResult {
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultVideo(String videoUrl, String mimeType, String messageText, String parseMode,
+    public InlineQueryResultVideo(String videoUrl, String mimeType, String messageText, ParseMode parseMode,
                                   Boolean disableWebPagePreview, Integer videoWidth, Integer videoHeight,
                                   Integer videoDuration, String thumbUrl, String title, String description,
                                   InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {

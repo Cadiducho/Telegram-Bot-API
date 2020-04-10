@@ -48,7 +48,7 @@ If you want use Telegram Bot API as a Maven Dependency simply add repo and artif
 <dependency>
     <groupId>com.cadiducho</groupId>
     <artifactId>TelegramBotAPI</artifactId>
-    <version>4.4</version>
+    <version>4.7</version>
 </dependency>
 ```
 
@@ -60,4 +60,4 @@ This project is released under the [MIT-License](https://github.com/Cadiducho/Te
 > Cadiducho's TelegramBotAPI is highly inspired on [Irazasyed's Telegram Bot API - PHP SDK](https://github.com/irazasyed/telegram-bot-sdk) 
 > and [Rainu's telegram-bot-api](https://github.com/rainu/telegram-bot-api), but this one is written from scratch.
 
-© 2019 [Cadiducho](https://twitter.com/Cadiducho)
+© 2020 [Cadiducho](https://twitter.com/Cadiducho)
