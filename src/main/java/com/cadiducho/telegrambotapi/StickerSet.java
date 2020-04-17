@@ -33,7 +33,7 @@ public class StickerSet {
     
     /**
      * True, if the sticker set contains animated stickers
-     * See {@link https://telegram.org/blog/animated-stickers}
+     * See <a href="https://telegram.org/blog/animated-stickers">https://telegram.org/blog/animated-stickers</a>
      */
     @Json(name = "is_animated") private Boolean isAnimated;
     

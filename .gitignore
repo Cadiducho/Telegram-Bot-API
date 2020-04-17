@@ -1,12 +1,9 @@
-# Ignores Maven #
-#################
-/target/
-dependency-reduced-pom.xml
-
-# Others #
-##########
 *.jar
 *.class
-nb-configuration.xml
-.idea/
 *.iml
+*.DS_Store
+.idea/
+.gradle/
+target/
+build/
+run/

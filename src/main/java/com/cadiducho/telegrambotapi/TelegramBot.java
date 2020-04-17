@@ -4,7 +4,6 @@
  * Copyright 2020 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
-
 package com.cadiducho.telegrambotapi;
 
 import com.cadiducho.telegrambotapi.exception.TelegramException;

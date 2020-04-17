@@ -41,7 +41,7 @@ public class Sticker {
     
     /**
      * True, if the sticker is animated. 
-     * See {@link https://telegram.org/blog/animated-stickers}
+     * See <a href="https://telegram.org/blog/animated-stickers">https://telegram.org/blog/animated-stickers</a>
      */
     @Json(name = "is_animated") private Boolean isAnimated;
     

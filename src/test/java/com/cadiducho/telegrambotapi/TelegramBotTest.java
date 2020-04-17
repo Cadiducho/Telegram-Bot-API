@@ -25,7 +25,7 @@ class TelegramBotTest {
 
     @BeforeAll
     static void setUpTokens() {
-        BOT_TOKEN = "554900770:AAF5Pbtcu9h0FpAn_pPHQqs29PLm71A4PSw";
+        BOT_TOKEN = System.getenv("TELEGRAM_BOT_TOKEN");
         CHAT_ID = "8609873";
         GROUP_ID = "-278714251";
         PHOTO_ID = "AgADBAADKK0xG9IykVI0Pe7-q_ueezIrnxoABCR76YWV7M2WDHcEAAEC";
