@@ -564,7 +564,7 @@ public interface BotAPI {
      * @throws TelegramException if the method fails in Telegram servers
      */
     default Message sendPoll(Object chat_id, String question, List<String> options) throws TelegramException {
-        return sendPoll(chat_id, question, options, null, null, null, null, null, null, null, null);
+        return sendPoll(chat_id, question, options, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 
     /**
@@ -576,6 +576,10 @@ public interface BotAPI {
      * @param type Poll type, “quiz” or “regular”, defaults to “regular”
      * @param allows_multiple_answers True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False
      * @param correct_option_id 0-based identifier of the correct answer option, required for polls in quiz mode
+     * @param explanation Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing
+     * @param explanation_parse_mode Mode for parsing entities in the explanation. See <a href="https://core.telegram.org/bots/api#formatting-options">formatting options</a> for more details.
+     * @param open_period Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
+     * @param close_date Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period.
      * @param is_closed Pass True, if the poll needs to be immediately closed
      * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
@@ -585,18 +589,30 @@ public interface BotAPI {
      * @throws TelegramException if the method fails in Telegram servers
      */
     Message sendPoll(Object chat_id, String question, List<String> options, Boolean is_anonymous, String type, Boolean allows_multiple_answers,
-                     Integer correct_option_id, Boolean is_closed, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+                     Integer correct_option_id, String explanation, String explanation_parse_mode, Integer open_period, Integer close_date,
+                     Boolean is_closed, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send a dice, which will have a random value from 1 to 6.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @return On success, the sent Message is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    default Message sendDice(Object chat_id) throws TelegramException {
+        return sendDice(chat_id, null, null, null, null);
+    }
+
+    /**
+     * Use this method to send a dice, which will have a random value from 1 to 6.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲” or “🎯”. Defauts to “🎲”
      * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      * @return On success, the sent Message is returned.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    Message sendDice(Object chat_id, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendDice(Object chat_id, String emoji, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method when you need to tell the user that something is happening on the bot's side. 

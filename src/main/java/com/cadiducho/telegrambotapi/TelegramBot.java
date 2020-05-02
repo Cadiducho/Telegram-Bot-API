@@ -440,7 +440,8 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Message sendPoll(Object chat_id, String question, List<String> options, Boolean is_anonymous, String type, Boolean allows_multiple_answers,
-                            Integer correct_option_id, Boolean is_closed, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+                            Integer correct_option_id, String explanation, String explanation_parse_mode, Integer open_period, Integer close_date,
+                            Boolean is_closed, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -451,6 +452,10 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "type", type);
         safeAdd(parameters, "allows_multiple_answers", allows_multiple_answers);
         safeAdd(parameters, "correct_option_id", correct_option_id);
+        safeAdd(parameters, "explanation", explanation);
+        safeAdd(parameters, "explanation_parse_mode", explanation_parse_mode);
+        safeAdd(parameters, "open_period", open_period);
+        safeAdd(parameters, "close_date", close_date);
         safeAdd(parameters, "is_closed", is_closed);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -464,12 +469,13 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendDice(Object chat_id, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendDice(Object chat_id, String emoji, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
 
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        safeAdd(parameters, "chat_id", chat_id);
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "emoji", emoji);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
         safeAdd(parameters, "reply_markup", reply_markup);

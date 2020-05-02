@@ -62,4 +62,24 @@ public class Poll {
      * 	Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
      */
     @Json(name = "correct_option_id") private Integer correctOptionId;
+
+    /**
+     * Optional. Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
+     */
+    private String explanation;
+
+    /**
+     * Optional. Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
+     */
+    @Json(name = "explanation_entities") private  List<MessageEntity> explanationEntitites;
+
+    /**
+     * Optional. Amount of time in seconds the poll will be active after creation
+     */
+    @Json(name = "open_period") private Integer openPeriod;
+
+    /**
+     * Optional. Point in time (Unix timestamp) when the poll will be automatically closed
+     */
+    @Json(name = "close_date") private Integer closePeriod;
 }

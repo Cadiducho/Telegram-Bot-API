@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.cadiducho'
-version = '4.7'
+version = '4.8'
 sourceCompatibility = '1.8'
 
 java {
