@@ -24,7 +24,7 @@ public class Dice {
     private String emoji;
 
     /**
-     * Value of the dice, 1-6 for currently supported base emoji
+     * Value of the dice, 1-6 for “🎲” and “🎯” base emoji, 1-5 for “🏀” base emoji
      */
     private Integer value;
 

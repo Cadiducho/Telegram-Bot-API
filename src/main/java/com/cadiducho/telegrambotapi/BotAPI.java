@@ -605,7 +605,7 @@ public interface BotAPI {
     /**
      * Use this method to send a dice, which will have a random value from 1 to 6.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲” or “🎯”. Defauts to “🎲”
+     * @param emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, or “🏀”. Dice can have values 1-6 for “🎲” and “🎯”, and values 1-5 for “🏀”. Defaults to “🎲”
      * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.

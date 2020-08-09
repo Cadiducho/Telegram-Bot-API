@@ -79,7 +79,12 @@ public class Message {
      * Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
      */
     @Json(name = "reply_to_message") private Message replyToMessage;
-    
+
+    /**
+     * Optional. Bot through which the message was sent
+     */
+    @Json(name = "via_bot") private User viaBot;
+
     /**
      * Optional. Date the message was last edited in Unix time
      */
