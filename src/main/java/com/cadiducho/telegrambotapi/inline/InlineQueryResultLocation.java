@@ -21,16 +21,6 @@ import lombok.ToString;
 public class InlineQueryResultLocation extends InlineQueryResult {
 
     /**
-     * Location title
-     */
-    private String title;
-
-    /**
-     * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
-     */
-    @Json(name = "live_period") private Integer livePeriod;
-
-    /**
      * Location latitude in degrees
      */
     private Float latitude;
@@ -39,6 +29,31 @@ public class InlineQueryResultLocation extends InlineQueryResult {
      * 	Location longitude in degrees
      */
     private Float longitude;
+
+    /**
+     * Location title
+     */
+    private String title;
+
+    /**
+     * Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+     */
+    @Json(name = "horizontal_accuracy") private Integer horizontalAccuracy;
+
+    /**
+     * Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+     */
+    @Json(name = "live_period") private Integer livePeriod;
+
+    /**
+     * Optional. For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     */
+    private Integer heading;
+
+    /**
+     * Optional. For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
+     */
+    @Json(name = "proximity_alert_radius") private Integer proximityAlertRadius;
 
     /**
      * Optional. URL of the thumbnail (jpeg only) for the file

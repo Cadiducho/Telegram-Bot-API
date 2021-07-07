@@ -34,6 +34,13 @@ public class Message {
      * Sender
      */
     private User from;
+
+    /**
+     * Optional. Sender of the message, sent on behalf of a chat. The channel itself for channel messages.
+     * The supergroup itself for messages from anonymous group administrators.
+     * The linked channel for messages automatically forwarded to the discussion group
+     */
+    @Json(name = "sender_chat") private Chat senderChat;
     
     /**
      * Date the message was sent in Unix time
@@ -254,6 +261,11 @@ public class Message {
      * Optional. The domain name of the website on which the user has logged in. See https://core.telegram.org/widgets/login
      */
     @Json(name = "connected_website") private String connectedWebsite;
+
+    /**
+     * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+     */
+    @Json(name = "proximity_alert_triggered") private ProximityAlertTriggered proximityAlertTriggered;
 
     /**
      * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.

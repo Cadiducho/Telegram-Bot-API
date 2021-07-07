@@ -48,6 +48,11 @@ public class Video {
      * Optional. Video thumbnail
      */
     private PhotoSize thumb;
+
+    /**
+     * Optional. Original filename as defined by sender
+     */
+    @Json(name = "file_name") private String fileName;
     
     /**
      * Optional. Mime type of a file as defined by sender

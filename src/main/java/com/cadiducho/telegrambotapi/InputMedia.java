@@ -39,4 +39,10 @@ public abstract class InputMedia {
      * Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
      */
     @Json(name = "parse_mode") protected ParseMode parseMode;
+
+    /**
+     * Optional. Disables automatic server-side content type detection for files uploaded using multipart/form-data.
+     * Always true, if the document is sent as part of an album.
+     */
+    @Json(name = "disable_content_type_detection") protected Boolean disableContentTypeDetection;
 }

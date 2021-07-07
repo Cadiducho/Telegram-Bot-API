@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,4 +28,24 @@ public class Location {
      * Latitude as defined by sender
      */
     private Float latitude;
+
+    /**
+     * Optional. The radius of uncertainty for the location, measured in meters; 0-1500
+     */
+    @Json(name = "horizontal_accuracy") private Float horizontalAccuracy;
+
+    /**
+     * 	Optional. Time relative to the message sending date, during which the location can be updated, in seconds. For active live locations only.
+     */
+    @Json(name = "live_period") private Integer livePeriod;
+
+    /**
+     * Optional. The direction in which user is moving, in degrees; 1-360. For active live locations only.
+     */
+    private Integer heading;
+
+    /**
+     * Optional. Maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
+     */
+    @Json(name = "proximity_alert_radius") private Integer proximityAlertRadius;
 }

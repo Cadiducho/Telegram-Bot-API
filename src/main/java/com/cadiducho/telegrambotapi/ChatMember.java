@@ -66,9 +66,14 @@ public class ChatMember {
     }
 
     /**
-     * 	Optional. Owner and administrators only. Custom title for this user
+     * Optional. Owner and administrators only. Custom title for this user
      */
     @Json(name = "custom_title") private String customTitle;
+
+    /**
+     * True, if the user's presence in the chat is hidden
+     */
+    @Json(name = "is_anonymous") private Boolean isAnonymous;
 
     /**
      * Optional. Restictred and kicked only.

@@ -45,6 +45,11 @@ public class Audio {
     private String title;
 
     /**
+     * Optional. Original filename as defined by sender
+     */
+    @Json(name = "file_name") private String fileName;
+
+    /**
      * Optional. MIME type of the file as defined by sender
      */
     @Json(name = "mime_type") private String mimeType;

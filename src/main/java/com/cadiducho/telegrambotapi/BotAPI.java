@@ -14,6 +14,7 @@ import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
 import com.cadiducho.telegrambotapi.payment.ShippingOption;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.List;
 
@@ -55,7 +56,25 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers if the method failed on Telegram servers
      */
     User getMe() throws TelegramException;
-    
+
+    /**
+     * Use this method to log out from the cloud Bot API server before launching the bot locally.
+     * You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates.
+     * After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes.
+     * Requires no parameters.
+     * @return True on success
+     */
+    Boolean logOut() throws TelegramException;
+
+    /**
+     * Use this method to close the bot instance before moving it from one local server to another.
+     * You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart.
+     * The method will return error 429 in the first 10 minutes after the bot is launched.
+     * Requires no parameters.
+     * @return True on success
+     */
+    Boolean close() throws TelegramException;
+
     /**
      * Use this method to send text messages. On success, the sent {@link Message} is returned.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -66,7 +85,7 @@ public interface BotAPI {
     default Message sendMessage(Object chat_id, String text) throws TelegramException {
         return sendMessage(chat_id, text, null, null, false, null, null);
     }
-    
+
     /**
      * Use this method to send text messages. On success, the sent {@link Message} is returned.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -104,6 +123,36 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     Message forwardMessage(Object chat_id, Integer from_chat_id, Boolean disable_notification, Integer message_id) throws TelegramException;
+
+    /**
+     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied.
+     * The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param from_chat_id Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
+     * @param message_id Message identifier in the chat specified in from_chat_id
+     * @return Returns the MessageId of the sent message on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default MessageId copyMessage(Object chat_id, Object from_chat_id, Integer message_id) throws TelegramException {
+        return copyMessage(chat_id, from_chat_id, message_id, null, null, null, null, null, null);
+    }
+
+    /**
+     * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied.
+     * The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param from_chat_id Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
+     * @param message_id Message identifier in the chat specified in from_chat_id
+     * @param caption New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
+     * @param parse_mode Mode for parsing entities in the new caption. See formatting options for more details.
+     * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
+     * @param reply_to_message_id If the message is a reply, ID of the original message
+     * @param allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
+     * @param reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
+     * @return Returns the MessageId of the sent message on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    MessageId copyMessage(Object chat_id, Object from_chat_id, Integer message_id, String caption, String parse_mode, Boolean disable_notification, Integer reply_to_message_id, Boolean allow_sending_without_reply, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send photos. On success, the sent {@link Message} is returned.
@@ -221,7 +270,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendDocument(Object chat_id, java.io.File document) throws TelegramException {
-        return sendDocument(chat_id, document, false, null, null);
+        return sendDocument(chat_id, document, null, false, null, null);
     }
     
     /**
@@ -231,13 +280,14 @@ public interface BotAPI {
      * @param document File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, 
      *                  or upload a new file using multipart/form-data.
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param disable_content_type_detection Disables automatic server-side content type detection for files uploaded using multipart/form-data
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendDocument(Object chat_id, Object document, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendDocument(Object chat_id, Object document, Boolean disable_content_type_detection, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as {@link Document}). 
@@ -419,7 +469,10 @@ public interface BotAPI {
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param latitude Latitude of location
      * @param longitude Longitude of location
+     * @param horizontal_accuracy The radius of uncertainty for the location, measured in meters; 0-1500
      * @param live_period Period in seconds for which the location will be updated (should be between 60 and 86400).
+     * @param heading For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     * @param proximity_alert_radius For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
@@ -427,7 +480,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendLocation(Object chat_id, Float latitude, Float longitude, Integer live_period, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendLocation(Object chat_id, Float latitude, Float longitude, Float horizontal_accuracy, Integer live_period, Integer heading, Integer proximity_alert_radius, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to edit live location messages sent by the bot or via the bot (for inline bots).
@@ -437,11 +490,14 @@ public interface BotAPI {
      * @param inline_message_id Required if chat_id and message_id are not specified. Identifier of the inline message
      * @param latitude Latitude of new location
      * @param longitude Longitude of new location
+     * @param horizontal_accuracy 	The radius of uncertainty for the location, measured in meters; 0-1500
+     * @param heading Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
+     * @param proximity_alert_radius Maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
      * @param reply_markup A JSON-serialized object for a new inline keyboard.
      * @return if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Object editMessageLiveLocation(Object chat_id, Integer message_id, String inline_message_id, Float latitude, Float longitude, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    Object editMessageLiveLocation(Object chat_id, Integer message_id, String inline_message_id, Float latitude, Float longitude, Float horizontal_accuracy, Integer heading, Integer proximity_alert_radius, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
      * Use this method to stop updating a live location message sent by the bot or via the bot (for inline bots) before live_period expires.
@@ -731,7 +787,21 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean unbanChatMember(Object chat_id, Integer user_id) throws TelegramException;
+    default Boolean unbanChatMember(Object chat_id, Integer user_id) throws TelegramException {
+        return unbanChatMember(chat_id, user_id);
+    }
+
+    /**
+     * Use this method to unban a previously kicked user in a supergroup or channel.
+     * The user will not return to the group or channel automatically, but will be able to join via link, etc.
+     * The bot must be an administrator for this to work. Returns True on success.
+     * @param chat_id Unique identifier for the target group or username of the target supergroup (in the format @supergroupusername)
+     * @param user_id Unique identifier of the target user
+     * @param only_if_banned Do nothing if the user is not banned
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean unbanChatMember(Object chat_id, Integer user_id, Boolean only_if_banned) throws TelegramException;
 
     /**
      * Use this method to restrict a user in a supergroup.The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights.
@@ -776,6 +846,7 @@ public interface BotAPI {
      * Pass False for all boolean parameters to demote a user
      * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param user_id Unique identifier of the target user
+     * @param is_anonymous Pass True, if the administrator's presence in the chat is hidden
      * @param can_change_info Pass True, if the administrator can change chat title, photo and other settings
      * @param can_post_messages Pass True, if the administrator can create channel posts, channels only
      * @param can_edit_messages Pass True, if the administrator can edit messages of other users and can pin messages, channels only
@@ -787,7 +858,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean promoteChatMember(Object chat_id, Integer user_id, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages,
+    Boolean promoteChatMember(Object chat_id, Integer user_id, Boolean is_anonymous, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages,
                               Boolean can_delete_messages, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException;
 
     /**
@@ -897,13 +968,36 @@ public interface BotAPI {
     Boolean pinChatMessage(Object chat_id, Integer message_id, Boolean disable_notification) throws TelegramException;
 
     /**
-     * Use this method to unpin a message in a group, a supergroup, or a channel.
-     * The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel.
+     * Use this method to remove a message from the list of pinned messages in a chat.
+     * If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel.
+     * Returns True on success.
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean unpinChatMessage(Object chat_id) throws TelegramException;
+    default Boolean unpinChatMessage(Object chat_id) throws TelegramException {
+        return unpinChatMessage(chat_id, null);
+    }
+
+    /**
+     * Use this method to remove a message from the list of pinned messages in a chat.
+     * If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel.
+     * Returns True on success.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean unpinChatMessage(Object chat_id, Integer message_id) throws TelegramException;
+
+    /**
+     * Use this method to clear the list of pinned messages in a chat.
+     * If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' admin right in a supergroup or 'can_edit_messages' admin right in a channel.
+     * Returns True on success.
+     * @param chat_id 	Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @return On success, True is returned.
+     * @throws TelegramException
+     */
+    Boolean unpinAllChatMessages(Object chat_id) throws TelegramException;
     
     /**
      * Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.).
@@ -1142,23 +1236,35 @@ public interface BotAPI {
      * @param url         HTTPS url to send updates to. Use an empty string to remove webhook integration
      * @param certificate Optional. Upload your public key certificate so that the root certificate in use can be checked.
      *                    See our <a href="https://core.telegram.org/bots/self-signed">self-signed guide</a> for details.
+     * @param ip_address The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS
      * @param max_connections Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40.
      *                        Use lower values to limit the load on your bot‘s server, and higher values to increase your bot’s throughput.
      * @param allowed_updates Optional. List the types of updates you want your bot to receive. 
      *                        For example, specify [“message”, “edited_channel_post”, “callback_query”] to only receive updates of these types.
      *                        See {@link Update} for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default).
      *                        If not specified, the previous setting will be used.
+     * @param drop_pending_updates Pass True to drop all pending updates
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean setWebhook(String url, java.io.File certificate, Integer max_connections, List<String> allowed_updates) throws TelegramException;
+    Boolean setWebhook(String url, java.io.File certificate, String ip_address, Integer max_connections, List<String> allowed_updates, Boolean drop_pending_updates) throws TelegramException;
 
     /**
-     * Use this method to remove webhook integration if you decide to switch back to {@link BotAPI#getUpdates}. Returns True on success. Requires no parameters.
+     * Use this method to remove webhook integration if you decide to switch back to {@link BotAPI#getUpdates}. Returns True on success.
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean deleteWebhook() throws TelegramException;
+    default Boolean deleteWebhook() throws TelegramException {
+        return deleteWebhook(null);
+    }
+
+    /**
+     * Use this method to remove webhook integration if you decide to switch back to {@link BotAPI#getUpdates}. Returns True on success.
+     * @param drop_pending_updates Pass True to drop all pending updates
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean deleteWebhook(Boolean drop_pending_updates) throws TelegramException;
     
     /**
      * Use this method to send static .WEBP or animated .TGS stickers. On success, the sent {@link Message} is returned.

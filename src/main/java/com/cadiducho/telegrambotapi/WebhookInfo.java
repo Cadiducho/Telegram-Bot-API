@@ -35,6 +35,11 @@ public class WebhookInfo {
      * Number of updates awaiting delivery
      */
     @Json(name = "pending_update_count") private Integer pendingUpdateCount;
+
+    /**
+     * Optional. Currently used webhook IP address
+     */
+    @Json(name = "ip_address") private String ipAddress;
     
     /**
      * Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
