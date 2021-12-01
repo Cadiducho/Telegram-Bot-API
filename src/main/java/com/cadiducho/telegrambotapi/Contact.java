@@ -37,7 +37,7 @@ public class Contact {
     /**
      * Optional. Contact's user identifier in Telegram
      */
-    @Json(name = "user_id") private Integer userId;
+    @Json(name = "user_id") private Long userId;
 
     /**
      * Optional. Additional data about the contact in the form of a vCard

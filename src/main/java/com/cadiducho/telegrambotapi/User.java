@@ -22,7 +22,7 @@ public class User {
     /**
      * Unique identifier for this user or bot
      */
-    private Integer id;
+    private Long id;
     
     /**
      * True, if this user is a bot
@@ -71,7 +71,7 @@ public class User {
      * @param lastName The last name of the user
      * @param username His username
      */
-    protected User(Integer id, String firstName, String lastName, String username) {
+    protected User(Long id, String firstName, String lastName, String username) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

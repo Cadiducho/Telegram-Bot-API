@@ -76,6 +76,12 @@ public class ChatMember {
     @Json(name = "is_anonymous") private Boolean isAnonymous;
 
     /**
+     * True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode.
+     * Implied by any other administrator privilege
+     */
+    @Json(name = "can_manage_chat") private Boolean canManageChat;
+
+    /**
      * Optional. Restictred and kicked only.
      * Date when restrictions will be lifted for this user, unix time
      */

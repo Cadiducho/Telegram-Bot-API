@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 5.0
+ * Telegram Bot API version 5.1
  */
 public interface BotAPI {
 
@@ -716,7 +716,7 @@ public interface BotAPI {
      * @return {@link UserProfilePhotos}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default UserProfilePhotos getUserProfilePhotos(Integer user_id) throws TelegramException {
+    default UserProfilePhotos getUserProfilePhotos(Long user_id) throws TelegramException {
         return getUserProfilePhotos(user_id, null, null);
     }
 
@@ -729,7 +729,7 @@ public interface BotAPI {
      * @return {@link UserProfilePhotos}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    UserProfilePhotos getUserProfilePhotos(Integer user_id, Integer offset, Integer limit) throws TelegramException;
+    UserProfilePhotos getUserProfilePhotos(Long user_id, Integer offset, Integer limit) throws TelegramException;
     
     /**
      * Use this method to get basic info about a file and prepare it for downloading.
@@ -753,8 +753,8 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean kickChatMember(Object chat_id, Integer user_id) throws TelegramException {
-        return kickChatMember(chat_id, user_id, null);
+    default Boolean kickChatMember(Object chat_id, Long user_id) throws TelegramException {
+        return kickChatMember(chat_id, user_id, null, null);
     }
 
     /**
@@ -764,10 +764,11 @@ public interface BotAPI {
      * @param chat_id Unique identifier for the target group or username of the target supergroup (in the format @supergroupusername)
      * @param user_id Unique identifier of the target user
      * @param until_date Optional. Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever
+     * @param revoke_messages Optional. Pass True to delete all messages from the chat for the user that is being removed. If False, the user will be able to see messages in the group that were sent before the user was removed. Always True for supergroups and channels.
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean kickChatMember(Object chat_id, Integer user_id, Integer until_date) throws TelegramException;
+    Boolean kickChatMember(Object chat_id, Long user_id, Integer until_date, Boolean revoke_messages) throws TelegramException;
     
     /**
      * Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
@@ -786,7 +787,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean unbanChatMember(Object chat_id, Integer user_id) throws TelegramException {
+    default Boolean unbanChatMember(Object chat_id, Long user_id) throws TelegramException {
         return unbanChatMember(chat_id, user_id);
     }
 
@@ -800,7 +801,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean unbanChatMember(Object chat_id, Integer user_id, Boolean only_if_banned) throws TelegramException;
+    Boolean unbanChatMember(Object chat_id, Long user_id, Boolean only_if_banned) throws TelegramException;
 
     /**
      * Use this method to restrict a user in a supergroup.The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights.
@@ -810,7 +811,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean restrictChatMember(Object chat_id, Integer user_id, ChatPermissions permissions) throws TelegramException {
+    default Boolean restrictChatMember(Object chat_id, Long user_id, ChatPermissions permissions) throws TelegramException {
         return restrictChatMember(chat_id, user_id, permissions, null);
     }
 
@@ -824,7 +825,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean restrictChatMember(Object chat_id, Integer user_id, ChatPermissions permissions, Integer until_date) throws TelegramException;
+    Boolean restrictChatMember(Object chat_id, Long user_id, ChatPermissions permissions, Integer until_date) throws TelegramException;
 
     /**
      * Use this method to promote or demote a user in a supergroup or a channel.
@@ -835,8 +836,8 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean promoteChatMember(Object chat_id, Integer user_id) throws TelegramException {
-        return promoteChatMember(chat_id, user_id, false, false, false, false, false, false, false, false, false);
+    default Boolean promoteChatMember(Object chat_id, Long user_id) throws TelegramException {
+        return promoteChatMember(chat_id, user_id, false, false, false, false, false, false, false, false, false, false, false);
     }
 
     /**
@@ -846,10 +847,12 @@ public interface BotAPI {
      * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param user_id Unique identifier of the target user
      * @param is_anonymous Pass True, if the administrator's presence in the chat is hidden
+     * @param can_manage_chat Pass True, if the administrator can access the chat event log, chat statistics, message statistics in channels, see channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other administrator privilege
      * @param can_change_info Pass True, if the administrator can change chat title, photo and other settings
      * @param can_post_messages Pass True, if the administrator can create channel posts, channels only
      * @param can_edit_messages Pass True, if the administrator can edit messages of other users and can pin messages, channels only
      * @param can_delete_messages Pass True, if the administrator can delete messages of other users
+     * @param can_manage_voice_chats Pass True, if the administrator can manage voice chats
      * @param can_invite_users Pass True, if the administrator can invite new users to the chat
      * @param can_restrict_members Pass True, if the administrator can restrict, ban or unban chat members
      * @param can_pin_messages Pass True, if the administrator can pin messages, supergroups only
@@ -857,8 +860,8 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean promoteChatMember(Object chat_id, Integer user_id, Boolean is_anonymous, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages,
-                              Boolean can_delete_messages, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException;
+    Boolean promoteChatMember(Object chat_id, Long user_id, Boolean is_anonymous, Boolean can_manage_chat, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages,
+                              Boolean can_delete_messages, Boolean can_manage_voice_chats, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException;
 
     /**
      * Use this method to set a custom title for an administrator in a supergroup promoted by the bot
@@ -868,7 +871,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      * @return True on success.
      */
-    Boolean setChatAdministratorCustomTitle(Object chat_id, Integer user_id, String custom_title) throws TelegramException;
+    Boolean setChatAdministratorCustomTitle(Object chat_id, Long user_id, String custom_title) throws TelegramException;
 
     /**
      * Use this method to set default chat permissions for all members.
@@ -888,6 +891,77 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     String exportChatInviteLink(Object chat_id) throws TelegramException;
+
+    /**
+     * Use this method to create an additional invite link for a chat.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+     * The link can be revoked using the method revokeChatInviteLink.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @return the new invite link as {{@link ChatInviteLink }} object.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    default ChatInviteLink createChatInviteLink(Object chat_id) throws TelegramException {
+        return createChatInviteLink(chat_id, null, null, null, null);
+    }
+
+    /**
+     * Use this method to create an additional invite link for a chat.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+     * The link can be revoked using the method revokeChatInviteLink.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param name Invite link name; 0-32 characters
+     * @param expire_date Point in time (Unix timestamp) when the link will expire
+     * @param member_limit Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+     * @param creates_join_request True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+     * @return the new invite link as {{@link ChatInviteLink }} object.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    ChatInviteLink createChatInviteLink(Object chat_id, String name, Integer expire_date, Integer member_limit, Boolean creates_join_request) throws TelegramException;
+
+    /**
+     * Use this method to edit a non-primary invite link created by the bot.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param invite_link The invite link to edit
+     * @param name Invite link name; 0-32 characters
+     * @param expire_date Point in time (Unix timestamp) when the link will expire
+     * @param member_limit Maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
+     * @param creates_join_request True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+     * @return the edited invite link as a {{@link ChatInviteLink}} object.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    ChatInviteLink editChatInviteLink(Object chat_id, String invite_link, String name, Integer expire_date, Integer member_limit, Boolean creates_join_request) throws TelegramException;
+
+    /**
+     * Use this method to revoke an invite link created by the bot.
+     * If the primary link is revoked, a new link is automatically generated.
+     * The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights.
+     * @param chat_id Unique identifier of the target chat or username of the target channel (in the format @channelusername)
+     * @param invite_link The invite link to revoke
+     * @return the revoked invite link as a {{@link ChatInviteLink}} object.
+     * @throws  com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    ChatInviteLink revokeChatInviteLink(Object chat_id, String invite_link) throws TelegramException;
+
+    /**
+     * Use this method to approve a chat join request.
+     * The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param user_id Unique identifier of the target user
+     * @return True on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean approveChatJoinRequest(Object chat_id, Long user_id) throws TelegramException;
+
+    /**
+     * Use this method to decline a chat join request.
+     * The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param user_id Unique identifier of the target user
+     * @return True on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean declineChatJoinRequest(Object chat_id, Long user_id) throws TelegramException;
 
     /**
      * Use this method to set a new profile photo for the chat. 
@@ -1030,7 +1104,7 @@ public interface BotAPI {
      * @return {@link ChatMember}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    ChatMember getChatMember(Object chat_id, Integer user_id) throws TelegramException;
+    ChatMember getChatMember(Object chat_id, Long user_id) throws TelegramException;
     
     /**
      * Use this method to set a new group sticker set for a supergroup. 
@@ -1318,7 +1392,7 @@ public interface BotAPI {
      * @return The uploaded File on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    File uploadStickerFile(Integer user_id, java.io.File png_sticker) throws TelegramException;
+    File uploadStickerFile(Long user_id, java.io.File png_sticker) throws TelegramException;
 
     /**
      * Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set. Returns True on success.
@@ -1331,7 +1405,7 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean createNewStickerSet(Integer user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
+    default Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
         return createNewStickerSet(user_id, name, title, png_sticker, tgs_sticker, emojis, null, null);
     }
     
@@ -1346,7 +1420,7 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean createNewStickerSet(Integer user_id, String name, String title, String png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
+    default Boolean createNewStickerSet(Long user_id, String name, String title, String png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
         return createNewStickerSet(user_id, name, title, png_sticker, tgs_sticker, emojis, null, null);
     }
     
@@ -1362,7 +1436,7 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean createNewStickerSet(Integer user_id, String name, String title, Object png_sticker, java.io.File tgs_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException;
+    Boolean createNewStickerSet(Long user_id, String name, String title, Object png_sticker, java.io.File tgs_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException;
     
     /**
      * Use this method to add a new sticker to a set created by the bot. Returns True on success.
@@ -1374,7 +1448,7 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean addStickerToSet(Integer user_id, String name, java.io.File png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
+    default Boolean addStickerToSet(Long user_id, String name, java.io.File png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
         return addStickerToSet(user_id, name, png_sticker, emojis, null);
     }
     
@@ -1387,7 +1461,7 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean addStickerToSet(Integer user_id, String name, String png_sticker, String emojis) throws TelegramException {
+    default Boolean addStickerToSet(Long user_id, String name, String png_sticker, String emojis) throws TelegramException {
         return addStickerToSet(user_id, name, png_sticker, emojis, null);
     }
     
@@ -1401,7 +1475,7 @@ public interface BotAPI {
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean addStickerToSet(Integer user_id, String name, Object png_sticker, String emojis, MaskPosition mask_position) throws TelegramException;
+    Boolean addStickerToSet(Long user_id, String name, Object png_sticker, String emojis, MaskPosition mask_position) throws TelegramException;
     
     /**
      * Use this method to move a sticker in a set created by the bot to a specific position . Returns True on success.
@@ -1430,7 +1504,7 @@ public interface BotAPI {
      * @return True on success.
      * @throws TelegramException
      */
-    Boolean setStickerSetThumb(String name, Integer user_id, java.io.File thumb) throws TelegramException;
+    Boolean setStickerSetThumb(String name, Long user_id, java.io.File thumb) throws TelegramException;
 
     /**
      * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only
@@ -1442,7 +1516,7 @@ public interface BotAPI {
      * @return True on success.
      * @throws TelegramException
      */
-    Boolean setStickerSetThumb(String name, Integer user_id, String thumb) throws TelegramException;
+    Boolean setStickerSetThumb(String name, Long user_id, String thumb) throws TelegramException;
 
     /**
      * Use this method to send answers to an inline query. On success, True is returned.
@@ -1610,7 +1684,7 @@ public interface BotAPI {
      * @return the Message, true or false
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Object setGameScore(Integer user_id, Integer score) throws TelegramException {
+    default Object setGameScore(Long user_id, Integer score) throws TelegramException {
         return setGameScore(user_id, score, null, null, null, null, null);
     }
     
@@ -1628,7 +1702,7 @@ public interface BotAPI {
      * @return the Message, true or false
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Object setGameScore(Integer user_id, Integer score, Boolean force, Boolean disable_edit_message, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException;
+    Object setGameScore(Long user_id, Integer score, Boolean force, Boolean disable_edit_message, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException;
     
     /**
      * Use this method to get data for high score tables.
@@ -1637,7 +1711,7 @@ public interface BotAPI {
      * @return On success, returns an Array of GameHighScore objects.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    default List<GameHighScore> getGameHighScores(Integer user_id) throws TelegramException {
+    default List<GameHighScore> getGameHighScores(Long user_id) throws TelegramException {
         return getGameHighScores(user_id, null, null, null);
     }
     
@@ -1651,5 +1725,5 @@ public interface BotAPI {
      * @return On success, returns an Array of GameHighScore objects.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    List<GameHighScore> getGameHighScores(Integer user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException;
+    List<GameHighScore> getGameHighScores(Long user_id, Object chat_id, Integer message_id, String inline_message_id) throws TelegramException;
 }

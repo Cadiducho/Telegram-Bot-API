@@ -85,5 +85,23 @@ public class Update {
      * Bots receive new votes only in polls that were sent by the bot itself.
      */
     @Json(name = "poll_answer") private PollAnswer pollAnswer;
+
+    /**
+     * Optional. The bot's chat member status was updated in a chat.
+     * For private chats, this update is received only when the bot is blocked or unblocked by the user.
+     */
+    @Json(name = "my_chat_member") private ChatMemberUpdated myChatMember;
+
+    /**
+     * Optional. A chat member's status was updated in a chat.
+     * The bot must be an administrator in the chat and must explicitly specify “chat_member” in the list of allowed_updates to receive these updates.
+     */
+    @Json(name = "chat_member") private ChatMemberUpdated chatMember;
+
+    /**
+     * Optional. A request to join the chat has been sent.
+     * The bot must have the can_invite_users administrator right in the chat to receive these updates.
+     */
+    @Json(name = "chat_join_request") private ChatJoinRequest chatJoinRequest;
     
 }

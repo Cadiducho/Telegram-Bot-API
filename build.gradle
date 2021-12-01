@@ -1,11 +1,11 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id "io.freefair.lombok" version "6.0.0-m2"
+    id "io.freefair.lombok" version "6.3.0"
 }
 
 group = 'com.cadiducho'
-version = '5.0'
+version = '5.1'
 sourceCompatibility = '1.8'
 
 java {
@@ -34,14 +34,14 @@ repositories {
 
 dependencies {
     implementation group: 'com.squareup.moshi', name: 'moshi', version: '1.12.0'
-    implementation group: 'com.squareup.okio', name: 'okio', version:'2.10.0'
-    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.1'
+    implementation group: 'com.squareup.okio', name: 'okio', version: '2.10.0'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.3'
 
     //Tests
-    testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.9.1'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.7.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.2'
+    testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.9.3'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.8.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
 }
 
 tasks.withType(JavaCompile) {

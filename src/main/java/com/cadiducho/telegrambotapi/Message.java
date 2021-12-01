@@ -231,6 +231,11 @@ public class Message {
      * Optional. Informs that the channel has been created
      */
     @Json(name = "channel_chat_created") private Boolean channelChatCreated;
+
+    /**
+     * Optional. Service message: auto-delete timer settings changed in the chat
+     */
+    @Json(name = "message_auto_delete_timer_changed") private MessageAutoDeleteTimerChanged messageAutoDeleteTimerChanged;
     
     /**
      * Optional. The chat has been migrated to a chat with specified identifier, not exceeding 1e13 by absolute value
@@ -266,6 +271,26 @@ public class Message {
      * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
      */
     @Json(name = "proximity_alert_triggered") private ProximityAlertTriggered proximityAlertTriggered;
+
+    /**
+     * Optional. Service message: voice chat scheduled
+     */
+    @Json(name = "voice_chat_scheduled") private VoiceChatScheduled voiceChatScheduled;
+
+    /**
+     * Optional. Service message: voice chat started
+     */
+    @Json(name = "voice_chat_started") private VoiceChatStarted voiceChatStarted;
+
+    /**
+     * Optional. Service message: voice chat ended
+     */
+    @Json(name = "voice_chat_ended") private VoiceChatEnded voiceChatEnded;
+
+    /**
+     * Optional. Service message: new participants invited to a voice chat
+     */
+    @Json(name = "voice_chat_participants_invited") private VoiceChatParticipantsInvited voiceChatParticipantsInvited;
 
     /**
      * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.

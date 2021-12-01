@@ -158,6 +158,6 @@ public class Chat {
      * @return This chat as a {@link User} object
      */
     public User asUser() {
-        return new User(Integer.parseInt(id), firstName, lastName, username);
+        return new User(id, firstName, lastName, username);
     }
 }
