@@ -24,7 +24,7 @@ public class Chat {
     /**
      * Unique identifier for this chat
      */
-    private String id;
+    private Long id;
     
     /**
      * Type of chat, can be either “private”, “group”, “supergroup” or “channel”
@@ -55,7 +55,12 @@ public class Chat {
      * Optional. Chat photo. Returned only in getChat.
      */
     private ChatPhoto photo;
-    
+
+    /**
+     * Optional. Bio of the other party in a private chat. Returned only in getChat.
+     */
+    private String bio;
+
     /**
      * Optional. Description, for supergroups and channel chats. Returned only in getChat.
      */
@@ -91,7 +96,17 @@ public class Chat {
      * Optional. True, if the bot can change the group sticker set. Returned only in getChat.
      */
     @Json(name = "can_set_sticker_set") private Boolean canSetStickerSet;
-    
+
+    /**
+     * Optional. Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats.
+     */
+    @Json(name = "linked_chat_id") private Long linkedChatId;
+
+    /**
+     * 	Optional. For supergroups, the location to which the supergroup is connected. Returned only in getChat.
+     */
+    private ChatLocation location;
+
     /**
      * Type of chat, can be either private, group, supergroup or channel
      */

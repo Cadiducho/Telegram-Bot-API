@@ -38,8 +38,8 @@ public class InputMediaVideo extends InputMedia {
      */
     @Json(name = "supports_streaming") private Boolean supportsStreaming;
 
-    public InputMediaVideo(String media, Object thumb, String caption, ParseMode parseMode, Integer width, Integer height, Integer duration, Boolean supportsStreaming) {
-        super("video", media, caption, parseMode);
+    public InputMediaVideo(String media, Object thumb, String caption, ParseMode parseMode, Integer width, Integer height, Integer duration, Boolean supportsStreaming, Boolean disableContentTypeDetection) {
+        super("video", media, caption, parseMode, disableContentTypeDetection);
         this.thumb = thumb;
         this.width = width;
         this.height = height;

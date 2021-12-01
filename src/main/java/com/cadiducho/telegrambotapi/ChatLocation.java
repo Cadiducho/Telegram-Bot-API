@@ -1,6 +1,5 @@
 package com.cadiducho.telegrambotapi;
 
-import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

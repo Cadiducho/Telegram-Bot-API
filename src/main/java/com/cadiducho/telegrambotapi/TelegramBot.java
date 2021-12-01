@@ -797,12 +797,13 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean unbanChatMember(Object chat_id, Integer user_id) throws TelegramException {
+    public Boolean unbanChatMember(Object chat_id, Integer user_id, Boolean only_if_banned) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "user_id", user_id);
+        safeAdd(parameters, "only_if_banned", only_if_banned);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "unbanChatMember")

@@ -33,8 +33,8 @@ public class InputMediaAudio extends InputMedia {
      */
     private String title;
 
-    public InputMediaAudio(String media,Object thumb, String caption, ParseMode parseMode, Integer duration, String performer, String title) {
-        super("audio", media, caption, parseMode);
+    public InputMediaAudio(String media, Object thumb, String caption, ParseMode parseMode, Integer duration, String performer, String title, Boolean disableContentTypeDetection) {
+        super("audio", media, caption, parseMode, disableContentTypeDetection);
         this.thumb = thumb;
         this.duration = duration;
         this.performer = performer;

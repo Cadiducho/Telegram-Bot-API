@@ -33,7 +33,7 @@ public class InputMediaAnimation extends InputMedia {
      */
     private Integer duration;
 
-    public InputMediaAnimation(String media, String caption, ParseMode parseMode) {
-        super("animation", media, caption, parseMode);
+    public InputMediaAnimation(String media, String caption, ParseMode parseMode, Boolean disableContentTypeDetection) {
+        super("animation", media, caption, parseMode, disableContentTypeDetection);
     }
 }
