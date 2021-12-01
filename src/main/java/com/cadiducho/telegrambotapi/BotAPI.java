@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 5.1
+ * Telegram Bot API version 5.2
  */
 public interface BotAPI {
 
@@ -675,10 +675,10 @@ public interface BotAPI {
      * We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
      * Watch more in https://core.telegram.org/bots/api#sendchataction
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param action Type of action to broadcast. 
-     *          Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, 
-     *          record_video or upload_video for videos, record_audio or upload_audio for audio files, upload_document for general files, 
-     *          find_location for location data.
+     * @param action Type of action to broadcast.
+     *               Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos,
+     *               record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files,
+     *               choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
@@ -698,10 +698,10 @@ public interface BotAPI {
      * We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
      * Watch more in https://core.telegram.org/bots/api#sendchataction
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-     * @param action Type of action to broadcast. 
-     *          Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, 
-     *          record_video or upload_video for videos, record_audio or upload_audio for audio files, upload_document for general files, 
-     *          find_location for location data.
+     * @param action Type of action to broadcast.
+     *               Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos,
+     *               record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files,
+     *               choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
@@ -1560,14 +1560,16 @@ public interface BotAPI {
      * @param description Product description
      * @param payload Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
      * @param provider_token Payments provider token, obtained via Botfather
-     * @param start_parameter Unique deep-linking parameter that can be used to generate this invoice when used as a start parameter
      * @param currency Three-letter ISO 4217 currency code, see more on https://core.telegram.org/bots/payments#supported-currencies
      * @param prices Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+     * @param max_tip_amount The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0
+     * @param suggested_tip_amounts A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+     * @param start_parameter Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
-                        List<LabeledPrice> prices) throws TelegramException {
+    default Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String currency,
+                        List<LabeledPrice> prices, Integer max_tip_amount, List<Integer> suggested_tip_amounts, String start_parameter) throws TelegramException {
         return sendInvoice(chat_id, title, description, payload, provider_token, start_parameter, currency, prices, null, null, null, null, null, false, false, false, false, false, false, false, false, null, null);
     }
     

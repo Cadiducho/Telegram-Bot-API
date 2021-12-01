@@ -19,6 +19,7 @@ import lombok.ToString;
  * <li>{@link InputLocationMessageContent}</li>
  * <li>{@link InputVenueMessageContent}</li>
  * <li>{@link InputContactMessageContent}</li>
+ * <li>{@link InputInvoiceMessageContent}</li>
  * </ul>
  */
 @ToString
