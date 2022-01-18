@@ -9,6 +9,7 @@ package com.cadiducho.telegrambotapi.handlers;
 import com.cadiducho.telegrambotapi.BotAPI;
 import com.cadiducho.telegrambotapi.Update;
 import com.cadiducho.telegrambotapi.exception.TelegramException;
+import com.squareup.moshi.JsonDataException;
 import lombok.Setter;
 import lombok.extern.java.Log;
 
@@ -123,6 +124,10 @@ public class DefaultBotUpdatesPoller implements BotUpdatesPoller {
                                 receivedUpdates.clear();
                             }
                             //log.severe(e.getMessage());
+                            interrupt();
+                        } catch (JsonDataException jsonDataException) {
+                            log.severe("Json Data Exception: ");
+                            log.severe(jsonDataException.getMessage());
                             interrupt();
                         } catch (Exception global) {
                             //log.severe(global.getMessage());

@@ -577,7 +577,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean kickChatMember(Object chat_id, Long user_id, Integer until_date, Boolean revoke_messages) throws TelegramException {
+    public Boolean banChatMember(Object chat_id, Long user_id, Integer until_date, Boolean revoke_messages) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -587,7 +587,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "revoke_messages", revoke_messages);
 
         final Request request = new Request.Builder()
-                .url(apiUrl + "kickChatMember")
+                .url(apiUrl + "banChatMember")
                 .post(parameters.build())
                 .build();
         return handleRequest(request, Boolean.class);
@@ -926,14 +926,14 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Integer getChatMembersCount(Object chat_id) throws TelegramException {
+    public Integer getChatMemberCount(Object chat_id) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "chat_id", safeChatId);
 
         final Request request = new Request.Builder()
-                .url(apiUrl + "getChatMembersCount")
+                .url(apiUrl + "getChatMemberCount")
                 .post(parameters.build())
                 .build();
         return handleRequest(request, Integer.class);
@@ -1001,10 +1001,12 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean setMyCommands(List<BotCommand> commands) throws TelegramException {
+    public Boolean setMyCommands(List<BotCommand> commands, BotCommandScope scope, String language_code) throws TelegramException {
         final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         safeAdd(parameters, "commands", moshi.adapter(Types.newParameterizedType(List.class, BotCommand.class)).toJson(commands));
+        safeAdd(parameters, "scope", scope);
+        safeAdd(parameters, "language_code", language_code);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "setMyCommands")
@@ -1014,9 +1016,29 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public List<BotCommand> getMyCommands() throws TelegramException {
+    public Boolean deleteMyCommands(BotCommandScope scope, String language_code) throws TelegramException {
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "scope", scope);
+        safeAdd(parameters, "language_code", language_code);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setMyCommands")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public List<BotCommand> getMyCommands(BotCommandScope scope, String language_code) throws TelegramException {
+        final MultipartBody.Builder parameters = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        safeAdd(parameters, "scope", scope);
+        safeAdd(parameters, "language_code", language_code);
+
         final Request request = new Request.Builder()
                 .url(apiUrl + "getMyCommands")
+                .post(parameters.build())
                 .build();
         return handleRequest(request, Types.newParameterizedType(List.class, BotCommand.class));
     }

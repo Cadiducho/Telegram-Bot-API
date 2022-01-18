@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 5.2
+ * Telegram Bot API version 5.3
  */
 public interface BotAPI {
 
@@ -753,8 +753,8 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean kickChatMember(Object chat_id, Long user_id) throws TelegramException {
-        return kickChatMember(chat_id, user_id, null, null);
+    default Boolean banChatMember(Object chat_id, Long user_id) throws TelegramException {
+        return banChatMember(chat_id, user_id, null, null);
     }
 
     /**
@@ -768,7 +768,7 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean kickChatMember(Object chat_id, Long user_id, Integer until_date, Boolean revoke_messages) throws TelegramException;
+    Boolean banChatMember(Object chat_id, Long user_id, Integer until_date, Boolean revoke_messages) throws TelegramException;
     
     /**
      * Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
@@ -1095,7 +1095,7 @@ public interface BotAPI {
      * @return Number of members in a chat
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Integer getChatMembersCount(Object chat_id) throws TelegramException;
+    Integer getChatMemberCount(Object chat_id) throws TelegramException;
     
     /**
      * 
@@ -1159,17 +1159,49 @@ public interface BotAPI {
     /**
      * Use this method to change the list of the bot's commands.
      * @param commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
+     * @param scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
+     * @param language_code A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
      * @return True on success.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    Boolean setMyCommands(List<BotCommand> commands) throws TelegramException;
+    Boolean setMyCommands(List<BotCommand> commands, BotCommandScope scope, String language_code) throws TelegramException;
+
+    /**
+     * Use this method to change the list of the bot's commands.
+     * @param commands A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
+     * @return True on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    default Boolean setMyCommands(List<BotCommand> commands) throws TelegramException {
+        return setMyCommands(commands, null, null);
+    }
+
+    /**
+     * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users.
+     * @param scope A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
+     * @param language_code A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+     * @return True on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean deleteMyCommands(BotCommandScope scope, String language_code) throws TelegramException;
+
+    /**
+     * Use this method to get the current list of the bot's commands.
+     * @param scope A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault.
+     * @param language_code A two-letter ISO 639-1 language code or an empty string
+     * @return Array of BotCommand on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    List<BotCommand> getMyCommands(BotCommandScope scope, String language_code) throws TelegramException;
 
     /**
      * Use this method to get the current list of the bot's commands. Requires no parameters.
      * @return Array of BotCommand on success.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    List<BotCommand> getMyCommands() throws TelegramException;
+    default List<BotCommand> getMyCommands() throws TelegramException {
+        return getMyCommands(null, null);
+    }
     
     /**
      * Use this method to edit text and game messages sent by the bot or via the bot (for inline bots). 
