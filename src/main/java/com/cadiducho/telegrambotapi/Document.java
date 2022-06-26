@@ -47,5 +47,5 @@ public class Document {
     /**
      * Optional. File size
      */
-    @Json(name = "file_size") private Integer fileSize;
+    @Json(name = "file_size") private Long fileSize;
 }

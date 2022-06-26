@@ -35,7 +35,7 @@ public class File {
     /**
      * Optional. File size, if known
      */
-    @Json(name = "file_size") private Integer fileSize;
+    @Json(name = "file_size") private Long fileSize;
     
     /**
      * Optional. File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.

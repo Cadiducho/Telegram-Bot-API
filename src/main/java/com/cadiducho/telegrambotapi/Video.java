@@ -62,6 +62,6 @@ public class Video {
     /**
      * Optional. File size
      */
-    @Json(name = "file_size") Integer fileSize;
+    @Json(name = "file_size") private Long fileSize;
 
 }

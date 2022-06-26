@@ -57,7 +57,7 @@ public class Audio {
     /**
      * Optional. File size
      */
-    @Json(name = "file_size") private Integer fileSize;
+    @Json(name = "file_size") private Long fileSize;
 
     /**
      * Optional. Thumbnail of the album cover to which the music file belongs
