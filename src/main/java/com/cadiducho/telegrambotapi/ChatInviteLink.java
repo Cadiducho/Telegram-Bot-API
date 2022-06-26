@@ -1,16 +1,12 @@
 package com.cadiducho.telegrambotapi;
 
 import com.squareup.moshi.Json;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
  * Represents an invite link for a chat.
  */
-@ToString
-@Getter
-@Setter
+@Data
 public class ChatInviteLink {
 
     /**

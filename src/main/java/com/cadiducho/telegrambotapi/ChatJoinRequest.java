@@ -1,6 +1,7 @@
 package com.cadiducho.telegrambotapi;
 
 import com.squareup.moshi.Json;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,9 +9,7 @@ import lombok.ToString;
 /**
  * Represents a join request sent to a chat.
  */
-@ToString
-@Getter
-@Setter
+@Data
 public class ChatJoinRequest {
 
     /**
@@ -36,7 +35,7 @@ public class ChatJoinRequest {
     /**
      * 	Optional. Chat invite link that was used by the user to send the join request
      */
-    @Json(name = "invite_link") private String inviteLink;
+    @Json(name = "invite_link") private ChatInviteLink inviteLink;
 
 
     /**
