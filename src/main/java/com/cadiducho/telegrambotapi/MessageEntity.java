@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2022 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -23,8 +23,8 @@ public class MessageEntity {
      * 	Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot),
      * 	“url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123),
      * 	“bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text),
-     * 	“code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs),
-     * 	“text_mention” (for users without usernames)
+     * 	“spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block),
+     * 	“text_link” (for clickable text URLs), “text_mention” (for users without usernames)
      */
     private String type;
     

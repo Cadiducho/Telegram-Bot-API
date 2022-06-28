@@ -82,7 +82,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendMessage(Object chat_id, String text) throws TelegramException {
-        return sendMessage(chat_id, text, null, null, false, null, null);
+        return sendMessage(chat_id, text, null, null, false, null, null, null);
     }
 
     /**
@@ -92,13 +92,14 @@ public interface BotAPI {
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param disable_web_page_preview Disables link previews for links in this message
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendMessage(Object chat_id, String text, ParseMode parse_mode, Boolean disable_notification, Boolean disable_web_page_preview, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendMessage(Object chat_id, String text, ParseMode parse_mode, Boolean disable_notification, Boolean protect_content, Boolean disable_web_page_preview, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to forward messages of any kind. On success, the sent {@link Message} is returned.
@@ -109,7 +110,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message forwardMessage(Object chat_id, Integer from_chat_id, Integer message_id) throws TelegramException {
-        return forwardMessage(chat_id, from_chat_id, false, message_id);
+        return forwardMessage(chat_id, from_chat_id, false, false, message_id);
     }
     
     /**
@@ -117,11 +118,12 @@ public interface BotAPI {
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param from_chat_id Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param message_id Unique message identifier
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message forwardMessage(Object chat_id, Integer from_chat_id, Boolean disable_notification, Integer message_id) throws TelegramException;
+    Message forwardMessage(Object chat_id, Integer from_chat_id, Boolean disable_notification, Boolean protect_content, Integer message_id) throws TelegramException;
 
     /**
      * Use this method to copy messages of any kind. Service messages and invoice messages can't be copied.
@@ -133,7 +135,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default MessageId copyMessage(Object chat_id, Object from_chat_id, Integer message_id) throws TelegramException {
-        return copyMessage(chat_id, from_chat_id, message_id, null, null, null, null, null, null);
+        return copyMessage(chat_id, from_chat_id, message_id, null, null, null, null, null, null, null);
     }
 
     /**
@@ -145,13 +147,14 @@ public interface BotAPI {
      * @param caption New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
      * @param parse_mode Mode for parsing entities in the new caption. See formatting options for more details.
      * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param allow_sending_without_reply Pass True, if the message should be sent even if the specified replied-to message is not found
      * @param reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      * @return Returns the MessageId of the sent message on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    MessageId copyMessage(Object chat_id, Object from_chat_id, Integer message_id, String caption, String parse_mode, Boolean disable_notification, Integer reply_to_message_id, Boolean allow_sending_without_reply, Object reply_markup) throws TelegramException;
+    MessageId copyMessage(Object chat_id, Object from_chat_id, Integer message_id, String caption, String parse_mode, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Boolean allow_sending_without_reply, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send photos. On success, the sent {@link Message} is returned.
@@ -161,7 +164,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendPhoto(Object chat_id, String photo) throws TelegramException {
-        return sendPhoto(chat_id, photo, null, false, null, null);
+        return sendPhoto(chat_id, photo, null, false, null, null, null);
     }
     
     /**
@@ -172,7 +175,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendPhoto(Object chat_id, java.io.File photo) throws TelegramException {
-        return sendPhoto(chat_id, photo, null, false, null, null);
+        return sendPhoto(chat_id, photo, null, false, null, null, null);
     }
     
     /**
@@ -181,13 +184,14 @@ public interface BotAPI {
      * @param photo Photo to send. You can either pass a file_id as String to resend a photo that is already on the Telegram servers, or upload a new photo using multipart/form-data.
      * @param caption Photo caption (may also be used when resending photos by file_id).
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendPhoto(Object chat_id, Object photo, String caption, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendPhoto(Object chat_id, Object photo, String caption, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send audio files, if you want Telegram clients to display them in the music player. 
@@ -203,7 +207,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendAudio(Object chat_id, String audio) throws TelegramException {
-        return sendAudio(chat_id, audio, null, null,  null, null, false, null, null);
+        return sendAudio(chat_id, audio, null, null,  null, null, false, null, null, null);
     }
     
     /**
@@ -220,7 +224,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendAudio(Object chat_id, java.io.File audio) throws TelegramException {
-        return sendAudio(chat_id, audio, null, null, null, null, false, null, null);
+        return sendAudio(chat_id, audio, null, null, null, null, false, null, null, null);
     }
     
     /**
@@ -238,13 +242,14 @@ public interface BotAPI {
      * @param performer Performer
      * @param title Track name
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendAudio(Object chat_id, Object audio, String caption, Integer duration, String performer, String title, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendAudio(Object chat_id, Object audio, String caption, Integer duration, String performer, String title, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send general files. On success, the sent {@link Message} is returned. 
@@ -256,7 +261,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendDocument(Object chat_id, String document) throws TelegramException {
-        return sendDocument(chat_id, document, false, false, null, null);
+        return sendDocument(chat_id, document, false, false, null, null, null);
     }
     
     /**
@@ -269,7 +274,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendDocument(Object chat_id, java.io.File document) throws TelegramException {
-        return sendDocument(chat_id, document, null, false, null, null);
+        return sendDocument(chat_id, document, null, false, null, null, null);
     }
     
     /**
@@ -279,6 +284,7 @@ public interface BotAPI {
      * @param document File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, 
      *                  or upload a new file using multipart/form-data.
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param disable_content_type_detection Disables automatic server-side content type detection for files uploaded using multipart/form-data
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
@@ -286,7 +292,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendDocument(Object chat_id, Object document, Boolean disable_content_type_detection, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendDocument(Object chat_id, Object document, Boolean disable_content_type_detection, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as {@link Document}). 
@@ -299,7 +305,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVideo(Object chat_id, String video) throws TelegramException {
-        return sendVideo(chat_id, video, null, null, null, null, null, null, false, null, null);
+        return sendVideo(chat_id, video, null, null, null, null, null, null, false, null, null, null);
     }
     
     /**
@@ -313,7 +319,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVideo(Object chat_id, java.io.File video) throws TelegramException {
-        return sendVideo(chat_id, video, null, null, null, null, null, null, false, null, null);
+        return sendVideo(chat_id, video, null, null, null, null, null, null, false, null, null, null);
     }
     
     /**
@@ -328,13 +334,14 @@ public interface BotAPI {
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param supports_streaming Pass True, if the uploaded video is suitable for streaming
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean supports_streaming, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean supports_streaming, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).
@@ -346,7 +353,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendAnimation(Object chat_id, String animation) throws TelegramException {
-        return sendAnimation(chat_id, animation, null, null, null, null, null, null, false, null, null);
+        return sendAnimation(chat_id, animation, null, null, null, null, null, null, false, null, null, null);
     }
 
     /**
@@ -359,7 +366,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendAnimation(Object chat_id, java.io.File animation) throws TelegramException {
-        return sendAnimation(chat_id, animation, null, null, null, null, null, null, false, null, null);
+        return sendAnimation(chat_id, animation, null, null, null, null, null, null, false, null, null, null);
     }
 
     /**
@@ -375,13 +382,14 @@ public interface BotAPI {
      * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. 
@@ -394,7 +402,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVoice(Object chat_id, String voice) throws TelegramException {
-        return sendVoice(chat_id, voice, null, null, false, null, null);
+        return sendVoice(chat_id, voice, null, null, false, null, null, null);
     }
     
     /**
@@ -408,7 +416,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVoice(Object chat_id, java.io.File voice) throws TelegramException {
-        return sendVoice(chat_id, voice, null, null, false, null, null);
+        return sendVoice(chat_id, voice, null, null, false, null, null, null);
     }
     
     /**
@@ -421,13 +429,14 @@ public interface BotAPI {
      * @param caption Voice message caption, 0-200 characters
      * @param duration Duration of the audio in seconds
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVoice(Object chat_id, Object voice, String caption, Integer duration, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVoice(Object chat_id, Object voice, String caption, Integer duration, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send a group of photos or videos as an album.
@@ -437,7 +446,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendMediaGroup(Object chat_id, List<InputMedia> media) throws TelegramException {
-        return sendMediaGroup(chat_id, media, false, null);
+        return sendMediaGroup(chat_id, media, false, null, null);
     }
 
     /**
@@ -449,7 +458,7 @@ public interface BotAPI {
      * @return An array of the sent Messages is returned on success
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendMediaGroup(Object chat_id, List<InputMedia> media, Boolean disable_notification, Integer reply_to_message_id) throws TelegramException;
+    Message sendMediaGroup(Object chat_id, List<InputMedia> media, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id) throws TelegramException;
 
     /**
      * Use this method to send point on the map. On success, the sent {@link Message} is returned.
@@ -460,7 +469,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendLocation(Object chat_id, Float latitude, Float longitude) throws TelegramException {
-        return sendLocation(chat_id, latitude, longitude, null, null, null,  null, false, null, null);
+        return sendLocation(chat_id, latitude, longitude, null, null, null,  null, false, null, null, null);
     }
     
     /**
@@ -473,13 +482,14 @@ public interface BotAPI {
      * @param heading For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
      * @param proximity_alert_radius For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendLocation(Object chat_id, Float latitude, Float longitude, Float horizontal_accuracy, Integer live_period, Integer heading, Integer proximity_alert_radius, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendLocation(Object chat_id, Float latitude, Float longitude, Float horizontal_accuracy, Integer live_period, Integer heading, Integer proximity_alert_radius, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to edit live location messages sent by the bot or via the bot (for inline bots).
@@ -519,7 +529,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVideoNote(Object chat_id, String video_note) throws TelegramException {
-        return sendVideoNote(chat_id, video_note, null, null, false, null, null);
+        return sendVideoNote(chat_id, video_note, null, null, false, null, null, null);
     }
     
     /**
@@ -532,7 +542,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVideoNote(Object chat_id, java.io.File video_note) throws TelegramException {
-        return sendVideoNote(chat_id, video_note, null, null, false, null, null);
+        return sendVideoNote(chat_id, video_note, null, null, false, null, null, null);
     }
     
     /**
@@ -542,13 +552,14 @@ public interface BotAPI {
      * @param duration Duration of sent video in seconds
      * @param length Video width and height
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideoNote(Object chat_id, Object video_note, Integer duration, Integer length, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVideoNote(Object chat_id, Object video_note, Integer duration, Integer length, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send information about a venue. On success, the sent {@link Message} is returned.
@@ -561,7 +572,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address) throws TelegramException {
-        return sendVenue(chat_id, latitude, longitude, title, address, null, null, false, null, null);
+        return sendVenue(chat_id, latitude, longitude, title, address, null, null, false, null, null, null);
     }
     
     /**
@@ -574,13 +585,14 @@ public interface BotAPI {
      * @param foursquare_id Foursquare identifier of the venue
      * @param foursquare_type Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address, String foursquare_id, String foursquare_type, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVenue(Object chat_id, Float latitude, Float longitude, String title, String address, String foursquare_id, String foursquare_type, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send phone contacts. On success, the sent {@link Message} is returned.
@@ -591,7 +603,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendContact(Object chat_id, String phone_number, String first_name)  throws TelegramException {
-        return sendContact(chat_id, phone_number, first_name, null, null, false, null, null);
+        return sendContact(chat_id, phone_number, first_name, null, null, false, null, null, null);
     }
     
     /**
@@ -602,13 +614,14 @@ public interface BotAPI {
      * @param last_name Contact's last name
      * @param vcard Additional data about the contact in the form of a vCard, 0-2048 bytes
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, String vcard, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendContact(Object chat_id, String phone_number, String first_name, String last_name, String vcard, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send a native poll. A native poll can't be sent to a private chat. On success, the sent {@link Message} is returned.
@@ -619,7 +632,7 @@ public interface BotAPI {
      * @throws TelegramException if the method fails in Telegram servers
      */
     default Message sendPoll(Object chat_id, String question, List<String> options) throws TelegramException {
-        return sendPoll(chat_id, question, options, null, null, null, null, null, null, null, null, null, null, null, null);
+        return sendPoll(chat_id, question, options, null, null, null, null, null, null, null, null, null, null, null, null, null);
     }
 
     /**
@@ -637,6 +650,7 @@ public interface BotAPI {
      * @param close_date Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period.
      * @param is_closed Pass True, if the poll needs to be immediately closed
      * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user. 
      *                  It can be {@link ReplyKeyboardMarkup}, {@link ReplyKeyboardRemove} or {@link ForceReply}.
@@ -645,7 +659,7 @@ public interface BotAPI {
      */
     Message sendPoll(Object chat_id, String question, List<String> options, Boolean is_anonymous, String type, Boolean allows_multiple_answers,
                      Integer correct_option_id, String explanation, String explanation_parse_mode, Integer open_period, Integer close_date,
-                     Boolean is_closed, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+                     Boolean is_closed, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send a dice, which will have a random value from 1 to 6.
@@ -654,7 +668,7 @@ public interface BotAPI {
      * @throws TelegramException if the method fails in Telegram servers
      */
     default Message sendDice(Object chat_id) throws TelegramException {
-        return sendDice(chat_id, null, null, null, null);
+        return sendDice(chat_id, null, null, null, null, null);
     }
 
     /**
@@ -662,12 +676,13 @@ public interface BotAPI {
      * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
      * @param emoji Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. Dice can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
      * @param disable_notification Sends the message silently. Users will receive a notification with no sound.
+     * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param reply_markup Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove reply keyboard or to force a reply from the user.
      * @return On success, the sent Message is returned.
      * @throws TelegramException if the method fails in Telegram servers
      */
-    Message sendDice(Object chat_id, String emoji, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendDice(Object chat_id, String emoji, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method when you need to tell the user that something is happening on the bot's side. 
@@ -1401,7 +1416,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendSticker(Object chat_id, String sticker) throws TelegramException {
-        return sendSticker(chat_id, sticker, false, null, null);
+        return sendSticker(chat_id, sticker, false, null, null, null);
     }
     
     /**
@@ -1413,7 +1428,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendSticker(Object chat_id, java.io.File sticker) throws TelegramException {
-        return sendSticker(chat_id, sticker, false, null, null);
+        return sendSticker(chat_id, sticker, false, null, null, null);
     }
     
     /**
@@ -1428,7 +1443,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendSticker(Object chat_id, Object sticker, Boolean disable_notification, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendSticker(Object chat_id, Object sticker, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to get a sticker set. On success, a StickerSet object is returned.
@@ -1623,7 +1638,7 @@ public interface BotAPI {
      */
     default Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String currency,
                         List<LabeledPrice> prices, Integer max_tip_amount, List<Integer> suggested_tip_amounts, String start_parameter) throws TelegramException {
-        return sendInvoice(chat_id, title, description, payload, provider_token, start_parameter, currency, prices, null, null, null, null, null, false, false, false, false, false, false, false, false, null, null);
+        return sendInvoice(chat_id, title, description, payload, provider_token, start_parameter, currency, prices, null, null, null, null, null, false, false, false, false, false, false, false, false, null, null, null);
     }
     
     /**
@@ -1656,7 +1671,7 @@ public interface BotAPI {
      */
     Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
                                     List<LabeledPrice> prices, String provider_data, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height, Boolean need_name, Boolean need_phone_number,
-                                    Boolean need_email, Boolean need_shipping_address, Boolean send_phone_number_to_provider, Boolean send_email_to_provider, Boolean is_flexible, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
+                                    Boolean need_email, Boolean need_shipping_address, Boolean send_phone_number_to_provider, Boolean send_email_to_provider, Boolean is_flexible, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
      * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. 
@@ -1715,7 +1730,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendGame(Object chat_id, String game_short_name) throws TelegramException {
-        return sendGame(chat_id, game_short_name, null, null, null);
+        return sendGame(chat_id, game_short_name, null, null, null, null);
     }
     
     /**
@@ -1728,7 +1743,7 @@ public interface BotAPI {
      * @return On success, the sent message
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendGame(Object chat_id, String game_short_name, Boolean disable_notification, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
+    Message sendGame(Object chat_id, String game_short_name, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
     
     /**
      * Use this method to set the score of the specified user in a game. 

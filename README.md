@@ -2,10 +2,10 @@ Simple Telegram Bot API implementation to Java
 ========================================
 > This API is an unofficial one. Check [Telegram Bot API](https://core.telegram.org/bots) for more info.
 
-<p align="center">
-    <a href="https://github.com/Cadiducho/Telegram-Bot-API/commits/master"><img src="https://img.shields.io/github/release/Cadiducho/Telegram-Bot-API.svg" alt="Project Version" /></a>
-    <a href="https://travis-ci.org/Cadiducho/Telegram-Bot-API"><img src="https://travis-ci.org/Cadiducho/Telegram-Bot-API.svg" alt="Project Status" /></a>
-</a>
+[![License](https://img.shields.io/github/license/Cadiducho/Telegram-Bot-API)](https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE)
+[![CI](https://github.com/Cadiducho/Telegram-Bot-API/actions/workflows/gradle.yml/badge.svg)](https://github.com/Cadiducho/Telegram-Bot-API/actions/workflows/gradle.yml)
+[![Release](https://img.shields.io/github/release/Cadiducho/Telegram-Bot-API.svg)](https://github.com/Cadiducho/Telegram-Bot-API/releases)
+[![Sponsors](https://img.shields.io/github/sponsors/Cadiducho)](https://github.com/sponsors/Cadiducho)
 
 ## Usage
 
@@ -41,16 +41,19 @@ If you want use Telegram Bot API as a Maven Dependency simply add repo and artif
 
 ```xml
 <repository>
-    <id>cadiducho-repo</id>
-    <url>https://cadiducho.com/repo</url>
+    <id>cadiducho-repo-releases</id>
+    <name>Cadiducho Repository</name>
+    <url>https://repo.cadiducho.com/releases</url>
 </repository>
-...
+
 <dependency>
     <groupId>com.cadiducho</groupId>
     <artifactId>TelegramBotAPI</artifactId>
-    <version>4.7</version>
+    <version>5.6</version>
 </dependency>
 ```
+
+You can always check lastest version in [my maven repository](https://repo.cadiducho.com/#/releases/com/cadiducho/TelegramBotAPI).
 
 ## License
 
@@ -60,4 +63,4 @@ This project is released under the [MIT-License](https://github.com/Cadiducho/Te
 > Cadiducho's TelegramBotAPI is highly inspired on [Irazasyed's Telegram Bot API - PHP SDK](https://github.com/irazasyed/telegram-bot-sdk) 
 > and [Rainu's telegram-bot-api](https://github.com/rainu/telegram-bot-api), but this one is written from scratch.
 
-© 2020 [Cadiducho](https://twitter.com/Cadiducho)
+© 2022 [Cadiducho](https://twitter.com/Cadiducho)

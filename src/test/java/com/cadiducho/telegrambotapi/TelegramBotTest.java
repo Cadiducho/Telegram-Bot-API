@@ -52,13 +52,18 @@ class TelegramBotTest {
 
     @Test
     void sendMessage() throws TelegramException {
-        String hello = "<code>Hello</code> <b>from</b> <i>tests</i>";
-        bot.sendMessage(CHAT_ID, hello, ParseMode.HTML, null, true, null, null);
+        String hello = "<code>Hello</code> <b>from</b> <i>tests</i> " +
+                "<span class=\"tg-spoiler\">spoiler</span> " +
+                "<a href=\"http://www.example.com/\">inline URL</a> " +
+                "<code>inline fixed-width code</code>\n" +
+                "<pre>pre-formatted fixed-width code block</pre>\n" +
+                "<pre><code class=\"language-python\">pre-formatted fixed-width code block written in the Python programming language</code></pre>";
+        bot.sendMessage(CHAT_ID, hello, ParseMode.HTML, null, true, null, null, null);
     }
 
     @Test
     void sendPhoto() throws TelegramException {
-        bot.sendPhoto(CHAT_ID, PHOTO_ID, "Test caption", true, null, null);
+        bot.sendPhoto(CHAT_ID, PHOTO_ID, "Test caption", true, null, null, null);
     }
 
     @Test
