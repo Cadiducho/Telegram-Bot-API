@@ -44,7 +44,13 @@ public class Sticker {
      * See <a href="https://telegram.org/blog/animated-stickers">https://telegram.org/blog/animated-stickers</a>
      */
     @Json(name = "is_animated") private Boolean isAnimated;
-    
+
+    /**
+     * True, if the sticker is a video sticker.
+     * See <a href="https://telegram.org/blog/video-stickers-better-reactions">https://telegram.org/blog/video-stickers-better-reactions</a>
+     */
+    @Json(name = "is_video") private Boolean isVideo;
+
     /**
      * Optional. Sticker thumbnail in .webp or .jpg format
      */

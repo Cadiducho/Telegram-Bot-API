@@ -1461,50 +1461,22 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     File uploadStickerFile(Long user_id, java.io.File png_sticker) throws TelegramException;
-
-    /**
-     * Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set. Returns True on success.
-     * @param user_id User identifier of created sticker set owner
-     * @param name Short name of sticker set, to be used in t.me/addstickers/ URLs. Must begin with a letter, can't contain consecutive underscores and must end in “_by_&lt;bot username&gt;”. &lt;bot_username&gt; is case insensitive. 1-64 characters.
-     * @param title Sticker set title, 1-64 characters
-     * @param png_sticker Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using
-     * @param tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements
-     * @param emojis One or more emoji corresponding to the sticker
-     * @return True on success.
-     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
-     */
-    default Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
-        return createNewStickerSet(user_id, name, title, png_sticker, tgs_sticker, emojis, null, null);
-    }
     
     /**
      * Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set. Returns True on success.
      * @param user_id User identifier of created sticker set owner
      * @param name Short name of sticker set, to be used in t.me/addstickers/ URLs. Must begin with a letter, can't contain consecutive underscores and must end in “_by_&lt;bot username&gt;”. &lt;bot_username&gt; is case insensitive. 1-64 characters.
      * @param title Sticker set title, 1-64 characters
-     * @param png_sticker Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using
-     * @param tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements
-     * @param emojis One or more emoji corresponding to the sticker
-     * @return True on success.
-     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
-     */
-    default Boolean createNewStickerSet(Long user_id, String name, String title, String png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
-        return createNewStickerSet(user_id, name, title, png_sticker, tgs_sticker, emojis, null, null);
-    }
-    
-    /**
-     * Use this method to create new sticker set owned by a user. The bot will be able to edit the created sticker set. Returns True on success.
-     * @param user_id User identifier of created sticker set owner
-     * @param name Short name of sticker set, to be used in t.me/addstickers/ URLs. Must begin with a letter, can't contain consecutive underscores and must end in “_by_&lt;bot username&gt;”. &lt;bot_username&gt; is case insensitive. 1-64 characters.
-     * @param title Sticker set title, 1-64 characters
-     * @param png_sticker Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using 
+     * @param png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data
+     * @param tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
+     * @param webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
      * @param emojis One or more emoji corresponding to the sticker
      * @param contains_masks Optional. Pass True, if a set of mask stickers should be created
      * @param mask_position Optional. A JSON-serialized object for position where the mask should be placed on faces
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean createNewStickerSet(Long user_id, String name, String title, Object png_sticker, java.io.File tgs_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException;
+    Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, java.io.File webm_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException;
     
     /**
      * Use this method to add a new sticker to a set created by the bot. Returns True on success.

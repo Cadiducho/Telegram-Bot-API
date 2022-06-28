@@ -1305,7 +1305,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean createNewStickerSet(Long user_id, String name, String title, Object png_sticker, java.io.File tgs_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException {
+    public Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, java.io.File webm_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException {
         final MultipartBody.Builder parameters = bodyBuilder();
 
         safeAdd(parameters, "user_id", user_id);
@@ -1316,6 +1316,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "mask_position", mask_position);
         addFile(parameters, "png_sticker", png_sticker, MediaTypes.MEDIA_TYPE_PHOTO);
         addFile(parameters, "tgs_sticker", png_sticker, MediaTypes.MEDIA_TYPE_PHOTO);
+        addFile(parameters, "webm_sticker", webm_sticker, MediaTypes.MEDIA_TYPE_PHOTO);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "createNewStickerSet")

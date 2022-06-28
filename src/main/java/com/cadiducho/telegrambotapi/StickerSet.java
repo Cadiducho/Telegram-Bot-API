@@ -36,6 +36,12 @@ public class StickerSet {
      * See <a href="https://telegram.org/blog/animated-stickers">https://telegram.org/blog/animated-stickers</a>
      */
     @Json(name = "is_animated") private Boolean isAnimated;
+
+    /**
+     * True, if the sticker set contains
+     * See <a href="https://telegram.org/blog/video-stickers-better-reactions">https://telegram.org/blog/video-stickers-better-reactions</a>
+     */
+    @Json(name = "is_video") private Boolean isVideo;
     
     /**
      * True, if the sticker set contains masks
