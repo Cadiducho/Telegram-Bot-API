@@ -81,7 +81,12 @@ public class Message {
      * Optional. For forwarded messages, date the original message was sent in Unix time
      */
     @Json(name = "forward_date") private Integer forwardDate;
-    
+
+    /**
+     * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+     */
+    @Json(name = "is_automatic_forward") private Boolean isAutomaticForward;
+
     /**
      * Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
      */
@@ -96,6 +101,11 @@ public class Message {
      * Optional. Date the message was last edited in Unix time
      */
     @Json(name = "edit_date") private Integer editDate;
+
+    /**
+     * Optional. True, if the message can't be forwarded
+     */
+    @Json(name = "has_protected_content") private Boolean hasProtectedContent;
     
     /**
      * Optional. Signature of the post author for messages in channels

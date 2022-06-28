@@ -874,6 +874,27 @@ public interface BotAPI {
     Boolean setChatAdministratorCustomTitle(Object chat_id, Long user_id, String custom_title) throws TelegramException;
 
     /**
+     * Use this method to ban a channel chat in a supergroup or a channel.
+     * Until the chat is unbanned, the owner of the banned chat won't be able to send messages on behalf of any of their channels.
+     * The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param sender_chat_id Unique identifier of the target sender chat
+     * @return Returns True on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean banChatSenderChat(Object chat_id, String sender_chat_id) throws TelegramException;
+
+    /**
+     * Use this method to unban a previously banned channel chat in a supergroup or channel.
+     * The bot must be an administrator for this to work and must have the appropriate administrator rights.
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param sender_chat_id nique identifier of the target sender chat
+     * @return Returns True on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean unbanChatSenderChat(Object chat_id, String sender_chat_id) throws TelegramException;
+
+    /**
      * Use this method to set default chat permissions for all members.
      * The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights.
      * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)

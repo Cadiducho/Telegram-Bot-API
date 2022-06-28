@@ -662,6 +662,36 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
+    public Boolean banChatSenderChat(Object chat_id, String sender_chat_id) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "sender_chat_id", sender_chat_id);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "banChatSenderChat")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean unbanChatSenderChat(Object chat_id, String sender_chat_id) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "sender_chat_id", sender_chat_id);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "unbanChatSenderChat")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
     public Boolean setChatPermissions(Object chat_id, ChatPermissions permissions) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();

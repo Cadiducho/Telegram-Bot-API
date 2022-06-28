@@ -62,6 +62,11 @@ public class Chat {
     private String bio;
 
     /**
+     * Optional. True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat.
+     */
+    @Json(name = "has_private_forwards") private Boolean hasPrivateForwards;
+
+    /**
      * Optional. Description, for supergroups and channel chats. Returned only in getChat.
      */
     private String description;
@@ -86,6 +91,11 @@ public class Chat {
      * Returned only in getChat.
      */
     @Json(name = "slow_mode_delay") private Integer slowModeDelay;
+
+    /**
+     * Optional. True, if messages from the chat can't be forwarded to other chats. Returned only in getChat.
+     */
+    @Json(name = "has_protected_content") private Boolean hasProtectedContent;
     
     /**
      * Optional. For supergroups, name of group sticker set. Returned only in getChat.

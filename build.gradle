@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.cadiducho'
-version = '5.3'
+version = '5.5'
 sourceCompatibility = '1.8'
 
 java {
@@ -54,12 +54,12 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'com.squareup.moshi', name: 'moshi', version: '1.12.0'
-    implementation group: 'com.squareup.okio', name: 'okio', version: '2.10.0'
-    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.3'
+    implementation group: 'com.squareup.moshi', name: 'moshi', version: '1.13.0'
+    implementation group: 'com.squareup.okio', name: 'okio', version: '3.2.0'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
 
     //Tests
-    testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.9.3'
+    testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.10.0'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.8.2'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
