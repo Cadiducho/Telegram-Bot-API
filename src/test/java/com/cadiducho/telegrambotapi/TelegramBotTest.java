@@ -3,6 +3,7 @@ package com.cadiducho.telegrambotapi;
 import com.cadiducho.telegrambotapi.exception.TelegramException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -141,5 +142,24 @@ class TelegramBotTest {
 
         assertTrue(bot.setMyCommands(list));
         assertEquals(bot.getMyCommands(), list);
+    }
+
+    @Nested
+    class MenuButtonTest {
+
+        @Test
+        void setChatMenuButton() throws TelegramException {
+            assertTrue(bot.setChatMenuButton(CHAT_ID, new MenuButtonCommands()));
+            assertTrue(bot.setChatMenuButton(CHAT_ID, new MenuButtonWebApp("test web app", new WebAppInfo("https://telegram.org/"))));
+            assertTrue(bot.setChatMenuButton(CHAT_ID, new MenuButtonDefault()));
+        }
+
+        @Test
+        void getChatMenuButton() throws TelegramException {
+            assertTrue(bot.setChatMenuButton(CHAT_ID, new MenuButtonCommands()));
+            MenuButton menuButton = bot.getChatMenuButton(CHAT_ID);
+            assertNotNull(menuButton);
+            assertEquals("commands", menuButton.getType());
+        }
     }
 }

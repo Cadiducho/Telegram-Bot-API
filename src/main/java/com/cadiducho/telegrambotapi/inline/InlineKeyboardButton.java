@@ -8,6 +8,7 @@
 package com.cadiducho.telegrambotapi.inline;
 
 import com.cadiducho.telegrambotapi.LoginUrl;
+import com.cadiducho.telegrambotapi.WebAppInfo;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +40,12 @@ public class InlineKeyboardButton {
      * 	Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
      */
     @Json(name = "callback_data") private String callbackData;
+
+    /**
+     * Optional. If specified, the described Web App will be launched when the button is pressed.
+     * The Web App will be able to send a “web_app_data” service message. Available in private chats only.
+     */
+    @Json(name = "web_app") private WebAppInfo webApp;
     
     /**
      * Optional. If set, pressing the button will prompt the user to select one of their chats, 

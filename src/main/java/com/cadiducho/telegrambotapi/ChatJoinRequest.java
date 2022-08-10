@@ -2,9 +2,6 @@ package com.cadiducho.telegrambotapi;
 
 import com.squareup.moshi.Json;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 /**
  * Represents a join request sent to a chat.

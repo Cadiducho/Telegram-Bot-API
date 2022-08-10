@@ -11,18 +11,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 /**
- * This object represents a service message about new members invited to a video chat.
+ * This object represents a service message about a video chat started in the chat. Currently holds no information.
  */
 @ToString
 @Getter
 @Setter
-public class VoiceChatParticipantsInvited {
+public class VideoChatStarted {
 
-    /**
-     * Optional. New members that were invited to the video chat
-     */
-    List<User> users;
 }

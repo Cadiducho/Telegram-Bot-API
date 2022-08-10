@@ -1,9 +1,10 @@
 /*
  * The MIT License
  *
- * Copyright 2020 Cadiducho.
+ * Copyright 2022 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
+
 package com.cadiducho.telegrambotapi;
 
 import com.cadiducho.telegrambotapi.exception.TelegramException;
@@ -16,6 +17,7 @@ import com.cadiducho.telegrambotapi.payment.LabeledPrice;
 import com.cadiducho.telegrambotapi.payment.ShippingOption;
 import com.cadiducho.telegrambotapi.util.ApiResponse;
 import com.cadiducho.telegrambotapi.util.MediaTypes;
+import com.cadiducho.telegrambotapi.util.MoshiProvider;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -33,7 +35,7 @@ public class TelegramBot implements BotAPI {
     @Getter private final BotAPI instance;
     @Getter private final BotUpdatesPoller updatesPoller;
 
-    private final Moshi moshi = new Moshi.Builder().build();
+    private final Moshi moshi;
     private final OkHttpClient httpClient = new OkHttpClient();
 
     @Override
@@ -48,6 +50,7 @@ public class TelegramBot implements BotAPI {
 
     public TelegramBot(String token) {
         instance = this;
+        this.moshi = MoshiProvider.getMoshi();
         this.token = token;
         apiUrl = "https://api.telegram.org/bot" + token + "/";
         updatesPoller = new DefaultBotUpdatesPoller(instance);
@@ -119,6 +122,7 @@ public class TelegramBot implements BotAPI {
             if (obj == null) return;
 
             parameters.addFormDataPart(str, ((ParseMode) obj).getMode().toLowerCase());
+            return;
         }
 
         //Return normal values (check optionals -> null)
@@ -637,7 +641,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean promoteChatMember(Object chat_id, Long user_id, Boolean is_anonymous, Boolean can_manage_chat, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages, Boolean can_delete_messages, Boolean can_manage_voice_chats, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException {
+    public Boolean promoteChatMember(Object chat_id, Long user_id, Boolean is_anonymous, Boolean can_manage_chat, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages, Boolean can_delete_messages, Boolean can_manage_video_chats, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
 
@@ -649,7 +653,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "can_post_messages", can_post_messages);
         safeAdd(parameters, "can_edit_messages", can_edit_messages);
         safeAdd(parameters, "can_delete_messages", can_delete_messages);
-        safeAdd(parameters, "can_manage_voice_chats", can_manage_voice_chats);
+        safeAdd(parameters, "can_manage_video_chats", can_manage_video_chats);
         safeAdd(parameters, "can_invite_users", can_invite_users);
         safeAdd(parameters, "can_restrict_members", can_restrict_members);
         safeAdd(parameters, "can_pin_messages", can_pin_messages);
@@ -1100,6 +1104,62 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
+    public Boolean setChatMenuButton(Object chat_id, MenuButton menu_button) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "menu_button", moshi.adapter(MenuButton.class).toJson(menu_button));
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setChatMenuButton")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public MenuButton getChatMenuButton(Object chat_id) throws TelegramException {
+        Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "getChatMenuButton")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, MenuButton.class);
+    }
+
+    @Override
+    public Boolean setMyDefaultAdministratorRights(ChatAdministratorRights rights, Boolean for_channels) throws TelegramException {
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "rights", moshi.adapter(ChatAdministratorRights.class).toJson(rights));
+        safeAdd(parameters, "for_channels", for_channels);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setMyDefaultAdministratorRights")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public ChatAdministratorRights getMyDefaultAdministratorRights(Boolean for_channels) throws TelegramException {
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "for_channels", for_channels);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "getMyDefaultAdministratorRights")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, ChatAdministratorRights.class);
+    }
+
+    @Override
     public Message editMessageText(Object chat_id, Integer message_id, String inline_message_id, String text, ParseMode parse_mode, Boolean disable_web_page_preview, InlineKeyboardMarkup reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
@@ -1146,7 +1206,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_id", message_id);
         safeAdd(parameters, "inline_message_id", inline_message_id);
-        safeAdd(parameters, "media", media);
+        safeAdd(parameters, "media", moshi.adapter(InputMedia.class).toJson(media));
         safeAdd(parameters, "reply_markup", reply_markup);
 
         final Request request = new Request.Builder()
@@ -1410,6 +1470,18 @@ public class TelegramBot implements BotAPI {
                 .url(apiUrl + "answerInlineQuery")
                 .build();
         return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public SentWebAppMessage answerWebAppQuery(String web_app_query_id, InlineQueryResult result) throws TelegramException {
+        final MultipartBody.Builder parameters = bodyBuilder();
+        safeAdd(parameters, "web_app_query_id", web_app_query_id);
+        safeAdd(parameters, "result", result);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "answerWebAppQuery")
+                .build();
+        return handleRequest(request, SentWebAppMessage.class);
     }
 
     @Override

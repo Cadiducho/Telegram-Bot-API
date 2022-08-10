@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2019 Cadiducho.
+ * Copyright 2022 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -285,22 +285,27 @@ public class Message {
     /**
      * Optional. Service message: voice chat scheduled
      */
-    @Json(name = "voice_chat_scheduled") private VoiceChatScheduled voiceChatScheduled;
+    @Json(name = "video_chat_scheduled") private VideoChatScheduled videoChatScheduled;
 
     /**
      * Optional. Service message: voice chat started
      */
-    @Json(name = "voice_chat_started") private VoiceChatStarted voiceChatStarted;
+    @Json(name = "video_chat_started") private VideoChatStarted videoChatStarted;
 
     /**
      * Optional. Service message: voice chat ended
      */
-    @Json(name = "voice_chat_ended") private VoiceChatEnded voiceChatEnded;
+    @Json(name = "video_chat_ended") private VideoChatEnded videoChatEnded;
 
     /**
      * Optional. Service message: new participants invited to a voice chat
      */
-    @Json(name = "voice_chat_participants_invited") private VoiceChatParticipantsInvited voiceChatParticipantsInvited;
+    @Json(name = "video_chat_participants_invited") private VoiceChatParticipantsInvited videoChatParticipantsInvited;
+
+    /**
+     * Optional. Service message: data sent by a Web App
+     */
+    @Json(name = "web_app_data") private WebAppData webAppData;
 
     /**
      * Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.

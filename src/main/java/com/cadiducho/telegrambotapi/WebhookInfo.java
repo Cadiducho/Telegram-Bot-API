@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2022 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -51,7 +51,12 @@ public class WebhookInfo {
      * that happened when trying to deliver an update via webhook
      */
     @Json(name = "last_error_message") private String lastErrorMessage;
-    
+
+    /**
+     * Optional. Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters
+     */
+    @Json(name = "last_synchronization_error_date") private Integer lastSynchronizationErrorDate;
+
     /**
      * Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
      */

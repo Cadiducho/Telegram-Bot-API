@@ -1238,6 +1238,40 @@ public interface BotAPI {
     default List<BotCommand> getMyCommands() throws TelegramException {
         return getMyCommands(null, null);
     }
+
+    /**
+     * Use this method to change the bot's menu button in a private chat, or the default menu button.
+     * @param chat_id Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
+     * @param menu_button A JSON-serialized object for the bot's new menu button
+     * @return True on success.
+     */
+    Boolean setChatMenuButton(Object chat_id, MenuButton menu_button) throws TelegramException;
+
+    /**
+     * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button.
+     * @param chat_id Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
+     * @return {@link MenuButton}
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    MenuButton getChatMenuButton(Object chat_id) throws TelegramException;
+
+    /**
+     * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels.
+     * These rights will be suggested to users, but they are free to modify the list before adding the bot.
+     * @param rights A JSON-serialized object describing new default administrator rights. If not specified, the default administrator rights will be cleared.
+     * @param for_channels Pass True to change the default administrator rights of the bot in channels. Otherwise, the default administrator rights of the bot for groups and supergroups will be changed.
+     * @return True on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean setMyDefaultAdministratorRights(ChatAdministratorRights rights, Boolean for_channels) throws TelegramException;
+
+    /**
+     * Use this method to get the current default administrator rights of the bot.
+     * @param for_channels Pass True to get default administrator rights of the bot in channels. Otherwise, default administrator rights of the bot for groups and supergroups will be returned.
+     * @return Returns ChatAdministratorRights on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    ChatAdministratorRights getMyDefaultAdministratorRights(Boolean for_channels) throws TelegramException;
     
     /**
      * Use this method to edit text and game messages sent by the bot or via the bot (for inline bots). 
@@ -1592,7 +1626,16 @@ public interface BotAPI {
      */
     Boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results, Integer cache_time, Boolean is_personal, String next_offset,
                               String switch_pm_text, String switch_pm_parameter) throws TelegramException;
-    
+
+    /**
+     * Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated.
+     * @param web_app_query_id Unique identifier for the query to be answered
+     * @param result A JSON-serialized object describing the message to be sent
+     * @return On success, a SentWebAppMessage object is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    SentWebAppMessage answerWebAppQuery(String web_app_query_id, InlineQueryResult result) throws TelegramException;
+
     /**
      * Use this method to send invoices. On success, the sent Message is returned.
      * @param chat_id Unique identifier for the target private chat

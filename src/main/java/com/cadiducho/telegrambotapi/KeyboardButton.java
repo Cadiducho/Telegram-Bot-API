@@ -41,4 +41,10 @@ public class KeyboardButton {
      * Available in private chats only
      */
     @Json(name = "request_poll") private KeyboardButtonPollType requestPoll;
+
+    /**
+     * Optional. If specified, the described Web App will be launched when the button is pressed.
+     * The Web App will be able to send a “web_app_data” service message. Available in private chats only.
+     */
+    @Json(name = "web_app") private WebAppInfo webApp;
 }

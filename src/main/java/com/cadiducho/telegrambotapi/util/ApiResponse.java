@@ -1,11 +1,16 @@
 package com.cadiducho.telegrambotapi.util;
 
+import com.cadiducho.telegrambotapi.MenuButton;
+import com.cadiducho.telegrambotapi.MenuButtonCommands;
+import com.cadiducho.telegrambotapi.MenuButtonDefault;
+import com.cadiducho.telegrambotapi.MenuButtonWebApp;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory;
 import lombok.Builder;
 import lombok.Value;
 import okio.BufferedSource;
@@ -34,7 +39,7 @@ public class ApiResponse<T> {
      */
     T result;
 
-    private static final Moshi moshi = new Moshi.Builder().build();
+    private static final Moshi moshi = MoshiProvider.getMoshi();
 
     /**
      * Serialize this response to json

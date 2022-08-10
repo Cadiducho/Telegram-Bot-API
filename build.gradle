@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.cadiducho'
-version = '5.7'
+version = '6.0'
 sourceCompatibility = '1.8'
 
 java {
@@ -55,6 +55,7 @@ repositories {
 
 dependencies {
     implementation group: 'com.squareup.moshi', name: 'moshi', version: '1.13.0'
+    implementation group: 'com.squareup.moshi', name: 'moshi-adapters', version: '1.13.0'
     implementation group: 'com.squareup.okio', name: 'okio', version: '3.2.0'
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
 
