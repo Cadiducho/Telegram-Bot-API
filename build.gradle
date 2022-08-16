@@ -1,11 +1,11 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id "io.freefair.lombok" version "6.5.0.2"
+    id "io.freefair.lombok" version "6.5.0.3"
 }
 
 group = 'com.cadiducho'
-version = '6.0'
+version = '6.1'
 sourceCompatibility = '1.8'
 
 java {
@@ -61,9 +61,9 @@ dependencies {
 
     //Tests
     testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.10.0'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.8.2'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.9.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.0'
 }
 
 test {

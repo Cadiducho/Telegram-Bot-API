@@ -50,6 +50,16 @@ public class User {
     @Json(name = "language_code") private String languageCode;
 
     /**
+     * Optional. True, if this user is a Telegram Premium user
+     */
+    @Json(name = "is_premium") private String isPremium;
+
+    /**
+     * Optional. True, if this user added the bot to the attachment menu
+     */
+    @Json(name = "added_to_attachment_menu") private String addedToAttachmentMenu;
+
+    /**
      * Optional. True, if the bot can be invited to groups. Returned only in getMe.
      */
     @Json(name = "can_join_groups") private Boolean canJoinGroups;

@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2022 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -65,6 +65,11 @@ public class Sticker {
      * Optional. Name of the sticker set to which the sticker belongs
      */
     @Json(name = "set_name") private String setName;
+
+    /**
+     * Optional. For premium regular stickers, premium animation for the sticker
+     */
+    @Json(name = "premium_animation") private String premium_Animation;
     
     /**
      * Optional. For mask stickers, the position where the mask should be placed

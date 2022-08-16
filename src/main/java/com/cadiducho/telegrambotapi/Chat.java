@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2022 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -65,6 +65,16 @@ public class Chat {
      * Optional. True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user. Returned only in getChat.
      */
     @Json(name = "has_private_forwards") private Boolean hasPrivateForwards;
+
+    /**
+     * Optional. True, if users need to join the supergroup before they can send messages. Returned only in getChat.
+     */
+    @Json(name = "join_to_send_messages") private Boolean joinToSendMessages;
+
+    /**
+     * Optional. True, if all users directly joining the supergroup need to be approved by supergroup administrators. Returned only in getChat.
+     */
+    @Json(name = "join_by_request") private Boolean joinByRequest;
 
     /**
      * Optional. Description, for supergroups and channel chats. Returned only in getChat.

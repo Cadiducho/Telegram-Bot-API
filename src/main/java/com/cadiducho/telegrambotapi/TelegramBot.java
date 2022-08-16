@@ -28,6 +28,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Default implementation to build Telegrams Bots
+ * Telegram Bot API version 6.1
+ */
 public class TelegramBot implements BotAPI {
 
     private final String apiUrl;
@@ -1292,7 +1296,7 @@ public class TelegramBot implements BotAPI {
 
 
     @Override
-    public Boolean setWebhook(String url, java.io.File certificate, String ip_address, Integer max_connections, List<String> allowed_updates, Boolean drop_pending_updates) throws TelegramException {
+    public Boolean setWebhook(String url, java.io.File certificate, String ip_address, Integer max_connections, List<String> allowed_updates, Boolean drop_pending_updates, String secret_token) throws TelegramException {
         final MultipartBody.Builder parameters = bodyBuilder();
 
         safeAdd(parameters, "url", url);
@@ -1301,6 +1305,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "max_connections", max_connections);
         safeAdd(parameters, "allowed_updates", allowed_updates);
         safeAdd(parameters, "drop_pending_updates", drop_pending_updates);
+        safeAdd(parameters, "secret_token", secret_token);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "setWebhook")
@@ -1522,6 +1527,41 @@ public class TelegramBot implements BotAPI {
                 .post(parameters.build())
                 .build();
         return handleRequest(request, Message.class);
+    }
+
+    @Override
+    public String createInvoiceLink(String title, String description, String payload, String provider_token, String currency, List<LabeledPrice> prices, Integer max_tip_amount,
+                             List<Integer> suggested_tip_amounts, String provider_data, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height,
+                             Boolean need_name, Boolean need_phone_number, Boolean need_email, Boolean need_shipping_address, Boolean send_phone_number_to_provider,
+                             Boolean send_email_to_provider, Boolean is_flexible) throws TelegramException {
+
+        final MultipartBody.Builder parameters = bodyBuilder();
+        safeAdd(parameters, "title", title);
+        safeAdd(parameters, "description", description);
+        safeAdd(parameters, "payload", payload);
+        safeAdd(parameters, "provider_token", provider_token);
+        safeAdd(parameters, "currency", currency);
+        safeAdd(parameters, "prices", moshi.adapter(Types.newParameterizedType(List.class, LabeledPrice.class)).toJson(prices));
+        safeAdd(parameters, "max_tip_amount", max_tip_amount);
+        safeAdd(parameters, "suggested_tip_amounts", moshi.adapter(Types.newParameterizedType(List.class, Integer.class)).toJson(suggested_tip_amounts));
+        safeAdd(parameters, "provider_data", provider_data);
+        safeAdd(parameters, "photo_url", photo_url);
+        safeAdd(parameters, "photo_size", photo_size);
+        safeAdd(parameters, "photoWidth", photo_width);
+        safeAdd(parameters, "photoHeight", photo_height);
+        safeAdd(parameters, "need_name", need_name);
+        safeAdd(parameters, "need_phone_number", need_phone_number);
+        safeAdd(parameters, "need_email", need_email);
+        safeAdd(parameters, "need_shipping_address", need_shipping_address);
+        safeAdd(parameters, "send_phone_number_to_provider", send_phone_number_to_provider);
+        safeAdd(parameters, "send_email_to_provider", send_email_to_provider);
+        safeAdd(parameters, "is_flexible", is_flexible);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "createInvoiceLink")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, String.class);
     }
 
     @Override

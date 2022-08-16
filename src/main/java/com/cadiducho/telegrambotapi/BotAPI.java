@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 5.3
+ * Telegram Bot API version 6.1
  */
 public interface BotAPI {
 
@@ -1419,10 +1419,12 @@ public interface BotAPI {
      *                        See {@link Update} for a complete list of available update types. Specify an empty list to receive all updates regardless of type (default).
      *                        If not specified, the previous setting will be used.
      * @param drop_pending_updates Pass True to drop all pending updates
+     * @param secret_token A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed.
+     *                     The header is useful to ensure that the request comes from a webhook set by you.
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean setWebhook(String url, java.io.File certificate, String ip_address, Integer max_connections, List<String> allowed_updates, Boolean drop_pending_updates) throws TelegramException;
+    Boolean setWebhook(String url, java.io.File certificate, String ip_address, Integer max_connections, List<String> allowed_updates, Boolean drop_pending_updates, String secret_token) throws TelegramException;
 
     /**
      * Use this method to remove webhook integration if you decide to switch back to {@link BotAPI#getUpdates}. Returns True on success.
@@ -1687,7 +1689,17 @@ public interface BotAPI {
     Message sendInvoice(Integer chat_id, String title, String description, String payload, String provider_token, String start_parameter, String currency,
                                     List<LabeledPrice> prices, String provider_data, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height, Boolean need_name, Boolean need_phone_number,
                                     Boolean need_email, Boolean need_shipping_address, Boolean send_phone_number_to_provider, Boolean send_email_to_provider, Boolean is_flexible, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, InlineKeyboardMarkup reply_markup) throws TelegramException;
-    
+
+
+    default String createInvoiceLink(String title, String description, String payload, String provider_token, String currency, List<LabeledPrice> prices) throws TelegramException {
+        return createInvoiceLink(title, description, payload, provider_token, currency, prices, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    }
+
+    String createInvoiceLink(String title, String description, String payload, String provider_token, String currency, List<LabeledPrice> prices, Integer max_tip_amount,
+                             List<Integer> suggested_tip_amounts, String provider_data, String photo_url, Integer photo_size, Integer photo_width, Integer photo_height,
+                             Boolean need_name, Boolean need_phone_number, Boolean need_email, Boolean need_shipping_address, Boolean send_phone_number_to_provider,
+                             Boolean send_email_to_provider, Boolean is_flexible) throws TelegramException;
+
     /**
      * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. 
      * Use this method to reply to shipping queries.
