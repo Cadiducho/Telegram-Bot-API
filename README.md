@@ -49,7 +49,7 @@ If you want use Telegram Bot API as a Maven Dependency simply add repo and artif
 <dependency>
     <groupId>com.cadiducho</groupId>
     <artifactId>TelegramBotAPI</artifactId>
-    <version>6.1</version>
+    <version>6.2</version>
 </dependency>
 ```
 

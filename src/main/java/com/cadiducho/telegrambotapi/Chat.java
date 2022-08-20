@@ -67,6 +67,11 @@ public class Chat {
     @Json(name = "has_private_forwards") private Boolean hasPrivateForwards;
 
     /**
+     * Optional. True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat. Returned only in getChat.
+     */
+    @Json(name = "has_restricted_voice_and_video_messages") private Boolean hasRestrictedVoiceAndVideoMessages;
+
+    /**
      * Optional. True, if users need to join the supergroup before they can send messages. Returned only in getChat.
      */
     @Json(name = "join_to_send_messages") private Boolean joinToSendMessages;

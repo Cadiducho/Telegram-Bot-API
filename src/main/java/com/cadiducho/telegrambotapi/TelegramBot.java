@@ -30,7 +30,7 @@ import java.util.Objects;
 
 /**
  * Default implementation to build Telegrams Bots
- * Telegram Bot API version 6.1
+ * Telegram Bot API version 6.2
  */
 public class TelegramBot implements BotAPI {
 
@@ -1357,6 +1357,18 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
+    public List<Sticker> getCustomEmojiStickers(List<String> custom_emoji_ids) throws TelegramException {
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "custom_emoji_ids", moshi.adapter(Types.newParameterizedType(List.class, String.class)).toJson(custom_emoji_ids));
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "getCustomEmojiStickers")
+                .build();
+        return handleRequest(request, Types.newParameterizedType(List.class, Sticker.class));
+    }
+
+    @Override
     public File uploadStickerFile(Long user_id, java.io.File png_sticker) throws TelegramException {
         final MultipartBody.Builder parameters = bodyBuilder();
 
@@ -1370,14 +1382,14 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, java.io.File webm_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException {
+    public Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, java.io.File webm_sticker, String sticker_type, String emojis, MaskPosition mask_position) throws TelegramException {
         final MultipartBody.Builder parameters = bodyBuilder();
 
         safeAdd(parameters, "user_id", user_id);
         safeAdd(parameters, "name", name);
         safeAdd(parameters, "title", title);
+        safeAdd(parameters, "sticker_type", sticker_type);
         safeAdd(parameters, "emojis", emojis);
-        safeAdd(parameters, "contains_masks", contains_masks);
         safeAdd(parameters, "mask_position", mask_position);
         addFile(parameters, "png_sticker", png_sticker, MediaTypes.MEDIA_TYPE_PHOTO);
         addFile(parameters, "tgs_sticker", png_sticker, MediaTypes.MEDIA_TYPE_PHOTO);

@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 6.1
+ * Telegram Bot API version 6.2
  */
 public interface BotAPI {
 
@@ -1488,7 +1488,15 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     StickerSet getStickerSet(String name) throws TelegramException;
-    
+
+    /**
+     * Use this method to get information about custom emoji stickers by their identifiers.
+     * @param custom_emoji_ids List of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.
+     * @return Array of Sticker objects.
+     * @throws TelegramException com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    List<Sticker> getCustomEmojiStickers(List<String> custom_emoji_ids) throws TelegramException;
+
     /**
      * Use this method to upload a .png file with a sticker for later use in createNewStickerSet and addStickerToSet methods (can be used multiple times). Returns the uploaded File on success.
      * @param user_id User identifier of sticker file owner
@@ -1506,13 +1514,13 @@ public interface BotAPI {
      * @param png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data
      * @param tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
      * @param webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
+     * @param sticker_type Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created.
      * @param emojis One or more emoji corresponding to the sticker
-     * @param contains_masks Optional. Pass True, if a set of mask stickers should be created
      * @param mask_position Optional. A JSON-serialized object for position where the mask should be placed on faces
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, java.io.File webm_sticker, String emojis, Boolean contains_masks, MaskPosition mask_position) throws TelegramException;
+    Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, java.io.File webm_sticker, String sticker_type, String emojis, MaskPosition mask_position) throws TelegramException;
     
     /**
      * Use this method to add a new sticker to a set created by the bot. Returns True on success.

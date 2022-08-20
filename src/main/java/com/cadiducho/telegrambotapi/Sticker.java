@@ -75,6 +75,11 @@ public class Sticker {
      * Optional. For mask stickers, the position where the mask should be placed
      */
     @Json(name = "mask_position") private MaskPosition maskPosition;
+
+    /**
+     * Optional. For custom emoji stickers, unique identifier of the custom emoji
+     */
+    @Json(name = "custom_emoji_id") private MaskPosition customEmojiId;
     
     /**
      * Optional. File size

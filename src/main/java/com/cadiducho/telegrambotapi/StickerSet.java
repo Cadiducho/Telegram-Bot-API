@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2022 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -30,7 +30,12 @@ public class StickerSet {
      * Sticker set title
      */
     private String title;
-    
+
+    /**
+     * Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji”
+     */
+    @Json(name = "sticker_type") private Boolean stickerType;
+
     /**
      * True, if the sticker set contains animated stickers
      * See <a href="https://telegram.org/blog/animated-stickers">https://telegram.org/blog/animated-stickers</a>
@@ -42,11 +47,6 @@ public class StickerSet {
      * See <a href="https://telegram.org/blog/video-stickers-better-reactions">https://telegram.org/blog/video-stickers-better-reactions</a>
      */
     @Json(name = "is_video") private Boolean isVideo;
-    
-    /**
-     * True, if the sticker set contains masks
-     */
-    @Json(name  = "contains_masks") private Boolean containsMasks;
     
     /**
      * List of all set stickers

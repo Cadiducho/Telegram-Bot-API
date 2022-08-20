@@ -7,6 +7,7 @@
 
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,11 +21,24 @@ public class MessageEntity {
     
     /**
      * 	Type of the entity.
-     * 	Can be “mention” (@username), “hashtag” (#hashtag), “cashtag” ($USD), “bot_command” (/start@jobs_bot),
-     * 	“url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123),
-     * 	“bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text),
-     * 	“spoiler” (spoiler message), “code” (monowidth string), “pre” (monowidth block),
-     * 	“text_link” (for clickable text URLs), “text_mention” (for users without usernames)
+     * 	Currently, can be
+     * 	“mention” (@username),
+     * 	“hashtag” (#hashtag),
+     * 	“cashtag” ($USD),
+     * 	“bot_command” (/start@jobs_bot),
+     * 	“url” (https://telegram.org),
+     * 	“email” (do-not-reply@telegram.org),
+     * 	“phone_number” (+1-212-555-0123),
+     * 	“bold” (bold text),
+     * 	“italic” (italic text),
+     * 	“underline” (underlined text),
+     * 	“strikethrough” (strikethrough text),
+     * 	“spoiler” (spoiler message),
+     * 	“code” (monowidth string),
+     * 	“pre” (monowidth block),
+     * 	“text_link” (for clickable text URLs),
+     * 	“text_mention” (for users without usernames),
+     * 	“custom_emoji” (for inline custom emoji stickers)
      */
     private String type;
     
@@ -52,5 +66,11 @@ public class MessageEntity {
      * Optional. For “pre” only, the programming language of the entity text
      */
     private String language;
+
+    /**
+     * Optional. For “custom_emoji” only, unique identifier of the custom emoji.
+     * Use getCustomEmojiStickers to get full information about the sticker
+     */
+    @Json(name = "custom_emoji_id") private String customEmojiId;
     
 }
