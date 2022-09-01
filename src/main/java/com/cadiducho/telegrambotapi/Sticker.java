@@ -69,7 +69,7 @@ public class Sticker {
     /**
      * Optional. For premium regular stickers, premium animation for the sticker
      */
-    @Json(name = "premium_animation") private String premium_Animation;
+    @Json(name = "premium_animation") private File premium_Animation;
     
     /**
      * Optional. For mask stickers, the position where the mask should be placed

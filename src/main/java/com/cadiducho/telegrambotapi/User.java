@@ -52,12 +52,12 @@ public class User {
     /**
      * Optional. True, if this user is a Telegram Premium user
      */
-    @Json(name = "is_premium") private String isPremium;
+    @Json(name = "is_premium") private Boolean isPremium;
 
     /**
      * Optional. True, if this user added the bot to the attachment menu
      */
-    @Json(name = "added_to_attachment_menu") private String addedToAttachmentMenu;
+    @Json(name = "added_to_attachment_menu") private Boolean addedToAttachmentMenu;
 
     /**
      * Optional. True, if the bot can be invited to groups. Returned only in getMe.
