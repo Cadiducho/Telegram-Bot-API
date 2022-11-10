@@ -83,6 +83,11 @@ public class ChatMemberAdministrator extends ChatMember {
     @Json(name = "can_pin_messages") private Boolean canPinMessages;
 
     /**
+     * Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+     */
+    @Json(name = "can_manage_topics") private Boolean canManageTopics;
+
+    /**
      * 	Optional. Custom title for this user
      */
     @Json(name = "custom_title") private String customTitle;

@@ -71,4 +71,9 @@ public class ChatAdministratorRights {
      * Optional. True, if the user is allowed to pin messages; groups and supergroups only
      */
     @Json(name = "can_pin_messages") private Boolean canPinMessages;
+
+    /**
+     * Optional. True, if the user is allowed to create, rename, close, and reopen forum topics; supergroups only
+     */
+    @Json(name = "can_manage_topics") private Boolean canManageTopics;
 }

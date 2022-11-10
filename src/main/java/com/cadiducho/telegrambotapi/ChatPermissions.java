@@ -58,5 +58,10 @@ public class ChatPermissions {
      * Optional. True, if the user is allowed to pin messages. Ignored in public supergroups
      */
     @Json(name = "can_pin_messages") private Boolean canPinMessages;
+
+    /**
+     * Optional. True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages
+     */
+    @Json(name = "can_manage_topics") private Boolean canManageTopics;
     
 }

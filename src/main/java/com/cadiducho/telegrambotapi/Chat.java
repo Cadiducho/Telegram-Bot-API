@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * Represents a chat.
  * This might be a chat with a {@link User} or a GroupChat
@@ -50,11 +52,26 @@ public class Chat {
      * Optional. Last name of the other party in a private chat
      */
     @Json(name = "last_name") private String lastName;
+
+    /**
+     * Optional. True, if the supergroup chat is a forum (has topics enabled)
+     */
+    @Json(name = "is_forum") private String isForum;
     
     /**
      * Optional. Chat photo. Returned only in getChat.
      */
     private ChatPhoto photo;
+
+    /**
+     * Optional. If non-empty, the list of all active chat usernames; for private chats, supergroups and channels. Returned only in getChat.
+     */
+    @Json(name = "active_usernames") private List<String> activeUsernames;
+
+    /**
+     * Optional. Custom emoji identifier of emoji status of the other party in a private chat. Returned only in getChat.
+     */
+    @Json(name = "emoji_status_custom_emoji_id") private String emojiStatusCustomEmojiId;
 
     /**
      * Optional. Bio of the other party in a private chat. Returned only in getChat.

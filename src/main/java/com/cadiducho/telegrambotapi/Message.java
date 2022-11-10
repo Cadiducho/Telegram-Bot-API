@@ -29,6 +29,11 @@ public class Message {
      * Unique message identifier
      */
     @Json(name = "message_id") private Integer messageId;
+
+    /**
+     * Unique message identifier
+     */
+    @Json(name = "message_thread_id") private Integer messageThreadId;
          
     /**
      * Sender
@@ -81,6 +86,11 @@ public class Message {
      * Optional. For forwarded messages, date the original message was sent in Unix time
      */
     @Json(name = "forward_date") private Integer forwardDate;
+
+    /**
+     * Optional. True, if the message is sent to a forum topic
+     */
+    @Json(name = "is_topic_message") private Integer isTopicMessage;
 
     /**
      * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
@@ -281,6 +291,12 @@ public class Message {
      * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
      */
     @Json(name = "proximity_alert_triggered") private ProximityAlertTriggered proximityAlertTriggered;
+
+    @Json(name = "forum_topic_created") private ForumTopicCreated forumTopicCreated;
+
+    @Json(name = "forum_topic_closed") private 	ForumTopicClosed forumTopicClosed;
+
+    @Json(name = "forum_topic_reopened") private ForumTopicReopened forumTopicReopened;
 
     /**
      * Optional. Service message: voice chat scheduled

@@ -42,6 +42,11 @@ public class ChatMemberRestricted extends ChatMember {
     @Json(name = "can_pin_messages") private Boolean canPinMessages;
 
     /**
+     * True, if the user is allowed to create forum topics
+     */
+    @Json(name = "can_manage_topics") private Boolean canManageTopics;
+
+    /**
      * True, if the user is allowed to send text messages, contacts, locations and venues
      */
     @Json(name = "can_send_messages") private Boolean canSendMessages;
