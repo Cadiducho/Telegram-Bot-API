@@ -56,7 +56,7 @@ public class Chat {
     /**
      * Optional. True, if the supergroup chat is a forum (has topics enabled)
      */
-    @Json(name = "is_forum") private String isForum;
+    @Json(name = "is_forum") private Boolean isForum;
     
     /**
      * Optional. Chat photo. Returned only in getChat.
