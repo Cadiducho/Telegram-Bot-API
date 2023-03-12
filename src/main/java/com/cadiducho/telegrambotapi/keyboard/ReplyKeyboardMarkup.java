@@ -1,11 +1,11 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2023 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
-package com.cadiducho.telegrambotapi;
+package com.cadiducho.telegrambotapi.keyboard;
 
 import java.util.List;
 
@@ -25,7 +25,13 @@ public class ReplyKeyboardMarkup {
      * Array of button rows, each represented by an Array of Strings
      */
     private List<List<KeyboardButton>> keyboard;
-    
+
+    /**
+     * Optional. Requests clients to always show the keyboard when the regular keyboard is hidden.
+     * Defaults to false, in which case the custom keyboard can be hidden and opened with a keyboard icon.
+     */
+    private Boolean is_persistent;
+
     /**
      * Optional. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). 
      * Defaults to false, in which case the custom keyboard is always of the same height as the app's standard keyboard.

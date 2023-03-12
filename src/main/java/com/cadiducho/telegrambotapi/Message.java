@@ -1,12 +1,13 @@
 /*
  * The MIT License
  *
- * Copyright 2022 Cadiducho.
+ * Copyright 2023 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
 package com.cadiducho.telegrambotapi;
 
+import com.cadiducho.telegrambotapi.forum.*;
 import com.cadiducho.telegrambotapi.game.Game;
 import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.payment.Invoice;
@@ -186,6 +187,11 @@ public class Message {
      * Optional. Caption for the photo or video
      */
     private String caption;
+
+    /**
+     * Optional. True, if the message media is covered by a spoiler animation
+     */
+    private Boolean has_media_spoiler;
     
     /**
      * Optional. Message is a shared contact, information about the contact
@@ -283,20 +289,59 @@ public class Message {
     @Json(name = "successful_payment") private SuccessfulPayment successfulPayment;
 
     /**
+     * Optional. Service message: a user was shared with the bot
+     */
+    @Json(name = "user_shared") private UserShared userShared;
+
+    /**
+     * Optional. Service message: a chat was shared with the bot
+     */
+    @Json(name = "chat_shared") private ChatShared chatShared;
+
+    /**
      * Optional. The domain name of the website on which the user has logged in. See https://core.telegram.org/widgets/login
      */
     @Json(name = "connected_website") private String connectedWebsite;
+
+    /**
+     * Optional. Service message: the user allowed the bot added to the attachment menu to write messages
+     */
+    @Json(name = "write_access_allowed") private String writeAccessAllowed;
 
     /**
      * Optional. Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
      */
     @Json(name = "proximity_alert_triggered") private ProximityAlertTriggered proximityAlertTriggered;
 
+    /**
+     * Optional. Service message: forum topic created
+     */
     @Json(name = "forum_topic_created") private ForumTopicCreated forumTopicCreated;
 
-    @Json(name = "forum_topic_closed") private 	ForumTopicClosed forumTopicClosed;
+    /**
+     * Optional. Service message: forum topic edited
+     */
+    @Json(name = "forum_topic_edited") private ForumTopicEdited forumTopicEdited;
 
+    /**
+     * Optional. Service message: forum topic closed
+     */
+    @Json(name = "forum_topic_closed") private ForumTopicClosed forumTopicClosed;
+
+    /**
+     * Optional. Service message: forum topic reopened
+     */
     @Json(name = "forum_topic_reopened") private ForumTopicReopened forumTopicReopened;
+
+    /**
+     * Optional. Service message: the 'General' forum topic hidden
+     */
+    @Json(name = "general_forum_topic_hidden") private GeneralForumTopicHidden generalForumTopicHidden;
+
+    /**
+     * Optional. Service message: the 'General' forum topic unhidden
+     */
+    @Json(name = "general_forum_topic_unhidden") private GeneralForumTopicUnhidden generalForumTopicUnhidden;
 
     /**
      * Optional. Service message: voice chat scheduled

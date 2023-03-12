@@ -25,9 +25,34 @@ public class ChatPermissions {
     @Json(name = "can_send_messages") private Integer canSendMessages;
 
     /**
-     * Optional. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
+     * 	True, if the user is allowed to send audios
      */
-    @Json(name = "can_send_media_messages") private Boolean canSendMediaMessages;
+    @Json(name = "can_send_audios") private Boolean canSendAudios;
+
+    /**
+     * True, if the user is allowed to send documents
+     */
+    @Json(name = "can_send_documents") private Boolean canSendDocuments;
+
+    /**
+     * True, if the user is allowed to send photos
+     */
+    @Json(name = "can_send_photos") private Boolean canSendPhotos;
+
+    /**
+     * True, if the user is allowed to send videos
+     */
+    @Json(name = "can_send_videos") private Boolean canSendVideos;
+
+    /**
+     * True, if the user is allowed to send video notes
+     */
+    @Json(name = "can_send_video_notes") private Boolean canSendVideoNotes;
+
+    /**
+     * True, if the user is allowed to send voice notes
+     */
+    @Json(name = "can_send_voice_notes") private Boolean canSendVoiceNotes;
 
     /**
      * Optional. True, if the user is allowed to send polls, implies can_send_messages
@@ -35,12 +60,12 @@ public class ChatPermissions {
     @Json(name = "can_send_polls") private Boolean canSendPolls;
 
     /**
-     * 	Optional. True, if the user is allowed to send animations, games, stickers and use inline bots, implies can_send_media_messages
+     * Optional. True, if the user is allowed to send animations, games, stickers and use inline bots
      */
     @Json(name = "can_send_other_messages") private Boolean canSendOtherMessages;
 
     /**
-     * Optional. True, if the user is allowed to add web page previews to their messages, implies can_send_media_messages
+     * Optional. True, if the user is allowed to add web page previews to their messages
      */
     @Json(name = "can_add_web_page_previews") private Boolean canAddWebPagePreviews;
 

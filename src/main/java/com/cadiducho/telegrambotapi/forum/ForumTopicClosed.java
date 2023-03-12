@@ -5,7 +5,7 @@
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
-package com.cadiducho.telegrambotapi;
+package com.cadiducho.telegrambotapi.forum;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +13,6 @@ import lombok.ToString;
 
 @ToString
 @Getter @Setter
-public class ForumTopicReopened {
-    
+public class ForumTopicClosed {
+
 }

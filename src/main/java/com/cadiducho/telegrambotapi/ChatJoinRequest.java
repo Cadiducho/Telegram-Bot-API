@@ -20,6 +20,12 @@ public class ChatJoinRequest {
     private User from;
 
     /**
+     * Identifier of a private chat with the user who sent the join request.
+     * The bot can use this identifier for 24 hours to send messages until the join request is processed, assuming no other administrator contacted the user.
+     */
+    @Json(name = "user_chat_id") private Long userChatId;
+
+    /**
      * Date the request was sent in Unix time
      */
     private Integer date;

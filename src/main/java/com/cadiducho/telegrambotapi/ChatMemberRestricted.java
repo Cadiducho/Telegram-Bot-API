@@ -52,9 +52,34 @@ public class ChatMemberRestricted extends ChatMember {
     @Json(name = "can_send_messages") private Boolean canSendMessages;
 
     /**
-     * True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
+     * 	True, if the user is allowed to send audios
      */
-    @Json(name = "can_send_media_messages") private Boolean canSendMediaMessages;
+    @Json(name = "can_send_audios") private Boolean canSendAudios;
+
+    /**
+     * True, if the user is allowed to send documents
+     */
+    @Json(name = "can_send_documents") private Boolean canSendDocuments;
+
+    /**
+     * True, if the user is allowed to send photos
+     */
+    @Json(name = "can_send_photos") private Boolean canSendPhotos;
+
+    /**
+     * True, if the user is allowed to send videos
+     */
+    @Json(name = "can_send_videos") private Boolean canSendVideos;
+
+    /**
+     * True, if the user is allowed to send video notes
+     */
+    @Json(name = "can_send_video_notes") private Boolean canSendVideoNotes;
+
+    /**
+     * True, if the user is allowed to send voice notes
+     */
+    @Json(name = "can_send_voice_notes") private Boolean canSendVoiceNotes;
 
     /**
      * True, if the user is allowed to send polls

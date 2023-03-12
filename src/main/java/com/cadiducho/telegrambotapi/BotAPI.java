@@ -12,6 +12,8 @@ import com.cadiducho.telegrambotapi.game.GameHighScore;
 import com.cadiducho.telegrambotapi.handlers.BotUpdatesPoller;
 import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
+import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardMarkup;
+import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardRemove;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
 import com.cadiducho.telegrambotapi.payment.ShippingOption;
 
@@ -19,7 +21,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 6.3
+ * Telegram Bot API version 6.5
  */
 public interface BotAPI {
 
@@ -219,7 +221,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendPhoto(Object chat_id, String photo) throws TelegramException {
-        return sendPhoto(chat_id, photo, null, false, null, null, null);
+        return sendPhoto(chat_id, photo, null, null, false, null, null, null);
     }
     
     /**
@@ -230,7 +232,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendPhoto(Object chat_id, java.io.File photo) throws TelegramException {
-        return sendPhoto(chat_id, photo, null, false, null, null, null);
+        return sendPhoto(chat_id, photo, null, null, false, null, null, null);
     }
 
     /**
@@ -246,8 +248,8 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Message sendPhoto(Object chat_id, Object photo, String caption, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        return sendPhoto(chat_id, null, photo, caption, disable_notification, protect_content, reply_to_message_id, reply_markup);
+    default Message sendPhoto(Object chat_id, Object photo, String caption, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+        return sendPhoto(chat_id, null, photo, caption, has_spoiler, disable_notification, protect_content, reply_to_message_id, reply_markup);
     }
     
     /**
@@ -256,6 +258,7 @@ public interface BotAPI {
      * @param message_thread_id Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param photo Photo to send. You can either pass a file_id as String to resend a photo that is already on the Telegram servers, or upload a new photo using multipart/form-data.
      * @param caption Photo caption (may also be used when resending photos by file_id).
+     * @param has_spoiler Pass True if the photo needs to be covered with a spoiler animation
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
@@ -264,7 +267,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendPhoto(Object chat_id, Integer message_thread_id, Object photo, String caption, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendPhoto(Object chat_id, Integer message_thread_id, Object photo, String caption, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to send audio files, if you want Telegram clients to display them in the music player. 
@@ -425,7 +428,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVideo(Object chat_id, String video) throws TelegramException {
-        return sendVideo(chat_id, video, null, null, null, null, null, null, false, null, null, null);
+        return sendVideo(chat_id, video, null, null, null, null, null, null, null, false, null, null, null);
     }
     
     /**
@@ -439,7 +442,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendVideo(Object chat_id, java.io.File video) throws TelegramException {
-        return sendVideo(chat_id, video, null, null, null, null, null, null, false, null, null, null);
+        return sendVideo(chat_id, video, null, null, null, null, null, null, null, false, null, null, null);
     }
 
     /**
@@ -452,6 +455,7 @@ public interface BotAPI {
      * @param height Video height
      * @param caption Video caption (may also be used when resending videos by file_id), 0-200 characters
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
+     * @param has_spoiler Pass True if the video needs to be covered with a spoiler animation
      * @param supports_streaming Pass True, if the uploaded video is suitable for streaming
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param protect_content Protects the contents of the sent message from forwarding and saving.
@@ -461,8 +465,8 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean supports_streaming, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        return sendVideo(chat_id, null, video, duration, width, height, caption, parse_mode, supports_streaming, disable_notification, protect_content, reply_to_message_id, reply_markup);
+    default Message sendVideo(Object chat_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean supports_streaming, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+        return sendVideo(chat_id, null, video, duration, width, height, caption, parse_mode, has_spoiler, supports_streaming, disable_notification, protect_content, reply_to_message_id, reply_markup);
     }
 
     /**
@@ -476,6 +480,7 @@ public interface BotAPI {
      * @param height Video height
      * @param caption Video caption (may also be used when resending videos by file_id), 0-200 characters
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
+     * @param has_spoiler Pass True if the video needs to be covered with a spoiler animation
      * @param supports_streaming Pass True, if the uploaded video is suitable for streaming
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param protect_content Protects the contents of the sent message from forwarding and saving.
@@ -485,7 +490,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendVideo(Object chat_id, Integer message_thread_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean supports_streaming, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendVideo(Object chat_id, Integer message_thread_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean supports_streaming, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).
@@ -497,7 +502,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendAnimation(Object chat_id, String animation) throws TelegramException {
-        return sendAnimation(chat_id, animation, null, null, null, null, null, null, false, null, null, null);
+        return sendAnimation(chat_id, animation, null, null, null, null, null, null, null, false, null, null, null);
     }
 
     /**
@@ -510,7 +515,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendAnimation(Object chat_id, java.io.File animation) throws TelegramException {
-        return sendAnimation(chat_id, animation, null, null, null, null, null, null, false, null, null, null);
+        return sendAnimation(chat_id, animation, null, null, null, null, null, null, null, false, null, null, null);
     }
 
     /**
@@ -525,6 +530,7 @@ public interface BotAPI {
      * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;.
      * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
+     * @param has_spoiler Pass True if the animation needs to be covered with a spoiler animation
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
@@ -533,8 +539,8 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        return sendAnimation(chat_id, null, animation, duration, width, height, thumb, caption, parse_mode, disable_notification, protect_content, reply_to_message_id, reply_markup);
+    default Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+        return sendAnimation(chat_id, null, animation, duration, width, height, thumb, caption, parse_mode, has_spoiler, disable_notification, protect_content, reply_to_message_id, reply_markup);
     }
 
     /**
@@ -550,6 +556,7 @@ public interface BotAPI {
      * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;.
      * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
+     * @param has_spoiler Pass True if the animation needs to be covered with a spoiler animation
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param protect_content Protects the contents of the sent message from forwarding and saving.
      * @param reply_to_message_id If the message is a reply, ID of the original message
@@ -558,7 +565,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendAnimation(Object chat_id, Integer message_thread_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendAnimation(Object chat_id, Integer message_thread_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. 
@@ -1031,7 +1038,25 @@ public interface BotAPI {
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean sendChatAction(Object chat_id, String action) throws TelegramException;
+    default Boolean sendChatAction(Object chat_id, String action) throws TelegramException {
+        return sendChatAction(chat_id, null, action);
+    }
+
+    /**
+     * Use this method when you need to tell the user that something is happening on the bot's side.
+     * The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status).
+     * We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
+     * Watch more in https://core.telegram.org/bots/api#sendchataction
+     * @param chat_id Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+     * @param message_thread_id Optional. Unique identifier for the target message thread; supergroups only
+     * @param action Type of action to broadcast.
+     *               Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos,
+     *               record_video or upload_video for videos, record_voice or upload_voice for voice notes, upload_document for general files,
+     *               choose_sticker for stickers, find_location for location data, record_video_note or upload_video_note for video notes.
+     * @return On success, True is returned.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean sendChatAction(Object chat_id, Integer message_thread_id, String action) throws TelegramException;
     
     /**
      * Types of ChatAction. Idea by Rainu
@@ -1161,7 +1186,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Boolean restrictChatMember(Object chat_id, Long user_id, ChatPermissions permissions) throws TelegramException {
-        return restrictChatMember(chat_id, user_id, permissions, null);
+        return restrictChatMember(chat_id, user_id, permissions, null, null);
     }
 
     /**
@@ -1170,11 +1195,12 @@ public interface BotAPI {
      * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param user_id Unique identifier of the target user
      * @param permissions New user permissions
+     * @oaran 	Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
      * @param until_date Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean restrictChatMember(Object chat_id, Long user_id, ChatPermissions permissions, Integer until_date) throws TelegramException;
+    Boolean restrictChatMember(Object chat_id, Long user_id, ChatPermissions permissions, Boolean use_independent_chat_permissions, Integer until_date) throws TelegramException;
 
     /**
      * Use this method to promote or demote a user in a supergroup or a channel.
@@ -1236,10 +1262,11 @@ public interface BotAPI {
      * The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights.
      * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param permissions New default chat permissions
+     * @param use_independent_chat_permissions Pass True if chat permissions are set independently. Otherwise, the can_send_other_messages and can_add_web_page_previews permissions will imply the can_send_messages, can_send_audios, can_send_documents, can_send_photos, can_send_videos, can_send_video_notes, and can_send_voice_notes permissions; the can_send_polls permission will imply the can_send_messages permission.
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean setChatPermissions(Object chat_id, ChatPermissions permissions) throws TelegramException;
+    Boolean setChatPermissions(Object chat_id, ChatPermissions permissions, Boolean use_independent_chat_permissions) throws TelegramException;
     
     /**
      * Use this method to generate a new invite link for a chat; any previously generated link is revoked.
@@ -1522,8 +1549,8 @@ public interface BotAPI {
      * The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights, unless it is the creator of the topic.
      * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
      * @param message_thread_id Unique identifier for the target message thread of the forum topic
-     * @param name Topic name, 1-128 characters
-     * @param icon_custom_emoji_id Unique identifier of the custom emoji shown as the topic icon. Use {@link #getForumTopicIconStickers} to get all allowed custom emoji identifiers
+     * @param name Optionl. New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept
+     * @param icon_custom_emoji_id Optional. New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
@@ -1569,6 +1596,53 @@ public interface BotAPI {
      */
     Boolean unpinAllForumTopicMessages(Object chat_id, Integer message_thread_id) throws TelegramException;
 
+    /**
+     * Use this method to edit the name of the 'General' topic in a forum supergroup chat.
+     * The bot must be an administrator in the chat for this to work and must have can_manage_topics administrator rights.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @param name New name of the 'General' topic, 1-128 characters
+     * @return On success, True is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean editGeneralForumTopic(Object chat_id, String name) throws TelegramException;
+
+    /**
+     * Use this method to close an open 'General' topic in a forum supergroup chat.
+     * The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @return On success, True is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean closeGeneralForumTopic(Object chat_id) throws TelegramException;
+
+    /**
+     * Use this method to reopen a closed 'General' topic in a forum supergroup chat.
+     * The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights.
+     * The topic will be automatically unhidden if it was hidden
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @return On success, True is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean reopenGeneralForumTopic(Object chat_id) throws TelegramException;
+
+    /**
+     * Use this method to hide the 'General' topic in a forum supergroup chat.
+     * The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights.
+     * The topic will be automatically closed if it was open.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @return On success, True is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean hideGeneralForumTopic(Object chat_id) throws TelegramException;
+
+    /**
+     * Use this method to unhide the 'General' topic in a forum supergroup chat.
+     * The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @return On success, True is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean unhideGeneralForumTopic(Object chat_id) throws TelegramException;
     /**
      * Use this method to send answers to callback queries sent from inline keyboards. 
      * The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. 

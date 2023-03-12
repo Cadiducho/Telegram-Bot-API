@@ -1,5 +1,6 @@
 package com.cadiducho.telegrambotapi;
 
+import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +34,13 @@ public class InputMediaAnimation extends InputMedia {
      */
     private Integer duration;
 
-    public InputMediaAnimation(String media, String caption, ParseMode parseMode, Boolean disableContentTypeDetection) {
+    /**
+     * Optional. Pass True if the photo needs to be covered with a spoiler animation
+     */
+    @Json(name = "has_spoiler") private Boolean hasSpoiler;
+
+    public InputMediaAnimation(String media, String caption, ParseMode parseMode, Boolean disableContentTypeDetection, Boolean hasSpoiler) {
         super("animation", media, caption, parseMode, disableContentTypeDetection);
+        this.hasSpoiler = hasSpoiler;
     }
 }

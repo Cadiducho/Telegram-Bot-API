@@ -13,6 +13,8 @@ import com.cadiducho.telegrambotapi.handlers.BotUpdatesPoller;
 import com.cadiducho.telegrambotapi.handlers.DefaultBotUpdatesPoller;
 import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
+import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardMarkup;
+import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardRemove;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
 import com.cadiducho.telegrambotapi.payment.ShippingOption;
 import com.cadiducho.telegrambotapi.util.ApiResponse;
@@ -30,7 +32,7 @@ import java.util.Objects;
 
 /**
  * Default implementation to build Telegrams Bots
- * Telegram Bot API version 6.3
+ * Telegram Bot API version 6.5
  */
 public class TelegramBot implements BotAPI {
 
@@ -238,13 +240,14 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendPhoto(Object chat_id, Integer message_thread_id, Object photo, String caption, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendPhoto(Object chat_id, Integer message_thread_id, Object photo, String caption, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "message_thread_id", message_thread_id);
         safeAdd(parameters, "caption", caption);
+        safeAdd(parameters, "has_spoiler", has_spoiler);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "protect_content", protect_content);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -304,7 +307,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Message sendVideo(Object chat_id, Integer message_thread_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean supports_streaming, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendVideo(Object chat_id, Integer message_thread_id, Object video, Integer duration, Integer width, Integer height, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean supports_streaming, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
 
@@ -315,6 +318,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "height", height);
         safeAdd(parameters, "caption", caption);
         safeAdd(parameters, "parse_mode", parse_mode);
+        safeAdd(parameters, "has_spoiler", has_spoiler);
         safeAdd(parameters, "supports_streaming", supports_streaming);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "protect_content", protect_content);
@@ -329,8 +333,10 @@ public class TelegramBot implements BotAPI {
         return handleRequest(request, Message.class);
     }
 
+
+
     @Override
-    public Message sendAnimation(Object chat_id, Integer message_thread_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+    public Message sendAnimation(Object chat_id, Integer message_thread_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
 
@@ -343,6 +349,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "caption", caption);
         addFile(parameters, "thumb", thumb, MediaTypes.MEDIA_TYPE_PHOTO);
         safeAdd(parameters, "parse_mode", parse_mode);
+        safeAdd(parameters, "has_spoiler", has_spoiler);
         safeAdd(parameters, "disable_notification", disable_notification);
         safeAdd(parameters, "protect_content", protect_content);
         safeAdd(parameters, "reply_to_message_id", reply_to_message_id);
@@ -585,11 +592,12 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean sendChatAction(Object chat_id, String action) throws TelegramException {
+    public Boolean sendChatAction(Object chat_id, Integer message_thread_id, String action) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
 
         safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "message_thread_id", message_thread_id);
         safeAdd(parameters, "action", action);
 
         final Request request = new Request.Builder()
@@ -645,13 +653,14 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean restrictChatMember(Object chat_id, Long user_id, ChatPermissions permissions, Integer until_date) throws TelegramException {
+    public Boolean restrictChatMember(Object chat_id, Long user_id, ChatPermissions permissions, Boolean use_independent_chat_permissions, Integer until_date) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "user_id", user_id);
         safeAdd(parameters, "permissions", permissions);
+        safeAdd(parameters, "use_independent_chat_permissions", use_independent_chat_permissions);
         safeAdd(parameters, "until_date", until_date);
 
         final Request request = new Request.Builder()
@@ -735,12 +744,13 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean setChatPermissions(Object chat_id, ChatPermissions permissions) throws TelegramException {
+    public Boolean setChatPermissions(Object chat_id, ChatPermissions permissions, Boolean use_independent_chat_permissions) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
 
         safeAdd(parameters, "chat_id", safeChatId);
         safeAdd(parameters, "permissions", permissions);
+        safeAdd(parameters, "use_independent_chat_permissions", use_independent_chat_permissions);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "setChatPermissions")
@@ -1162,6 +1172,77 @@ public class TelegramBot implements BotAPI {
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "unpinAllForumTopicMessages")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean editGeneralForumTopic(Object chat_id, String name) throws TelegramException {
+        final Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+        safeAdd(parameters, "name", name);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "editGeneralForumTopic")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean closeGeneralForumTopic(Object chat_id) throws TelegramException {
+        final Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "closeGeneralForumTopic")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean reopenGeneralForumTopic(Object chat_id) throws TelegramException {
+        final Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "reopenGeneralForumTopic")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean hideGeneralForumTopic(Object chat_id) throws TelegramException {
+        final Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "hideGeneralForumTopic")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean unhideGeneralForumTopic(Object chat_id) throws TelegramException {
+        final Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "unhideGeneralForumTopic")
                 .post(parameters.build())
                 .build();
         return handleRequest(request, Boolean.class);

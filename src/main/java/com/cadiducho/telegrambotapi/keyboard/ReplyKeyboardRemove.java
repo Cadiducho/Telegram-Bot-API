@@ -1,11 +1,11 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2023 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
-package com.cadiducho.telegrambotapi;
+package com.cadiducho.telegrambotapi.keyboard;
 
 import com.squareup.moshi.Json;
 import lombok.Getter;

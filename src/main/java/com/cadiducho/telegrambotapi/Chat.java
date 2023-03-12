@@ -125,6 +125,21 @@ public class Chat {
     @Json(name = "slow_mode_delay") private Integer slowModeDelay;
 
     /**
+     * Optional. The time after which all messages sent to the chat will be automatically deleted; in seconds. Returned only in getChat.
+     */
+    @Json(name = "message_auto_delete_time") private Integer messageAutoDeleteTime;
+
+    /**
+     * Optional. True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators. Returned only in getChat.
+     */
+    @Json(name = "has_aggressive_anti_spam_enabled") private Boolean hasAggressiveAntiSpamEnabled;
+
+    /**
+     * Optional. True, if non-administrators can only get the list of bots and administrators in the chat. Returned only in getChat.
+     */
+    @Json(name = "has_hidden_members") private Boolean hasHiddenMembers;
+
+    /**
      * Optional. True, if messages from the chat can't be forwarded to other chats. Returned only in getChat.
      */
     @Json(name = "has_protected_content") private Boolean hasProtectedContent;

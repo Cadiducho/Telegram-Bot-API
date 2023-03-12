@@ -64,7 +64,12 @@ class TelegramBotTest {
 
     @Test
     void sendPhoto() throws TelegramException {
-        bot.sendPhoto(CHAT_ID, PHOTO_ID, "Test caption", true, null, null, null);
+        bot.sendPhoto(CHAT_ID, PHOTO_ID, "Test caption", null, null, null, null, null);
+    }
+
+    @Test
+    void sendPhotoWithSpoiler() throws TelegramException {
+        bot.sendPhoto(CHAT_ID, PHOTO_ID, "Photo with spoiler", true, null, null, null, null);
     }
 
     @Test

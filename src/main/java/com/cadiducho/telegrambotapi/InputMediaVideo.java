@@ -38,13 +38,19 @@ public class InputMediaVideo extends InputMedia {
      */
     @Json(name = "supports_streaming") private Boolean supportsStreaming;
 
-    public InputMediaVideo(String media, Object thumb, String caption, ParseMode parseMode, Integer width, Integer height, Integer duration, Boolean supportsStreaming, Boolean disableContentTypeDetection) {
+    /**
+     * Optional. Pass True if the photo needs to be covered with a spoiler animation
+     */
+    @Json(name = "has_spoiler") private Boolean hasSpoiler;
+
+    public InputMediaVideo(String media, Object thumb, String caption, ParseMode parseMode, Integer width, Integer height, Integer duration, Boolean supportsStreaming, Boolean disableContentTypeDetection, Boolean hasSpoiler) {
         super("video", media, caption, parseMode, disableContentTypeDetection);
         this.thumb = thumb;
         this.width = width;
         this.height = height;
         this.duration = duration;
         this.supportsStreaming = supportsStreaming;
+        this.hasSpoiler = hasSpoiler;
     }
 
 }
