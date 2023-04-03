@@ -91,7 +91,7 @@ public class Message {
     /**
      * Optional. True, if the message is sent to a forum topic
      */
-    @Json(name = "is_topic_message") private Integer isTopicMessage;
+    @Json(name = "is_topic_message") private Boolean isTopicMessage;
 
     /**
      * Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
