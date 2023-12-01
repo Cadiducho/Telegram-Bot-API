@@ -27,5 +27,5 @@ public class ForumTopicEdited {
     /**
      * 	Optional. New identifier of the custom emoji shown as the topic icon, if it was edited; an empty string if the icon was removed
      */
-    @Json(name = "icon_custom_emoji_id") private Integer iconCustomEmojiId;
+    @Json(name = "icon_custom_emoji_id") private String iconCustomEmojiId;
 }
