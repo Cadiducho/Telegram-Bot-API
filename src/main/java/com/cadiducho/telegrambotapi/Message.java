@@ -14,6 +14,7 @@ import com.cadiducho.telegrambotapi.payment.Invoice;
 import com.cadiducho.telegrambotapi.payment.SuccessfulPayment;
 import java.util.List;
 
+import com.cadiducho.telegrambotapi.sticker.Sticker;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;

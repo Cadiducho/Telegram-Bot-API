@@ -17,7 +17,7 @@ public class InputMediaAnimation extends InputMedia {
      * Ignored if the file is not uploaded using multipart/form-data.
      * Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>.
      */
-    private Object thumb;
+    private Object thumbnail;
 
     /**
      * Optional. Animation width

@@ -32,7 +32,7 @@ public class Document {
     /**
      * Optional. Document thumbnail as defined by sender
      */
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
     
     /**
      * Optional. Original filename as defined by sender

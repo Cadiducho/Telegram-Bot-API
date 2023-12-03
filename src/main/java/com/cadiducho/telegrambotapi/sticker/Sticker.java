@@ -5,8 +5,10 @@
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
-package com.cadiducho.telegrambotapi;
+package com.cadiducho.telegrambotapi.sticker;
 
+import com.cadiducho.telegrambotapi.File;
+import com.cadiducho.telegrambotapi.PhotoSize;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +56,7 @@ public class Sticker {
     /**
      * Optional. Sticker thumbnail in .webp or .jpg format
      */
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
     
     /**
      * Optional. Emoji associated with the sticker
@@ -80,6 +82,11 @@ public class Sticker {
      * Optional. For custom emoji stickers, unique identifier of the custom emoji
      */
     @Json(name = "custom_emoji_id") private MaskPosition customEmojiId;
+
+    /**
+     * Optional. True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
+     */
+    @Json(name = "needs_repainting") private Boolean needsRepainting;
     
     /**
      * Optional. File size

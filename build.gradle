@@ -5,8 +5,8 @@ plugins {
 }
 
 group = 'com.cadiducho'
-version = '6.5'
-sourceCompatibility = '1.8'
+version = '6.6'
+sourceCompatibility = JavaVersion.VERSION_11
 
 java {
     withJavadocJar()

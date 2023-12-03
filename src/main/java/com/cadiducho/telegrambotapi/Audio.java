@@ -62,5 +62,5 @@ public class Audio {
     /**
      * Optional. Thumbnail of the album cover to which the music file belongs
      */
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
 }

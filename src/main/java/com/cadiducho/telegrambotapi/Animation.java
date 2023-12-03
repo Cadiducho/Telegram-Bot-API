@@ -47,7 +47,7 @@ public class Animation {
     /**
      * Optional. Animation thumbnail as defined by sender
      */
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
 
     /**
      * Optional. Original animation filename as defined by sender

@@ -49,17 +49,17 @@ public class InlineQueryResultDocument extends InlineQueryResult {
     /**
      * Optional. URL of the thumbnail (jpeg only) for the file
      */
-    @Json(name = "thumb_url") private String thumbUrl;
+    @Json(name = "thumbnail_url") private String thumbnailUrl;
     
     /**
      * Optional. Thumbnail width
      */
-    @Json(name = "thumb_width") private Integer thumbWidth;
+    @Json(name = "thumbnail_width") private Integer thumbnailWidth;
     
     /**
      * Optional. Thumbnail height
      */
-    @Json(name = "thumb_height") private Integer thumbHeight;
+    @Json(name = "thumbnail_height") private Integer thumbnailHeight;
 
     public InlineQueryResultDocument() {
         super("document");
@@ -85,14 +85,14 @@ public class InlineQueryResultDocument extends InlineQueryResult {
      * @param title Title for the result
      * @param caption Optional. Caption of the document to be sent, 0-200 characters
      * @param description Optional. Short description of the result
-     * @param thumbUrl Optional. URL of the thumbnail (jpeg only) for the file
-     * @param thumbWidth Optional. Thumbnail width
-     * @param thumbHeight Optional. Thumbnail height
+     * @param thumbnailUrl Optional. URL of the thumbnail (jpeg only) for the file
+     * @param thumbnailWidth Optional. Thumbnail width
+     * @param thumbnailHeight Optional. Thumbnail height
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message
      */
     public InlineQueryResultDocument(String documentUrl, String title, String mimeType, String caption,
-                        String description, String thumbUrl, Integer thumbWidth, Integer thumbHeight,
+                        String description, String thumbnailUrl, Integer thumbnailWidth, Integer thumbnailHeight,
                         InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.documentUrl = documentUrl;
@@ -100,9 +100,9 @@ public class InlineQueryResultDocument extends InlineQueryResult {
         this.mimeType = mimeType;
         this.caption = caption;
         this.description = description;
-        this.thumbUrl = thumbUrl;
-        this.thumbWidth = thumbWidth;
-        this.thumbHeight = thumbHeight;
+        this.thumbnailUrl = thumbnailUrl;
+        this.thumbnailWidth = thumbnailWidth;
+        this.thumbnailHeight = thumbnailHeight;
         this.replyMarkup = replyMarkup;
         this.inputMessageContent = inputMessageContent;
     }

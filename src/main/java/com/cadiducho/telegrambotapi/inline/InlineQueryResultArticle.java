@@ -58,17 +58,17 @@ public class InlineQueryResultArticle extends InlineQueryResult {
     /**
      * Optional. Url of the thumbnail for the result
      */
-    @Json(name = "thumb_url") private String thumbUrl;
+    @Json(name = "thumbnail_url") private String thumbnailUrl;
 
     /**
      * Optional. Thumbnail width
      */
-    @Json(name = "thumb_width") private Integer thumbWidth;
+    @Json(name = "thumbnail_width") private Integer thumbnailWidth;
 
     /**
      * Optional. Thumbnail height
      */
-    @Json(name = "thumb_height") private Integer thumbHeight;
+    @Json(name = "thumbnail_height") private Integer thumbnailHeight;
 
     public InlineQueryResultArticle() {
         super("article");
@@ -94,15 +94,15 @@ public class InlineQueryResultArticle extends InlineQueryResult {
      * @param url Optional. URL of the result
      * @param hideUrl Optional. Pass True, if you don't want the URL to be shown in the message
      * @param description Optional. Short description of the result
-     * @param thumbUrl Optional. Url of the thumbnail for the result
-     * @param thumbWidth Optional. Thumbnail width
-     * @param thumbHeight Optional. Thumbnail height
+     * @param thumbnailUrl Optional. Url of the thumbnail for the result
+     * @param thumbnailWidth Optional. Thumbnail width
+     * @param thumbnailHeight Optional. Thumbnail height
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message to be sent
      */
     public InlineQueryResultArticle(String title, String messageText, ParseMode parseMode,
                                     Boolean disableWebPagePreview, String url, Boolean hideUrl, String description,
-                                    String thumbUrl, Integer thumbWidth, Integer thumbHeight, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
+                                    String thumbnailUrl, Integer thumbnailWidth, Integer thumbnailHeight, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.title = title;
         this.messageText = messageText;
@@ -111,9 +111,9 @@ public class InlineQueryResultArticle extends InlineQueryResult {
         this.url = url;
         this.hideUrl = hideUrl;
         this.description = description;
-        this.thumbUrl = thumbUrl;
-        this.thumbWidth = thumbWidth;
-        this.thumbHeight = thumbHeight;
+        this.thumbnailUrl = thumbnailUrl;
+        this.thumbnailWidth = thumbnailWidth;
+        this.thumbnailHeight = thumbnailHeight;
         this.replyMarkup = replyMarkup;
         this.inputMessageContent = inputMessageContent;
     }

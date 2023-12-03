@@ -16,12 +16,16 @@ import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardMarkup;
 import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardRemove;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
 import com.cadiducho.telegrambotapi.payment.ShippingOption;
+import com.cadiducho.telegrambotapi.sticker.InputSticker;
+import com.cadiducho.telegrambotapi.sticker.MaskPosition;
+import com.cadiducho.telegrambotapi.sticker.Sticker;
+import com.cadiducho.telegrambotapi.sticker.StickerSet;
 
 import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 6.5
+ * Telegram Bot API version 6.6
  */
 public interface BotAPI {
 
@@ -527,7 +531,7 @@ public interface BotAPI {
      * @param duration Duration of the animation in seconds
      * @param width Animation width
      * @param height Animation height
-     * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;.
+     * @param thumbnail Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;.
      * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param has_spoiler Pass True if the animation needs to be covered with a spoiler animation
@@ -539,8 +543,8 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        return sendAnimation(chat_id, null, animation, duration, width, height, thumb, caption, parse_mode, has_spoiler, disable_notification, protect_content, reply_to_message_id, reply_markup);
+    default Message sendAnimation(Object chat_id, Object animation, Integer duration, Integer width, Integer height, Object thumbnail, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
+        return sendAnimation(chat_id, null, animation, duration, width, height, thumbnail, caption, parse_mode, has_spoiler, disable_notification, protect_content, reply_to_message_id, reply_markup);
     }
 
     /**
@@ -553,7 +557,7 @@ public interface BotAPI {
      * @param duration Duration of the animation in seconds
      * @param width Animation width
      * @param height Animation height
-     * @param thumb Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;.
+     * @param thumbnail Thumbnail of the file sent. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 90. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://&lt;file_attach_name&gt;” if the thumbnail was uploaded using multipart/form-data under &lt;file_attach_name&gt;.
      * @param caption Animation caption (may also be used when resending videos by file_id), 0-1024 characters
      * @param parse_mode Optional. Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
      * @param has_spoiler Pass True if the animation needs to be covered with a spoiler animation
@@ -565,7 +569,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendAnimation(Object chat_id, Integer message_thread_id, Object animation, Integer duration, Integer width, Integer height, Object thumb, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendAnimation(Object chat_id, Integer message_thread_id, Object animation, Integer duration, Integer width, Integer height, Object thumbnail, String caption, ParseMode parse_mode, Boolean has_spoiler, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
 
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. 
@@ -1720,6 +1724,40 @@ public interface BotAPI {
     }
 
     /**
+     * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns True on success.
+     * @param description New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
+     * @param language_code A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
+     * @return True on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean setMyDescription(String description, String language_code) throws TelegramException;
+
+    /**
+     * Use this method to get the current bot description for the given user language.
+     * @param language_code A two-letter ISO 639-1 language code or an empty string
+     * @return {@link BotDescription} on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    BotDescription getMyDescription(String language_code) throws TelegramException;
+
+    /**
+     * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns True on success.
+     * @param short_description New short description for the bot; 0-120 characters. Pass an empty string to remove the dedicated short description for the given language.
+     * @param language_code A two-letter ISO 639-1 language code. If empty, the short description will be applied to all users for whose language there is no dedicated short description.
+     * @return True on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean setMyShortDescription(String short_description, String language_code) throws TelegramException;
+
+    /**
+     * Use this method to get the current bot short description for the given user language. Returns BotShortDescription on success.
+     * @param language_code A two-letter ISO 639-1 language code or an empty string
+     * @return {@link BotShortDescription} on success.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    BotShortDescription getMyShortDescription(String language_code) throws TelegramException;
+
+    /**
      * Use this method to change the bot's menu button in a private chat, or the default menu button.
      * @param chat_id Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
      * @param menu_button A JSON-serialized object for the bot's new menu button
@@ -1962,7 +2000,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Message sendSticker(Object chat_id, Object sticker, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException {
-        return sendSticker(chat_id, null, sticker, disable_notification, protect_content, reply_to_message_id, reply_markup);
+        return sendSticker(chat_id, sticker, disable_notification, protect_content, reply_to_message_id, reply_markup);
     }
 
     /**
@@ -1971,6 +2009,7 @@ public interface BotAPI {
      * @param message_thread_id Optional. Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
      * @param sticker Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers,
      *                  or upload a new sticker using multipart/form-data.
+     * @param emoji Emoji associated with the sticker; only for just uploaded stickers
      * @param reply_to_message_id If the message is a reply, ID of the original message
      * @param disable_notification Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.
      * @param reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
@@ -1978,7 +2017,7 @@ public interface BotAPI {
      * @return {@link Message}
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Message sendSticker(Object chat_id, Integer message_thread_id, Object sticker, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
+    Message sendSticker(Object chat_id, Integer message_thread_id, Object sticker, String emoji, Boolean disable_notification, Boolean protect_content, Integer reply_to_message_id, Object reply_markup) throws TelegramException;
     
     /**
      * Use this method to get a sticker set. On success, a StickerSet object is returned.
@@ -2010,55 +2049,25 @@ public interface BotAPI {
      * @param user_id User identifier of created sticker set owner
      * @param name Short name of sticker set, to be used in t.me/addstickers/ URLs. Must begin with a letter, can't contain consecutive underscores and must end in “_by_&lt;bot username&gt;”. &lt;bot_username&gt; is case insensitive. 1-64 characters.
      * @param title Sticker set title, 1-64 characters
-     * @param png_sticker PNG image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data
-     * @param tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#animated-sticker-requirements for technical requirements
-     * @param webm_sticker WEBM video with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/stickers#video-sticker-requirements for technical requirements
+     * @param stickers A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
+     * @param sticker_format Format of stickers in the set, must be one of “static”, “animated”, “video”
+     * @param sticker_type Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
      * @param sticker_type Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created.
-     * @param emojis One or more emoji corresponding to the sticker
-     * @param mask_position Optional. A JSON-serialized object for position where the mask should be placed on faces
+     * @param needs_repainting Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean createNewStickerSet(Long user_id, String name, String title, java.io.File png_sticker, java.io.File tgs_sticker, java.io.File webm_sticker, String sticker_type, String emojis, MaskPosition mask_position) throws TelegramException;
+    Boolean createNewStickerSet(Long user_id, String name, String title, List<InputSticker> stickers, String sticker_format, String sticker_type, Boolean needs_repainting) throws TelegramException;
     
     /**
-     * Use this method to add a new sticker to a set created by the bot. Returns True on success.
+     * Use this method to add a new sticker to a set created by the bot. The format of the added sticker must match the format of the other stickers in the set. Emoji sticker sets can have up to 200 stickers. Animated and video sticker sets can have up to 50 stickers. Static sticker sets can have up to 120 stickers. Returns True on success.
      * @param user_id User identifier of sticker set owner
      * @param name Sticker set name
-     * @param png_sticker Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data
-     * @param tgs_sticker TGS animation with the sticker, uploaded using multipart/form-data. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements
-     * @param emojis One or more emoji corresponding to the sticker
+     * @param sticker A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn't changed.
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    default Boolean addStickerToSet(Long user_id, String name, java.io.File png_sticker, java.io.File tgs_sticker, String emojis) throws TelegramException {
-        return addStickerToSet(user_id, name, png_sticker, emojis, null);
-    }
-    
-    /**
-     * Use this method to add a new sticker to a set created by the bot. Returns True on success.
-     * @param user_id User identifier of sticker set owner
-     * @param name Sticker set name
-     * @param png_sticker Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data
-     * @param emojis One or more emoji corresponding to the sticker
-     * @return True on success.
-     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
-     */
-    default Boolean addStickerToSet(Long user_id, String name, String png_sticker, String emojis) throws TelegramException {
-        return addStickerToSet(user_id, name, png_sticker, emojis, null);
-    }
-    
-    /**
-     * Use this method to add a new sticker to a set created by the bot. Returns True on success.
-     * @param user_id User identifier of sticker set owner
-     * @param name Sticker set name
-     * @param png_sticker Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data
-     * @param emojis One or more emoji corresponding to the sticker
-     * @param mask_position Optional. A JSON-serialized object for position where the mask should be placed on faces
-     * @return True on success.
-     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
-     */
-    Boolean addStickerToSet(Long user_id, String name, Object png_sticker, String emojis, MaskPosition mask_position) throws TelegramException;
+    Boolean addStickerToSet(Long user_id, String name, InputSticker sticker) throws TelegramException;
     
     /**
      * Use this method to move a sticker in a set created by the bot to a specific position . Returns True on success.
@@ -2078,28 +2087,82 @@ public interface BotAPI {
     Boolean deleteStickerFromSet(String sticker) throws TelegramException;
 
     /**
-     * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only
+     * Use this method to change the {@link com.cadiducho.telegrambotapi.sticker.MaskPosition} of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns True on success.
      * @param name Sticker set name
-     * @param user_id User identifier of the sticker set owner
-     * @param thumb A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements.
-     *              Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data.
-     *              More info on Sending Files ». Animated sticker set thumbnail can't be uploaded via HTTP URL.
+     * @param mask_position A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
      * @return True on success.
-     * @throws TelegramException
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
-    Boolean setStickerSetThumb(String name, Long user_id, java.io.File thumb) throws TelegramException;
+    Boolean setStickerMaskPosition(String name, com.cadiducho.telegrambotapi.sticker.MaskPosition mask_position) throws TelegramException;
+
+    /**
+     * Use this method to set the title of a created sticker set. Returns True on success.
+     * @param name Sticker set name
+     * @param title Sticker set title, 1-64 characters
+     * @return True on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setStickerSetTitle(String name, String title) throws TelegramException;
 
     /**
      * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only
      * @param name Sticker set name
      * @param user_id User identifier of the sticker set owner
-     * @param thumb A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements.
+     * @param thumbnail A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements.
      *              Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data.
      *              More info on Sending Files ». Animated sticker set thumbnail can't be uploaded via HTTP URL.
      * @return True on success.
      * @throws TelegramException
      */
-    Boolean setStickerSetThumb(String name, Long user_id, String thumb) throws TelegramException;
+    Boolean setStickerSetThumbnail(String name, Long user_id, java.io.File thumbnail) throws TelegramException;
+
+    /**
+     * Use this method to set the thumbnail of a sticker set. Animated thumbnails can be set for animated sticker sets only
+     * @param name Sticker set name
+     * @param user_id User identifier of the sticker set owner
+     * @param thumbnail A PNG image with the thumbnail, must be up to 128 kilobytes in size and have width and height exactly 100px, or a TGS animation with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/animated_stickers#technical-requirements for animated sticker technical requirements.
+     *              Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data.
+     *              More info on Sending Files ». Animated sticker set thumbnail can't be uploaded via HTTP URL.
+     * @return True on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setStickerSetThumbnail(String name, Long user_id, String thumbnail) throws TelegramException;
+
+    /**
+     * Use this method to set the thumbnail of a custom emoji sticker set. Returns True on success.
+     * @param name Sticker set name
+     * @param custom_emoji_id Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
+     * @return True on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setCustomEmojiStickerSetThumbnail(String name, String custom_emoji_id) throws TelegramException;
+
+    /**
+     * Use this method to delete a sticker set that was created by the bot. Returns True on success.
+     * @param name Sticker set name
+     * @return True on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean deleteStickerSet(String name) throws TelegramException;
+
+    /**
+     * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
+     * @param sticker File identifier of the sticker
+     * @param emoji_list A JSON-serialized list of 1-20 emoji associated with the sticker
+     * @return True on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setStickerEmojiList(String sticker, List<String> emoji_list) throws TelegramException;
+
+    /**
+     * Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
+     * @param sticker File identifier of the sticker
+     * @param keywords A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters
+     * @return True on success.
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setStickerKeywords(String sticker, List<String> keywords) throws TelegramException;
+
 
     /**
      * Use this method to send answers to an inline query. On success, True is returned.

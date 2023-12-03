@@ -39,7 +39,7 @@ public class InlineQueryResultPhoto extends InlineQueryResult {
     /**
      * URL of the thumbnail for the photo
      */
-    @Json(name = "thumb_url") private String thumbUrl;
+    @Json(name = "thumbnail_url") private String thumbnailUrl;
 
     /**
      * Optional. Title for the result
@@ -63,18 +63,18 @@ public class InlineQueryResultPhoto extends InlineQueryResult {
     /**
      *
      * @param photoUrl A valid URL of the photo. Photo must be in <b>jpeg</b> format. Photo size must not exceed 5MB
-     * @param thumbUrl URL of the thumbnail for the photo
+     * @param thumbnailUrl URL of the thumbnail for the photo
      */
-    public InlineQueryResultPhoto(String photoUrl, String thumbUrl) {
+    public InlineQueryResultPhoto(String photoUrl, String thumbnailUrl) {
         this();
         this.photoUrl = photoUrl;
-        this.thumbUrl = thumbUrl;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     /**
      *
      * @param photoUrl A valid URL of the photo. Photo must be in <b>jpeg</b> format. Photo size must not exceed 5MB
-     * @param thumbUrl URL of the thumbnail for the photo
+     * @param thumbnailUrl URL of the thumbnail for the photo
      * @param photoWidth Optional. Width of the photo
      * @param photoHeight Optional. Height of the photo
      * @param title Optional. Title for the result
@@ -83,13 +83,13 @@ public class InlineQueryResultPhoto extends InlineQueryResult {
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultPhoto(String photoUrl, String thumbUrl, Integer photoWidth, Integer photoHeight,
+    public InlineQueryResultPhoto(String photoUrl, String thumbnailUrl, Integer photoWidth, Integer photoHeight,
                                   String title, String description, String caption, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.photoUrl = photoUrl;
         this.photoWidth = photoWidth;
         this.photoHeight = photoHeight;
-        this.thumbUrl = thumbUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.description = description;
         this.caption = caption;

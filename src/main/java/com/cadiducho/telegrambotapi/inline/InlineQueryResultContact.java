@@ -43,17 +43,17 @@ public class InlineQueryResultContact extends InlineQueryResult {
     /**
      * Optional. URL of the thumbnail (jpeg only) for the file
      */
-    @Json(name = "thumb_url") private String thumbUrl;
+    @Json(name = "thumbnail_url") private String thumbnailUrl;
     
     /**
      * Optional. Thumbnail width
      */
-    @Json(name = "thumb_width") private Integer thumbWidth;
+    @Json(name = "thumbnail_width") private Integer thumbnailWidth;
     
     /**
      * Optional. Thumbnail height
      */
-    @Json(name = "thumb_height") private Integer thumbHeight;
+    @Json(name = "thumbnail_height") private Integer thumbnailHeight;
 
     public InlineQueryResultContact() {
         super("contact");
@@ -75,22 +75,22 @@ public class InlineQueryResultContact extends InlineQueryResult {
      * @param phoneNumber Contact's phone number
      * @param firstName Contact's first name
      * @param lastName Optional. Contact's last name
-     * @param thumbUrl Optional. URL of the thumbnail (jpeg only) for the file
-     * @param thumbWidth Optional. Thumbnail width
-     * @param thumbHeight Optional. Thumbnail height
+     * @param thumbnailUrl Optional. URL of the thumbnail (jpeg only) for the file
+     * @param thumbnailWidth Optional. Thumbnail width
+     * @param thumbnailHeight Optional. Thumbnail height
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message
      */
     public InlineQueryResultContact(String phoneNumber, String firstName, String lastName,
-                                    String thumbUrl, Integer thumbWidth, Integer thumbHeight,
+                                    String thumbnailUrl, Integer thumbnailWidth, Integer thumbnailHeight,
                                     InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.phoneNumber = phoneNumber;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.thumbUrl = thumbUrl;
-        this.thumbWidth = thumbWidth;
-        this.thumbHeight = thumbHeight;
+        this.thumbnailUrl = thumbnailUrl;
+        this.thumbnailWidth = thumbnailWidth;
+        this.thumbnailHeight = thumbnailHeight;
         this.replyMarkup = replyMarkup;
         this.inputMessageContent = inputMessageContent;
     }

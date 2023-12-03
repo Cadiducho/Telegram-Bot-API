@@ -42,9 +42,14 @@ public class InlineQueryResultGif extends InlineQueryResult {
     @Json(name = "gif_duration") private Integer gifDuration;
 
     /**
-     * URL of the static thumbnail for the result (jpeg or gif)
+     * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
      */
-    @Json(name = "thumb_url") private String thumbUrl;
+    @Json(name = "thumbnail_url") private String thumbnailUrl;
+
+    /**
+     * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+     */
+    @Json(name = "thumbnail_mime_type") private String thumbnailMimeType;
 
     /**
      * Optional. Title for the result
@@ -68,12 +73,12 @@ public class InlineQueryResultGif extends InlineQueryResult {
     /**
      *
      * @param gifUrl A valid URL for the GIF file. File size must not exceed 1MB
-     * @param thumbUrl URL of the static thumbnail for the result (jpeg or gif)
+     * @param thumbnailUrl URL of the static thumbnail for the result (jpeg or gif)
      */
-    public InlineQueryResultGif(String gifUrl, String thumbUrl) {
+    public InlineQueryResultGif(String gifUrl, String thumbnailUrl) {
         this();
         this.gifUrl = gifUrl;
-        this.thumbUrl = thumbUrl;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     /**
@@ -81,7 +86,7 @@ public class InlineQueryResultGif extends InlineQueryResult {
      * @param gifUrl A valid URL for the GIF file. File size must not exceed 1MB
      * @param gifWidth Optional. Width of the GIF
      * @param gifHeight Optional. Height of the GIF
-     * @param thumbUrl URL of the static thumbnail for the result (jpeg or gif)
+     * @param thumbnailUrl URL of the static thumbnail for the result (jpeg or gif)
      * @param title Optional. Title for the result
      * @param caption Optional. Caption of the GIF file to be sent, 0-200 characters
      * @param parseMode Optional. Send “Markdown”, if you want Telegram apps to show
@@ -90,13 +95,13 @@ public class InlineQueryResultGif extends InlineQueryResult {
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultGif(String gifUrl, Integer gifWidth, Integer gifHeight, String thumbUrl, String title,
+    public InlineQueryResultGif(String gifUrl, Integer gifWidth, Integer gifHeight, String thumbnailUrl, String title,
                                 String caption, ParseMode parseMode, InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.gifUrl = gifUrl;
         this.gifWidth = gifWidth;
         this.gifHeight = gifHeight;
-        this.thumbUrl = thumbUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.caption = caption;
         this.parseMode = parseMode;

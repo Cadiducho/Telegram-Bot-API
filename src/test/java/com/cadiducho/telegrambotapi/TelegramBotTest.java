@@ -150,6 +150,26 @@ class TelegramBotTest {
     }
 
     @Nested
+    class DescriptionTest {
+
+            @Test
+            void setAndGetBotDescription() throws TelegramException {
+                String description = "Bot description test";
+                String languageCode = "en";
+                assertTrue(bot.setMyDescription(description, languageCode));
+                assertEquals(bot.getMyDescription(languageCode).getDescription(), description);
+            }
+
+            @Test
+            void setAndGetBotShortDescription() throws TelegramException {
+                String shortDescription = "Bot short description test";
+                String languageCode = "en";
+                assertTrue(bot.setMyShortDescription(shortDescription, languageCode));
+                assertEquals(bot.getMyShortDescription(languageCode).getShortDescription(), shortDescription);
+            }
+    }
+
+    @Nested
     class MenuButtonTest {
 
         @Test

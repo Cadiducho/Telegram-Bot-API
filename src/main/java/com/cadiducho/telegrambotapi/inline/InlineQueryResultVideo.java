@@ -65,7 +65,7 @@ public class InlineQueryResultVideo extends InlineQueryResult {
     /**
      * URL of the thumbnail (jpeg only) for the video
      */
-    @Json(name = "thumb_url") private String thumbUrl;
+    @Json(name = "thumbnail_url") private String thumbnailUrl;
 
     /**
      * Title for the result
@@ -86,15 +86,15 @@ public class InlineQueryResultVideo extends InlineQueryResult {
      * @param videoUrl A valid URL for the embedded video player or video file
      * @param mimeType Mime type of the content of video url, “text/html” or “video/mp4”
      * @param messageText Text of the message to be sent with the video, 1-512 characters
-     * @param thumbUrl URL of the thumbnail (jpeg only) for the video
+     * @param thumbnailUrl URL of the thumbnail (jpeg only) for the video
      * @param title Title for the result
      */
-    public InlineQueryResultVideo(String videoUrl, String mimeType, String messageText, String thumbUrl, String title) {
+    public InlineQueryResultVideo(String videoUrl, String mimeType, String messageText, String thumbnailUrl, String title) {
         this();
         this.videoUrl = videoUrl;
         this.mimeType = mimeType;
         this.messageText = messageText;
-        this.thumbUrl = thumbUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.title = title;
     }
 
@@ -110,7 +110,7 @@ public class InlineQueryResultVideo extends InlineQueryResult {
      * @param videoWidth Optional. Video width
      * @param videoHeight Optional. Video height
      * @param videoDuration Optional. Video duration in seconds
-     * @param thumbUrl URL of the thumbnail (jpeg only) for the video
+     * @param thumbnailUrl URL of the thumbnail (jpeg only) for the video
      * @param title Title for the result
      * @param description Optional. Short description of the result
      * @param replyMarkup Optional. Inline keyboard attached to the message
@@ -118,7 +118,7 @@ public class InlineQueryResultVideo extends InlineQueryResult {
      */
     public InlineQueryResultVideo(String videoUrl, String mimeType, String messageText, ParseMode parseMode,
                                   Boolean disableWebPagePreview, Integer videoWidth, Integer videoHeight,
-                                  Integer videoDuration, String thumbUrl, String title, String description,
+                                  Integer videoDuration, String thumbnailUrl, String title, String description,
                                   InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.videoUrl = videoUrl;
@@ -129,7 +129,7 @@ public class InlineQueryResultVideo extends InlineQueryResult {
         this.videoWidth = videoWidth;
         this.videoHeight = videoHeight;
         this.videoDuration = videoDuration;
-        this.thumbUrl = thumbUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.description = description;
         this.replyMarkup = replyMarkup;

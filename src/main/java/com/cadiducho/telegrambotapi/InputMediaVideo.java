@@ -16,7 +16,7 @@ public class InputMediaVideo extends InputMedia {
      * Ignored if the file is not uploaded using multipart/form-data.
      * Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>.
      */
-    private Object thumb;
+    private Object thumbnail;
 
     /**
      * Optional. Video width
@@ -43,9 +43,9 @@ public class InputMediaVideo extends InputMedia {
      */
     @Json(name = "has_spoiler") private Boolean hasSpoiler;
 
-    public InputMediaVideo(String media, Object thumb, String caption, ParseMode parseMode, Integer width, Integer height, Integer duration, Boolean supportsStreaming, Boolean disableContentTypeDetection, Boolean hasSpoiler) {
+    public InputMediaVideo(String media, Object thumbnail, String caption, ParseMode parseMode, Integer width, Integer height, Integer duration, Boolean supportsStreaming, Boolean disableContentTypeDetection, Boolean hasSpoiler) {
         super("video", media, caption, parseMode, disableContentTypeDetection);
-        this.thumb = thumb;
+        this.thumbnail = thumbnail;
         this.width = width;
         this.height = height;
         this.duration = duration;

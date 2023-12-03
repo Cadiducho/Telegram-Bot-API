@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        jdk: [ '8', '19' ]
+        jdk: [ '11', '21' ]
     steps:
       - name: Setup Java ${{ matrix.jdk }} JDK
         uses: actions/setup-java@v3

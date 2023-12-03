@@ -42,7 +42,7 @@ public class VideoNote {
     /**
      * Optional. Video thumbnail
      */
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
 
     /**
      * Optional. File size

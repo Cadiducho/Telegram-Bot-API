@@ -5,7 +5,7 @@
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
-package com.cadiducho.telegrambotapi;
+package com.cadiducho.telegrambotapi.sticker;
 
 import com.squareup.moshi.Json;
 import lombok.Getter;

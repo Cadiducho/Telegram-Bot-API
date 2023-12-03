@@ -5,10 +5,11 @@
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
-package com.cadiducho.telegrambotapi;
+package com.cadiducho.telegrambotapi.sticker;
 
 import java.util.List;
 
+import com.cadiducho.telegrambotapi.PhotoSize;
 import com.squareup.moshi.Json;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,6 +57,6 @@ public class StickerSet {
     /**
      * Optional. Sticker set thumbnail in the .WEBP or .TGS format
      */
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
     
 }

@@ -43,9 +43,14 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
     @Json(name = "mpeg4_duration") private Integer mpeg4Duration;
 
     /**
-     * URL of the static thumbnail (jpeg or gif) for the result
+     * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
      */
-    @Json(name = "thumb_url") private String thumbUrl;
+    @Json(name = "thumbnail_url") private String thumbnailUrl;
+
+    /**
+     * Optional. MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+     */
+    @Json(name = "thumbnail_mime_type") private String thumbnailMimeType;
 
     /**
      * Optional. Title for the result
@@ -69,18 +74,18 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
     /**
      *
      * @param mpeg4Url A valid URL for the MP4 file. File size must not exceed 1MB
-     * @param thumbUrl URL of the static thumbnail (jpeg or gif) for the result
+     * @param thumbnailUrl URL of the static thumbnail (jpeg or gif) for the result
      */
-    public InlineQueryResultMpeg4Gif(String mpeg4Url, String thumbUrl) {
+    public InlineQueryResultMpeg4Gif(String mpeg4Url, String thumbnailUrl) {
         this();
         this.mpeg4Url = mpeg4Url;
-        this.thumbUrl = thumbUrl;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     /**
      *
      * @param mpeg4Url A valid URL for the MP4 file. File size must not exceed 1MB
-     * @param thumbUrl URL of the static thumbnail (jpeg or gif) for the result
+     * @param thumbnailUrl URL of the static thumbnail (jpeg or gif) for the result
      * @param mpeg4Width Optional. Video width
      * @param mpeg4Height Optional. Video height
      * @param title Optional. Title for the result
@@ -91,14 +96,14 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultMpeg4Gif(String mpeg4Url, String thumbUrl, Integer mpeg4Width, Integer mpeg4Height,
+    public InlineQueryResultMpeg4Gif(String mpeg4Url, String thumbnailUrl, Integer mpeg4Width, Integer mpeg4Height,
                                      String title, String caption, ParseMode parseMode,
                                      InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.mpeg4Url = mpeg4Url;
         this.mpeg4Width = mpeg4Width;
         this.mpeg4Height = mpeg4Height;
-        this.thumbUrl = thumbUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.caption = caption;
         this.parseMode = parseMode;

@@ -16,10 +16,10 @@ public class InputMediaDocument extends InputMedia {
      * Ignored if the file is not uploaded using multipart/form-data.
      * Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>.
      */
-    private Object thumb;
+    private Object thumbnail;
 
-    public InputMediaDocument(String media,Object thumb, String caption, ParseMode parseMode, Boolean disableContentTypeDetection) {
+    public InputMediaDocument(String media,Object thumbnail, String caption, ParseMode parseMode, Boolean disableContentTypeDetection) {
         super("document", media, caption, parseMode, disableContentTypeDetection);
-        this.thumb = thumb;
+        this.thumbnail = thumbnail;
     }
 }

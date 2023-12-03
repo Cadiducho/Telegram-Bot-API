@@ -58,17 +58,17 @@ public class InlineQueryResultLocation extends InlineQueryResult {
     /**
      * Optional. URL of the thumbnail (jpeg only) for the file
      */
-    @Json(name = "thumb_url") private String thumbUrl;
+    @Json(name = "thumbnail_url") private String thumbnailUrl;
 
     /**
      * Optional. Thumbnail width
      */
-    @Json(name = "thumb_width") private Integer thumbWidth;
+    @Json(name = "thumbnail_width") private Integer thumbnailWidth;
 
     /**
      * Optional. Thumbnail height
      */
-    @Json(name = "thumb_height") private Integer thumbHeight;
+    @Json(name = "thumbnail_height") private Integer thumbnailHeight;
 
     public InlineQueryResultLocation() {
         super("location");
@@ -92,22 +92,22 @@ public class InlineQueryResultLocation extends InlineQueryResult {
      * @param title Location title
      * @param latitude Location latitude in degrees
      * @param longitude Location longitude in degrees
-     * @param thumbUrl Optional. URL of the thumbnail (jpeg only) for the file
-     * @param thumbWidth Optional. Thumbnail width
-     * @param thumbHeight Optional. Thumbnail height
+     * @param thumbnailUrl Optional. URL of the thumbnail (jpeg only) for the file
+     * @param thumbnailWidth Optional. Thumbnail width
+     * @param thumbnailHeight Optional. Thumbnail height
      * @param livePeriod Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
      * @param replyMarkup Optional. Inline keyboard attached to the message
      * @param inputMessageContent Optional. Content of the message
      */
-    public InlineQueryResultLocation(String title, Float latitude, Float longitude, String thumbUrl, Integer thumbWidth, Integer thumbHeight, Integer livePeriod,
+    public InlineQueryResultLocation(String title, Float latitude, Float longitude, String thumbnailUrl, Integer thumbnailWidth, Integer thumbnailHeight, Integer livePeriod,
                                     InlineKeyboardMarkup replyMarkup, InputMessageContent inputMessageContent) {
         this();
         this.title = title;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.thumbUrl = thumbUrl;
-        this.thumbWidth = thumbWidth;
-        this.thumbHeight = thumbHeight;
+        this.thumbnailUrl = thumbnailUrl;
+        this.thumbnailWidth = thumbnailWidth;
+        this.thumbnailHeight = thumbnailHeight;
         this.livePeriod = livePeriod;
         this.replyMarkup = replyMarkup;
         this.inputMessageContent = inputMessageContent;

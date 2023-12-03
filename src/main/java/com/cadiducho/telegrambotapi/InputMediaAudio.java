@@ -16,7 +16,7 @@ public class InputMediaAudio extends InputMedia {
      * Ignored if the file is not uploaded using multipart/form-data.
      * Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>.
      */
-    private Object thumb;
+    private Object thumbnail;
 
     /**
      * Optional. Duration of the audio in seconds
@@ -33,9 +33,9 @@ public class InputMediaAudio extends InputMedia {
      */
     private String title;
 
-    public InputMediaAudio(String media, Object thumb, String caption, ParseMode parseMode, Integer duration, String performer, String title, Boolean disableContentTypeDetection) {
+    public InputMediaAudio(String media, Object thumbnail, String caption, ParseMode parseMode, Integer duration, String performer, String title, Boolean disableContentTypeDetection) {
         super("audio", media, caption, parseMode, disableContentTypeDetection);
-        this.thumb = thumb;
+        this.thumbnail = thumbnail;
         this.duration = duration;
         this.performer = performer;
         this.title = title;

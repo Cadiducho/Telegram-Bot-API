@@ -47,7 +47,7 @@ public class Video {
     /**
      * Optional. Video thumbnail
      */
-    private PhotoSize thumb;
+    private PhotoSize thumbnail;
 
     /**
      * Optional. Original filename as defined by sender
