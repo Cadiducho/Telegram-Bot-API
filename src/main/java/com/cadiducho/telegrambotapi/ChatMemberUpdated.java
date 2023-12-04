@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2022 Cadiducho.
+ * Copyright 2023 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -49,4 +49,9 @@ public class ChatMemberUpdated {
      * Optional. Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
      */
     @Json(name = "invite_link") private ChatInviteLink inviteLink;
+
+    /**
+     * Optional. True, if the user joined the chat via a chat folder invite link
+     */
+    @Json(name = "via_chat_folder_invite_link") private Boolean viaChatFolderInviteLink;
 }

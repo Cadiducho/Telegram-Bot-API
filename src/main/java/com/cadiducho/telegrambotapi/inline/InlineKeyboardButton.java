@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2018 Cadiducho.
+ * Copyright 2023 Cadiducho.
  * Read more in https://github.com/Cadiducho/Telegram-Bot-API/blob/master/LICENSE
  */
 
@@ -63,7 +63,12 @@ public class InlineKeyboardButton {
      * Can be empty, in which case only the bot’s username will be inserted.
      */
     @Json(name = "switch_inline_query_current_chat") private String switchInlineQueryCurrentChat;
-    
+
+    /**
+     * 	Optional. If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field
+     */
+    @Json(name = "switch_inline_query_chosen_chat") private String switchInlineQueryChosenChat;
+
     /**
      * Optional. Specify True, to send a Pay button.
      * NOTE: This type of button must always be the first button in the first row.

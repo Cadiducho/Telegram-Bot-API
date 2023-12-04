@@ -12,14 +12,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * This object represents the bot's description.
+ * This object represents the bot's name.
  */
 @ToString
 @Getter @Setter
-public class BotDescription {
+public class BotName {
 
     /**
-     * The bot's description
+     * The bot's name
      */
-    private String description;
+    private String name;
 }

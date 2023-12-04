@@ -13,6 +13,7 @@ import com.cadiducho.telegrambotapi.handlers.BotUpdatesPoller;
 import com.cadiducho.telegrambotapi.handlers.DefaultBotUpdatesPoller;
 import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
+import com.cadiducho.telegrambotapi.inline.InlineQueryResultsButton;
 import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardMarkup;
 import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardRemove;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
@@ -36,7 +37,7 @@ import java.util.Objects;
 
 /**
  * Default implementation to build Telegrams Bots
- * Telegram Bot API version 6.6
+ * Telegram Bot API version 6.7
  */
 public class TelegramBot implements BotAPI {
 
@@ -110,6 +111,10 @@ public class TelegramBot implements BotAPI {
 
 
     private void safeAdd(MultipartBody.Builder parameters, String str, Object obj) {
+        if (str == null) {
+            return;
+        }
+
         //Check markup style if exists
         if (str.equals("reply_markup") && obj != null) {
             JsonAdapter adapter;
@@ -136,7 +141,9 @@ public class TelegramBot implements BotAPI {
         }
 
         //Return normal values (check optionals -> null)
-        if (obj != null) parameters.addFormDataPart(str, obj.toString());
+        if (obj != null) {
+            parameters.addFormDataPart(str, obj.toString());
+        }
     }
 
     private void addFile(MultipartBody.Builder parameters, String name, Object obj, MediaType type) {
@@ -1313,6 +1320,33 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
+    public Boolean setMyName(String name, String language_code) throws TelegramException {
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "name", name);
+        safeAdd(parameters, "language_code", language_code);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "setMyName")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public BotName getMyName(String language_code) throws TelegramException {
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "language_code", language_code);
+
+        final Request request = new Request.Builder()
+                .url(apiUrl + "getMyName")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, BotName.class);
+    }
+
+    @Override
     public Boolean setMyDescription(String description, String language_code) throws TelegramException {
         final MultipartBody.Builder parameters = bodyBuilder();
 
@@ -1806,7 +1840,7 @@ public class TelegramBot implements BotAPI {
 
     @Override
     public Boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results, Integer cache_time, Boolean is_personal, String next_offset,
-                                     String switch_pm_text, String switch_pm_parameter) throws TelegramException {
+                                     InlineQueryResultsButton button) throws TelegramException {
 
         final MultipartBody.Builder parameters = bodyBuilder();
         safeAdd(parameters, "inline_query_id", inlineQueryId);
@@ -1814,8 +1848,7 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "cache_time", cache_time);
         safeAdd(parameters, "is_personal", is_personal);
         safeAdd(parameters, "next_offset", next_offset);
-        safeAdd(parameters, "switch_pm_text", switch_pm_text);
-        safeAdd(parameters, "switch_pm_parameter", switch_pm_parameter);
+        safeAdd(parameters, "button", button);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "answerInlineQuery")

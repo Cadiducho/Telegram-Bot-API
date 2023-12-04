@@ -152,21 +152,30 @@ class TelegramBotTest {
     @Nested
     class DescriptionTest {
 
-            @Test
-            void setAndGetBotDescription() throws TelegramException {
-                String description = "Bot description test";
-                String languageCode = "en";
-                assertTrue(bot.setMyDescription(description, languageCode));
-                assertEquals(bot.getMyDescription(languageCode).getDescription(), description);
-            }
+        @Test
+        void setAndGetBotName() throws TelegramException {
+            String name = "Bot name test";
+            String languageCode = "en";
 
-            @Test
-            void setAndGetBotShortDescription() throws TelegramException {
-                String shortDescription = "Bot short description test";
-                String languageCode = "en";
-                assertTrue(bot.setMyShortDescription(shortDescription, languageCode));
-                assertEquals(bot.getMyShortDescription(languageCode).getShortDescription(), shortDescription);
-            }
+            assertTrue(bot.setMyName(name, languageCode));
+            assertEquals(bot.getMyName(languageCode).getName(), name);
+        }
+
+        @Test
+        void setAndGetBotDescription() throws TelegramException {
+            String description = "Bot description test";
+            String languageCode = "en";
+            assertTrue(bot.setMyDescription(description, languageCode));
+            assertEquals(bot.getMyDescription(languageCode).getDescription(), description);
+        }
+
+        @Test
+        void setAndGetBotShortDescription() throws TelegramException {
+            String shortDescription = "Bot short description test";
+            String languageCode = "en";
+            assertTrue(bot.setMyShortDescription(shortDescription, languageCode));
+            assertEquals(bot.getMyShortDescription(languageCode).getShortDescription(), shortDescription);
+        }
     }
 
     @Nested

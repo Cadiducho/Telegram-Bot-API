@@ -12,6 +12,7 @@ import com.cadiducho.telegrambotapi.game.GameHighScore;
 import com.cadiducho.telegrambotapi.handlers.BotUpdatesPoller;
 import com.cadiducho.telegrambotapi.inline.InlineKeyboardMarkup;
 import com.cadiducho.telegrambotapi.inline.InlineQueryResult;
+import com.cadiducho.telegrambotapi.inline.InlineQueryResultsButton;
 import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardMarkup;
 import com.cadiducho.telegrambotapi.keyboard.ReplyKeyboardRemove;
 import com.cadiducho.telegrambotapi.payment.LabeledPrice;
@@ -25,7 +26,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 6.6
+ * Telegram Bot API version 6.7
  */
 public interface BotAPI {
 
@@ -1724,6 +1725,23 @@ public interface BotAPI {
     }
 
     /**
+     * Use this method to change the bot's name. Returns True on success.
+     * @param name New bot name; 0-64 characters. Pass an empty string to remove the dedicated name for the given language.
+     * @param language_code A two-letter ISO 639-1 language code. If empty, the name will be shown to all users for whose language there is no dedicated name.
+     * @return True on success
+     * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
+     */
+    Boolean setMyName(String name, String language_code) throws TelegramException;
+
+    /**
+     * Use this method to get the current bot name for the given user language. Returns BotName on success.
+     * @param language_code
+     * @return Returns {@link BotName} on success.
+     * @throws TelegramException
+     */
+    BotName getMyName(String language_code) throws TelegramException;
+
+    /**
      * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns True on success.
      * @param description New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
      * @param language_code A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
@@ -2052,7 +2070,6 @@ public interface BotAPI {
      * @param stickers A JSON-serialized list of 1-50 initial stickers to be added to the sticker set
      * @param sticker_format Format of stickers in the set, must be one of “static”, “animated”, “video”
      * @param sticker_type Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.
-     * @param sticker_type Type of stickers in the set, pass “regular” or “mask”. Custom emoji sticker sets can't be created via the Bot API at the moment. By default, a regular sticker set is created.
      * @param needs_repainting Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only
      * @return True on success.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
@@ -2174,7 +2191,7 @@ public interface BotAPI {
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     default Boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results) throws TelegramException {
-        return answerInlineQuery(inlineQueryId, results, null, null, null, null, null);
+        return answerInlineQuery(inlineQueryId, results, null, null, null, null);
     }
 
     /**
@@ -2190,14 +2207,12 @@ public interface BotAPI {
      * @param next_offset    Pass the offset that a client should send in the next query with the same text to receive
      *                      more results. Pass an empty string if there are no more results or if you don‘t support
      *                      pagination. Offset length can’t exceed 64 bytes.
-     * @param switch_pm_text If passed, clients will display a button with specified text that switches the user to a private chat 
-     *                      with the bot and sends the bot a start message with the parameter switch_pm_parameter
-     * @param switch_pm_parameter Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.
+     * @param button        A JSON-serialized object describing a button to be shown above inline query results
      * @return On success, True is returned.
      * @throws com.cadiducho.telegrambotapi.exception.TelegramException if the method fails in Telegram servers
      */
     Boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results, Integer cache_time, Boolean is_personal, String next_offset,
-                              String switch_pm_text, String switch_pm_parameter) throws TelegramException;
+                              InlineQueryResultsButton button) throws TelegramException;
 
     /**
      * Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated.
