@@ -37,7 +37,7 @@ import java.util.Objects;
 
 /**
  * Default implementation to build Telegrams Bots
- * Telegram Bot API version 6.7
+ * Telegram Bot API version 6.8
  */
 public class TelegramBot implements BotAPI {
 
@@ -1254,6 +1254,20 @@ public class TelegramBot implements BotAPI {
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "unhideGeneralForumTopic")
+                .post(parameters.build())
+                .build();
+        return handleRequest(request, Boolean.class);
+    }
+
+    @Override
+    public Boolean unpinAllGeneralForumTopicMessages(Object chat_id) throws TelegramException {
+        final Object safeChatId = getSafeChatId(chat_id);
+        final MultipartBody.Builder parameters = bodyBuilder();
+
+        safeAdd(parameters, "chat_id", safeChatId);
+        
+        final Request request = new Request.Builder()
+                .url(apiUrl + "unpinAllGeneralForumTopicMessages")
                 .post(parameters.build())
                 .build();
         return handleRequest(request, Boolean.class);

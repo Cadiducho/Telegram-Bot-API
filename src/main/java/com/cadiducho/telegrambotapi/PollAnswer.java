@@ -23,13 +23,18 @@ public class PollAnswer {
     @Json(name = "poll_id") private String pollId;
 
     /**
-     * The user, who changed the answer to the poll
+     * Optional. The chat that changed the answer to the poll, if the voter is anonymous
+     */
+    @Json(name = "voter_chat") private Chat voterChat;
+
+    /**
+     * Optional. The user that changed the answer to the poll, if the voter isn't anonymous
      */
     private User user;
 
     /**
-     * 0-based identifiers of answer options, chosen by the user.
-     * May be empty if the user retracted their vote.
+     * 0-based identifiers of chosen answer options.
+     * May be empty if the vote was retracted.
      */
     @Json(name = "options_ids") private List<Integer> optionsIds;
 }

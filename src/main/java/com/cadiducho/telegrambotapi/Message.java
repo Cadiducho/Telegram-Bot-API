@@ -168,7 +168,12 @@ public class Message {
      * Optional. Message is a sticker, information about the sticker
      */
     private Sticker sticker;
-    
+
+    /**
+     * Optional. Message is a forwarded story
+     */
+    private Story story;
+
     /**
      * Optional. Message is a video, information about the video
      */

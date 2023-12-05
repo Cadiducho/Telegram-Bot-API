@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Interface to build Telegrams Bots 
- * Telegram Bot API version 6.7
+ * Telegram Bot API version 6.8
  */
 public interface BotAPI {
 
@@ -1648,6 +1648,16 @@ public interface BotAPI {
      * @throws TelegramException if the method fails in Telegram servers
      */
     Boolean unhideGeneralForumTopic(Object chat_id) throws TelegramException;
+
+    /**
+     * Use this method to clear the list of pinned messages in a General forum topic.
+     * The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup.
+     * @param chat_id Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+     * @return On success, True is returned.
+     * @throws TelegramException if the method fails in Telegram servers
+     */
+    Boolean unpinAllGeneralForumTopicMessages(Object chat_id) throws TelegramException;
+
     /**
      * Use this method to send answers to callback queries sent from inline keyboards. 
      * The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. 

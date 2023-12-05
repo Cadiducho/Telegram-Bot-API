@@ -74,6 +74,11 @@ public class Chat {
     @Json(name = "emoji_status_custom_emoji_id") private String emojiStatusCustomEmojiId;
 
     /**
+     * Optional. Expiration date of the emoji status of the other party in a private chat in Unix time, if any. Returned only in getChat.
+     */
+    @Json(name = "emoji_status_expiration_date") private Integer emojiStatusExpirationDate;
+
+    /**
      * Optional. Bio of the other party in a private chat. Returned only in getChat.
      */
     private String bio;
