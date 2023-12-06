@@ -37,7 +37,7 @@ import java.util.Objects;
 
 /**
  * Default implementation to build Telegrams Bots
- * Telegram Bot API version 6.8
+ * Telegram Bot API version 6.9
  */
 public class TelegramBot implements BotAPI {
 
@@ -682,7 +682,7 @@ public class TelegramBot implements BotAPI {
     }
 
     @Override
-    public Boolean promoteChatMember(Object chat_id, Long user_id, Boolean is_anonymous, Boolean can_manage_chat, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages, Boolean can_delete_messages, Boolean can_manage_video_chats, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members, Boolean can_manage_topics) throws TelegramException {
+    public Boolean promoteChatMember(Object chat_id, Long user_id, Boolean is_anonymous, Boolean can_manage_chat, Boolean can_change_info, Boolean can_post_messages, Boolean can_edit_messages, Boolean can_delete_messages, Boolean can_manage_video_chats, Boolean can_invite_users, Boolean can_restrict_members, Boolean can_pin_messages, Boolean can_promote_members, Boolean can_post_stories, Boolean can_edit_stories, Boolean can_delete_stories, Boolean can_manage_topics) throws TelegramException {
         Object safeChatId = getSafeChatId(chat_id);
         final MultipartBody.Builder parameters = bodyBuilder();
 
@@ -700,6 +700,9 @@ public class TelegramBot implements BotAPI {
         safeAdd(parameters, "can_pin_messages", can_pin_messages);
         safeAdd(parameters, "can_promote_members", can_promote_members);
         safeAdd(parameters, "can_manage_topics", can_manage_topics);
+        safeAdd(parameters, "can_post_stories", can_post_stories);
+        safeAdd(parameters, "can_edit_stories", can_edit_stories);
+        safeAdd(parameters, "can_delete_stories", can_delete_stories);
 
         final Request request = new Request.Builder()
                 .url(apiUrl + "promoteChatMember")
